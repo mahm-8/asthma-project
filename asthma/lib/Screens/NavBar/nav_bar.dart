@@ -12,7 +12,7 @@ class NavigatorBarScreen extends StatefulWidget {
 
 class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
   int selectedindex = 0;
-  List scrren = [HomeScreen(), Container(), Container(), Container()];
+  List scrren = [const HomeScreen(), Container(), Container(), Container()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +71,7 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorPaltte().darkBlue,
         foregroundColor: ColorPaltte().white,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         onPressed: () {
           // showBottomSheet(
           //     constraints: BoxConstraints(minHeight: 300),

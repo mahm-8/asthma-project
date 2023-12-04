@@ -1,4 +1,3 @@
-import 'package:asthma/constants/globals.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 
