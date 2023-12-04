@@ -1,5 +1,6 @@
 import 'package:asthma/Screens/HomeScreen/home_screen.dart';
 import 'package:asthma/Screens/NavBar/navigator_bar.dart';
+import 'package:asthma/Screens/profile/profile.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class NavigatorBarScreen extends StatefulWidget {
 
 class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
   int selectedindex = 0;
-  List scrren = [const HomeScreen(), Container(), Container(), Container()];
+  List scrren = [const HomeScreen(), Container(), Container(), const Profile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
