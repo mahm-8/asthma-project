@@ -89,7 +89,7 @@ class Profile extends StatelessWidget {
                   color: ColorPaltte().darkGreen,
                   height: 100,
                   width: 100,
-                  child: Icon(Icons.person_outline),
+                  child: const Icon(Icons.person_outline),
                 ),
               ),
             ),

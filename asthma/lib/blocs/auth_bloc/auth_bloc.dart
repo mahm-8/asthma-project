@@ -15,7 +15,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (!isValidation.contains(false)) {
           emit(SignUpSuccessState());
         }
-      } catch (e) {}
+      } catch (e) {
+        return;
+      }
     });
     on<DisplayPasswordEvent>((event, emit) {
       if (event.display == true) {
@@ -32,7 +34,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       isValidation.add(validation(keyForm: event.passwordKey));
       if (!isValidation.contains(false)) {
         emit(LoginSuccessState());
-        try {} catch (e) {}
+        try {} catch (e) {
+          return;
+        }
       }
     });
     on<VerificationEvent>((event, emit) async {});
