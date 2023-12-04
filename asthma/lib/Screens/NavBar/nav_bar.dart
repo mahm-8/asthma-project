@@ -20,7 +20,7 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         height: 60,
-        color: ColorPaltte().lightgreen,
+        color: ColorPaltte().lightgreentr,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -69,6 +69,8 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorPaltte().darkBlue,
+        foregroundColor: ColorPaltte().white,
         shape: CircleBorder(),
         onPressed: () {
           // showBottomSheet(
