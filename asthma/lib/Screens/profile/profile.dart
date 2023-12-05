@@ -25,15 +25,42 @@ class Profile extends StatelessWidget {
                           BorderRadius.vertical(top: Radius.circular(20)),
                       color: Colors.white),
                   height: MediaQuery.of(context).size.height * 0.6,
-                  child: const TabBarView(
+                  child: TabBarView(
                     children: <Widget>[
-                      Center(
-                        child: Text("It's cloudy here"),
+                      Column(
+                        children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.2),
+                          Card(
+                            color: Colors.grey[200],
+                            child: const ListTile(
+                              title: Text("Phone"),
+                              subtitle: Text("05123456789"),
+                              leading: Icon(Icons.phone),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.grey[200],
+                            child: const ListTile(
+                              title: Text("city"),
+                              subtitle: Text("riyadh"),
+                              leading: Icon(Icons.phone),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.grey[200],
+                            child: const ListTile(
+                              title: Text("birthday"),
+                              subtitle: Text("1995-07-07"),
+                              leading: Icon(Icons.phone),
+                            ),
+                          )
+                        ],
                       ),
-                      Center(
+                      const Center(
                         child: Text("It's rainy here"),
                       ),
-                      Center(
+                      const Center(
                         child: Text("It's sunny here"),
                       ),
                     ],

@@ -174,7 +174,7 @@ class SignupScreen extends StatelessWidget {
                                       view: LoginScreen(),
                                     ),
                               text: "Login here",
-                              style: TextStyle(color: ColorPaltte().lightBlue))
+                              style: const TextStyle(color: Colors.grey))
                         ],
                       ),
                     ),

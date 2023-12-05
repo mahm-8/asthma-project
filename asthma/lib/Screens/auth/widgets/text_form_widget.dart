@@ -1,4 +1,3 @@
-import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -43,7 +42,7 @@ class TextFieldWidget extends StatelessWidget {
                 controller: controller,
                 style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
-                  fillColor: ColorPaltte().mBlue,
+                  fillColor: Colors.grey[300],
                   filled: true,
                   suffixIcon: !obscure
                       ? null

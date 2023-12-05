@@ -29,7 +29,16 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: ColorPaltte().darkBlue,
         body: Column(
           children: [
-            Expanded(child: Container()),
+            Expanded(
+                child: Container(
+              child: Center(
+                  child: Image.asset(
+                "assets/A.png",
+                color: Colors.white,
+                height: 150,
+                width: 150,
+              )),
+            )),
             Container(
               decoration: const BoxDecoration(
                   color: Colors.white,
@@ -137,7 +146,7 @@ class LoginScreen extends StatelessWidget {
                                 ..onTap =
                                     () => context.push(view: SignupScreen()),
                               text: "Signup here",
-                              style: TextStyle(color: ColorPaltte().lightBlue))
+                              style: const TextStyle(color: Colors.grey))
                         ],
                       ),
                     ),
