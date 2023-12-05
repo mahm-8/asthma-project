@@ -1,4 +1,5 @@
 import 'package:asthma/Screens/NavBar/nav_bar.dart';
+import 'package:asthma/Screens/breathing/breathing_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,8 +11,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: NavigatorBarScreen(),
+    return MaterialApp(
+      home: BreathingScreen(),
     );
   }
 }
