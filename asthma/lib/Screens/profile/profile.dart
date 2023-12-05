@@ -1,4 +1,5 @@
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:flutter/material.dart';
 
@@ -31,9 +32,7 @@ class Profile extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
                           children: [
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.2),
+                            SizedBox(height: context.getHeight(divide: 6)),
                             Card(
                               color: Colors.grey[200],
                               child: const ListTile(
@@ -47,7 +46,7 @@ class Profile extends StatelessWidget {
                               child: const ListTile(
                                 title: Text("city"),
                                 subtitle: Text("riyadh"),
-                                leading: Icon(Icons.phone),
+                                leading: Icon(Icons.location_on),
                               ),
                             ),
                             Card(
@@ -55,7 +54,7 @@ class Profile extends StatelessWidget {
                               child: const ListTile(
                                 title: Text("birthday"),
                                 subtitle: Text("1995-07-07"),
-                                leading: Icon(Icons.phone),
+                                leading: Icon(Icons.calendar_month),
                               ),
                             )
                           ],
