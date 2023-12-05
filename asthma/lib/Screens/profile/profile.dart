@@ -27,35 +27,39 @@ class Profile extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.6,
                   child: TabBarView(
                     children: <Widget>[
-                      Column(
-                        children: [
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.2),
-                          Card(
-                            color: Colors.grey[200],
-                            child: const ListTile(
-                              title: Text("Phone"),
-                              subtitle: Text("05123456789"),
-                              leading: Icon(Icons.phone),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2),
+                            Card(
+                              color: Colors.grey[200],
+                              child: const ListTile(
+                                title: Text("Phone"),
+                                subtitle: Text("05123456789"),
+                                leading: Icon(Icons.phone),
+                              ),
                             ),
-                          ),
-                          Card(
-                            color: Colors.grey[200],
-                            child: const ListTile(
-                              title: Text("city"),
-                              subtitle: Text("riyadh"),
-                              leading: Icon(Icons.phone),
+                            Card(
+                              color: Colors.grey[200],
+                              child: const ListTile(
+                                title: Text("city"),
+                                subtitle: Text("riyadh"),
+                                leading: Icon(Icons.phone),
+                              ),
                             ),
-                          ),
-                          Card(
-                            color: Colors.grey[200],
-                            child: const ListTile(
-                              title: Text("birthday"),
-                              subtitle: Text("1995-07-07"),
-                              leading: Icon(Icons.phone),
-                            ),
-                          )
-                        ],
+                            Card(
+                              color: Colors.grey[200],
+                              child: const ListTile(
+                                title: Text("birthday"),
+                                subtitle: Text("1995-07-07"),
+                                leading: Icon(Icons.phone),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       const Center(
                         child: Text("It's rainy here"),
@@ -81,7 +85,7 @@ class Profile extends StatelessWidget {
                   children: [
                     Text(
                       "John Doe",
-                      style: const TextStyle().blod20,
+                      style: const TextStyle().bold24,
                     ),
                     const Text(
                       "ID:0512345678",

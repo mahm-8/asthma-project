@@ -33,39 +33,42 @@ class TextFieldWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(titel),
             ),
-            Form(
-              key: keyForm,
-              child: TextFormField(
-                keyboardType: keyboardType,
-                validator: validator,
-                obscureText: !obscure ? false : !displayPass,
-                controller: controller,
-                style: const TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  fillColor: Colors.grey[300],
-                  filled: true,
-                  suffixIcon: !obscure
-                      ? null
-                      : InkWell(
-                          onTap: onTap,
-                          child: Icon(!displayPass
-                              ? Icons.visibility_off_sharp
-                              : Icons.remove_red_eye),
-                        ),
-                  hintText: hint,
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(20)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(20)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(20)),
-                  errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(20)),
+            SizedBox(
+              height: 50,
+              child: Form(
+                key: keyForm,
+                child: TextFormField(
+                  keyboardType: keyboardType,
+                  validator: validator,
+                  obscureText: !obscure ? false : !displayPass,
+                  controller: controller,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey[300],
+                    filled: true,
+                    suffixIcon: !obscure
+                        ? null
+                        : InkWell(
+                            onTap: onTap,
+                            child: Icon(!displayPass
+                                ? Icons.visibility_off_sharp
+                                : Icons.remove_red_eye),
+                          ),
+                    hintText: hint,
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10)),
+                    errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
                 ),
               ),
             ),

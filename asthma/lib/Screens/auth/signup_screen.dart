@@ -40,84 +40,65 @@ class SignupScreen extends StatelessWidget {
                   borderRadius:
                       BorderRadius.only(topLeft: Radius.circular(100))),
               height: MediaQuery.of(context).size.height * 0.8,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text("Create new Account", style: const TextStyle().blod20),
-                    TextFieldWidget(
-                      keyForm: _userNameKey,
-                      hint: "UserName",
-                      controller: nameController,
-                      titel: "NAME",
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "please enter name";
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFieldWidget(
-                      keyForm: _emailKey,
-                      hint: "exambel@exambel.com",
-                      controller: emailController,
-                      titel: "EMAIL",
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "please enter email";
-                        }
-                        if (!value.isValidEmail) {
-                          return "Email must be contain @ And .com";
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFieldWidget(
-                      keyForm: _phoneKey,
-                      hint: "05xxxxxxxx",
-                      controller: phoneController,
-                      titel: "Phone",
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "please enter your number";
-                        }
-                        if (!value.isValidPhone) {
-                          return "10 number";
-                        }
-                        return null;
-                      },
-                    ),
-                    BlocBuilder<AuthBloc, AuthState>(
-                      builder: (context, state) {
-                        if (state is DisplayState) {
-                          return TextFieldWidget(
-                            onTap: () => context
-                                .read<AuthBloc>()
-                                .add(DisplayPasswordEvent(state.display)),
-                            displayPass: state.display,
-                            obscure: true,
-                            keyForm: _passwordKey,
-                            hint: "Password",
-                            controller: passwordController,
-                            titel: "PASSWORD",
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "please enter password";
-                              }
-                              if (!value.isValidPassword) {
-                                return "must be contain Uppercase, lowercase and (!@#*~)";
-                              }
-                              return null;
-                            },
-                          );
-                        }
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text("Create new Account", style: const TextStyle().bold24),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  TextFieldWidget(
+                    keyForm: _userNameKey,
+                    hint: "UserName",
+                    controller: nameController,
+                    titel: "NAME",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "please enter name";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFieldWidget(
+                    keyForm: _emailKey,
+                    hint: "exambel@exambel.com",
+                    controller: emailController,
+                    titel: "EMAIL",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "please enter email";
+                      }
+                      if (!value.isValidEmail) {
+                        return "Email must be contain @ And .com";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFieldWidget(
+                    keyForm: _phoneKey,
+                    hint: "05xxxxxxxx",
+                    controller: phoneController,
+                    titel: "Phone",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "please enter your number";
+                      }
+                      if (!value.isValidPhone) {
+                        return "10 number";
+                      }
+                      return null;
+                    },
+                  ),
+                  BlocBuilder<AuthBloc, AuthState>(
+                    builder: (context, state) {
+                      if (state is DisplayState) {
                         return TextFieldWidget(
                           onTap: () => context
                               .read<AuthBloc>()
-                              .add(DisplayPasswordEvent(display)),
-                          displayPass: display,
+                              .add(DisplayPasswordEvent(state.display)),
+                          displayPass: state.display,
                           obscure: true,
                           keyForm: _passwordKey,
                           hint: "Password",
@@ -133,53 +114,72 @@ class SignupScreen extends StatelessWidget {
                             return null;
                           },
                         );
-                      },
+                      }
+                      return TextFieldWidget(
+                        onTap: () => context
+                            .read<AuthBloc>()
+                            .add(DisplayPasswordEvent(display)),
+                        displayPass: display,
+                        obscure: true,
+                        keyForm: _passwordKey,
+                        hint: "Password",
+                        controller: passwordController,
+                        titel: "PASSWORD",
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "please enter password";
+                          }
+                          if (!value.isValidPassword) {
+                            return "must be contain Uppercase, lowercase and (!@#*~)";
+                          }
+                          return null;
+                        },
+                      );
+                    },
+                  ),
+                  BlocBuilder<AuthBloc, AuthState>(
+                    buildWhen: (oldStete, newState) {
+                      if (newState is SignUpSuccessState) {
+                        context.push(view: const OtpScreen());
+                      }
+                      return false;
+                    },
+                    builder: (context, state) {
+                      return ButtonAuthWidget(
+                        text: "SignUp",
+                        onPressed: () {
+                          context.read<AuthBloc>().add(SignUpAuthEvent(
+                              nameController.text,
+                              emailController.text,
+                              passwordController.text,
+                              phoneController.text,
+                              _userNameKey,
+                              _emailKey,
+                              _passwordKey,
+                              _phoneKey));
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: const TextStyle(color: Colors.black, fontSize: 16),
+                      children: [
+                        const TextSpan(text: "Already Register? "),
+                        TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => context.push(
+                                    view: LoginScreen(),
+                                  ),
+                            text: "Login here",
+                            style: const TextStyle(color: Colors.grey))
+                      ],
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
-                      buildWhen: (oldStete, newState) {
-                        if (newState is SignUpSuccessState) {
-                          context.push(view: const OtpScreen());
-                        }
-                        return false;
-                      },
-                      builder: (context, state) {
-                        return ButtonAuthWidget(
-                          text: "SignUp",
-                          onPressed: () {
-                            context.read<AuthBloc>().add(SignUpAuthEvent(
-                                nameController.text,
-                                emailController.text,
-                                passwordController.text,
-                                phoneController.text,
-                                _userNameKey,
-                                _emailKey,
-                                _passwordKey,
-                                _phoneKey));
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
-                        children: [
-                          const TextSpan(text: "Already Register? "),
-                          TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => context.push(
-                                      view: LoginScreen(),
-                                    ),
-                              text: "Login here",
-                              style: const TextStyle(color: Colors.grey))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             )
           ],

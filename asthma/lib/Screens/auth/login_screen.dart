@@ -30,28 +30,26 @@ class LoginScreen extends StatelessWidget {
         body: Column(
           children: [
             Expanded(
-                child: Container(
-              child: Center(
-                  child: Image.asset(
-                "assets/A.png",
-                color: Colors.white,
-                height: 150,
-                width: 150,
-              )),
-            )),
+                child: Center(
+                    child: Image.asset(
+              "assets/A.png",
+              color: Colors.white,
+              height: 150,
+              width: 150,
+            ))),
             Container(
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius:
                       BorderRadius.only(topRight: Radius.circular(100))),
               height: MediaQuery.of(context).size.height * 0.6,
-              child: SingleChildScrollView(
-                child: Column(
+              child: ListView(shrinkWrap: true, children: [
+                Column(
                   children: [
+                    Text("Login", style: const TextStyle().bold24),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
-                    Text("Login", style: const TextStyle().blod20),
                     TextFieldWidget(
                       keyForm: _emailKey,
                       hint: "exambel@exambel.com",
@@ -113,6 +111,9 @@ class LoginScreen extends StatelessWidget {
                         );
                       },
                     ),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     BlocBuilder<AuthBloc, AuthState>(
                       buildWhen: (oldstate, newstate) {
                         if (newstate is LoginSuccessState) {
@@ -134,7 +135,7 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 16,
                     ),
                     RichText(
                       text: TextSpan(
@@ -152,7 +153,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              ]),
             )
           ],
         ),
