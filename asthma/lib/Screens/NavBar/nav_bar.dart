@@ -1,6 +1,8 @@
 import 'package:asthma/Screens/HomeScreen/home_screen%20copy.dart';
 import 'package:asthma/Screens/NavBar/navigator_bar.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
+import 'package:asthma/Screens/medication/add_medication_screen.dart';
+import 'package:asthma/Screens/symptoms/add_symptoms_screen.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +21,9 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
   int selectedindex = 0;
   List scrren = [
     const HomeScreen(),
-    const HomeScreen(),
+    const AddMedicationScreen(),
     const ChatGPT(),
-    const HomeScreen()
+    const AddSymptomsScreen()
   ];
   @override
   Widget build(BuildContext context) {

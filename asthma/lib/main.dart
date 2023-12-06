@@ -5,7 +5,6 @@ import 'package:asthma/Screens/symptoms/add_symptoms_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async{
- 
   runApp(const MainApp());
 }
 

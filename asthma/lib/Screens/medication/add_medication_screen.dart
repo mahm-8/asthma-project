@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +20,14 @@ class AddMedicationScreen extends StatelessWidget {
               right: -185,
               bottom: 55,
               child: Image.asset(
-                "assets/stack_background.png",
+                "lib/assets/images/stack_background.png",
                 color: ColorPaltte().lightgreen,
               )),
           Positioned(
               left: -185,
               top: 300,
               child: Image.asset(
-                "assets/stack_background.png",
+                "lib/assets/images/stack_background.png",
                 color: ColorPaltte().lightgreen,
               )),
           Padding(
@@ -95,17 +93,15 @@ class AddMedicationScreen extends StatelessWidget {
                                 //           lastDate: DateTime(2045));
                                 //     });
                               },
-                              ////njnjjjjjjjjjjjjjjjjj
                               child: Text("date")),
-                          AddTextfield(
-                            icon: const Icon(Icons.date_range),
-                            label: 'date',
-                            fieldController: medicationDateController,
-                            fieldWidth:
-                                MediaQuery.of(context).size.width * 0.28,
-                            fieldHeight: 55,
-                          ),
                         ],
+                      ),
+                      AddTextfield(
+                        icon: const Icon(Icons.date_range),
+                        label: 'date',
+                        fieldController: medicationDateController,
+                        fieldWidth: MediaQuery.of(context).size.width * 0.28,
+                        fieldHeight: 55,
                       ),
                       ButtonWidget(
                         widget: const Text(

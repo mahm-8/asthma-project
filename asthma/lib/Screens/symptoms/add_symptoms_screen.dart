@@ -17,14 +17,14 @@ class AddSymptomsScreen extends StatelessWidget {
               right: -185,
               bottom: 55,
               child: Image.asset(
-                "assets/stack_background.png",
+                "lib/assets/images/stack_background.png",
                 color: ColorPaltte().lightgreen,
               )),
           Positioned(
               left: -185,
               top: 300,
               child: Image.asset(
-                "assets/stack_background.png",
+                "lib/assets/images/stack_background.png",
                 color: ColorPaltte().lightgreen,
               )),
           Padding(
