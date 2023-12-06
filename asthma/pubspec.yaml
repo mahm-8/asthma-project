@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  just_audio: ^0.9.36
+  audio_video_progress_bar: ^2.0.1
   geolocator: ^10.1.0
   http: ^1.1.2
   intl: ^0.18.1
@@ -17,9 +19,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true
   assets:
-   - lib/assets/images/
+    - lib\assets
+    # - lib/assets/images/
+
