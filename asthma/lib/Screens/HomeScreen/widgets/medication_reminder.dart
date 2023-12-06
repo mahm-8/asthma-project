@@ -1,4 +1,6 @@
+import 'package:asthma/Screens/medication/add_medication_screen.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -42,22 +44,35 @@ class _MedicationReminderState extends State<MedicationReminder> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorPaltte().lightgreentr,
+        color: ColorPaltte().newlightBlue,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '${DateTime.now().day}, $monthName',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: ColorPaltte().darkBlue,
-            ),
+          Row(
+            children: [
+              Text(
+                '${DateTime.now().day}, $monthName',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  color: ColorPaltte().darkBlue,
+                ),
+              ),
+              Spacer(),
+              TextButton(
+                  onPressed: () {
+                    context.push(view: AddMedicationScreen());
+                  },
+                  child: Text(
+                    'Add Medication',
+                    style: TextStyle(
+                        color: ColorPaltte().newDarkBlue, fontSize: 16),
+                  ))
+            ],
           ),
-          SizedBox(height: 12),
           Divider(
             thickness: 1,
           ),
@@ -70,19 +85,21 @@ class _MedicationReminderState extends State<MedicationReminder> {
                 String day = getDayName(index);
                 return Column(
                   children: [
+                    SizedBox(
+                      height: 12,
+                    ),
                     Text(
                       day,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         color: ColorPaltte().darkBlue,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(height: 8),
                     Transform.scale(
                       scale: 1.5,
                       child: Checkbox(
-                        activeColor: ColorPaltte().darkGreen,
+                        activeColor: ColorPaltte().newDarkBlue,
                         shape: const CircleBorder(),
                         value: isCheckedList[index],
                         onChanged: (value) {
@@ -97,12 +114,15 @@ class _MedicationReminderState extends State<MedicationReminder> {
               },
             ),
           ),
-          Text(
-            '2/4 week completed',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: ColorPaltte().darkBlue,
+          Padding(
+            padding: const EdgeInsets.only(left: 8, bottom: 8),
+            child: Text(
+              '2/4 week completed',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: ColorPaltte().darkBlue,
+              ),
             ),
           ),
         ],

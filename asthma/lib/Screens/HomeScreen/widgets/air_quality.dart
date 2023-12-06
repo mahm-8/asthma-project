@@ -12,7 +12,7 @@ class AirQuality extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: ColorPaltte().lightgreentr,
+          color: ColorPaltte().newBlueTra,
           borderRadius: BorderRadius.circular(10)),
       height: 70,
       child: Padding(
@@ -30,18 +30,21 @@ class AirQuality extends StatelessWidget {
               width: 8,
             ),
             Text(
-              'air quality:',
+              'Air quality:',
               style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: ColorPaltte().darkBlue),
+            ),
+            const SizedBox(
+              width: 8,
             ),
             Text(
               ' normal',
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
-                  color: ColorPaltte().mBlue),
+                  color: ColorPaltte().newDarkBlue),
             ),
             const Spacer(),
             IconButton(

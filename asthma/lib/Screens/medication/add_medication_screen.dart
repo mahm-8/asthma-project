@@ -1,7 +1,7 @@
-
 import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'components/add_textfield.dart';
 
@@ -21,15 +21,15 @@ class AddMedicationScreen extends StatelessWidget {
               right: -185,
               bottom: 55,
               child: Image.asset(
-                "assets/stack_background.png",
-                color: ColorPaltte().lightgreen,
+                "lib/assets/images/stack_background.png",
+                color: ColorPaltte().newBlue,
               )),
           Positioned(
               left: -185,
               top: 300,
               child: Image.asset(
-                "assets/stack_background.png",
-                color: ColorPaltte().lightgreen,
+                "lib/assets/images/stack_background.png",
+                color: ColorPaltte().newBlue,
               )),
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -39,10 +39,15 @@ class AddMedicationScreen extends StatelessWidget {
                 Center(
                   child: Column(
                     children: [
-                      const Text(
+                      Text(
                         "Add Medication",
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.w500),
+                            color: ColorPaltte().newDarkBlue,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w800),
+                      ),
+                      SizedBox(
+                        height: 40,
                       ),
                       AddTextfield(
                         label: 'medication name',
@@ -67,35 +72,33 @@ class AddMedicationScreen extends StatelessWidget {
                                 MediaQuery.of(context).size.width * 0.28,
                             fieldHeight: 55,
                           ),
-                          TextButton(
-                              onPressed: () async {
-                                // DateTime? datepicker = await showDatePicker(
-                                //     context: context,
-                                //     initialDate: DateTime.now(),
-                                //     firstDate: DateTime(2023),
-                                //     lastDate: DateTime(2045));
+                          // TextButton(
+                          //     onPressed: () async {
+                          //       DateTime? datepicker = await showDatePicker(
+                          //           context: context,
+                          //           initialDate: DateTime.now(),
+                          //           firstDate: DateTime(2023),
+                          //           lastDate: DateTime(2045));
 
-                                // if (datepicker != null) {
-                                // } else {
+                          //       if (datepicker != null) {
+                          //       } else {
+                          //         String date = datepicker.toString();
+                          //         // String formatDate = DateFormat('').format(datepicker);
 
-                                //   String date = datepicker.toString();
-                                //   String formatDate = DateFormat('').format(datepicker);
+                          //         // DateInputElement().
+                          //       }
 
-                                //   // DateInputElement().
-                                // }
-
-                                // showDialog(
-                                //     context: context,
-                                //     builder: (context) {
-                                //       return DatePickerDialog(
-                                //           keyboardType: TextInputType.datetime,
-                                //           initialDate: DateTime.now(),
-                                //           firstDate: DateTime(2023),
-                                //           lastDate: DateTime(2045));
-                                //     });
-                              },
-                              ////njnjjjjjjjjjjjjjjjjj
-                              child: Text("date")),
+                          //       showDialog(
+                          //           context: context,
+                          //           builder: (context) {
+                          //             return DatePickerDialog(
+                          //                 keyboardType: TextInputType.datetime,
+                          //                 initialDate: DateTime.now(),
+                          //                 firstDate: DateTime(2023),
+                          //                 lastDate: DateTime(2045));
+                          //           });
+                          //     },
+                          //     child: Text("date")),
                           AddTextfield(
                             icon: const Icon(Icons.date_range),
                             label: 'date',
@@ -106,15 +109,24 @@ class AddMedicationScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 30,
+                      ),
                       ButtonWidget(
-                        widget: const Text(
+                        widget: Text(
                           "Add",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                          style: TextStyle(
+                              color: ColorPaltte().white, fontSize: 18),
                         ),
                         onPress: () {
                           // submit add
                         },
                       ),
+                      // CalendarDatePicker(
+                      //     initialDate: DateTime(1),
+                      //     firstDate: DateTime(1),
+                      //     lastDate: DateTime(1),
+                      //     onDateChanged: (DateTime value) {})
                     ],
                   ),
                 ),

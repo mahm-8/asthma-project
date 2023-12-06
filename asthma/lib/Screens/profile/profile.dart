@@ -12,7 +12,7 @@ class Profile extends StatelessWidget {
       initialIndex: 1,
       length: 3,
       child: Scaffold(
-        backgroundColor: ColorPaltte().lightBlue,
+        backgroundColor: ColorPaltte().newDarkBlue,
         body: Stack(
           children: [
             Column(
@@ -34,26 +34,66 @@ class Profile extends StatelessWidget {
                           children: [
                             SizedBox(height: context.getHeight(divide: 6)),
                             Card(
-                              color: Colors.grey[200],
-                              child: const ListTile(
-                                title: Text("Phone"),
-                                subtitle: Text("05123456789"),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
+                              color: ColorPaltte().white,
+                              child: ListTile(
+                                title: Text(
+                                  "Phone",
+                                  style: TextStyle(
+                                      color: ColorPaltte().darkBlue,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                subtitle: Text(
+                                  "05123456789",
+                                  style: TextStyle(
+                                    color: ColorPaltte().darkBlue,
+                                  ),
+                                ),
                                 leading: Icon(Icons.phone),
                               ),
                             ),
+                            SizedBox(height: 10),
                             Card(
-                              color: Colors.grey[200],
-                              child: const ListTile(
-                                title: Text("city"),
-                                subtitle: Text("riyadh"),
+                              color: ColorPaltte().white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: ListTile(
+                                title: Text(
+                                  "city",
+                                  style: TextStyle(
+                                      color: ColorPaltte().darkBlue,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                subtitle: Text("riyadh",
+                                    style: TextStyle(
+                                      color: ColorPaltte().darkBlue,
+                                    )),
                                 leading: Icon(Icons.location_on),
                               ),
                             ),
+                            SizedBox(height: 10),
                             Card(
-                              color: Colors.grey[200],
-                              child: const ListTile(
-                                title: Text("birthday"),
-                                subtitle: Text("1995-07-07"),
+                              color: ColorPaltte().white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: ListTile(
+                                title: Text(
+                                  "birthday",
+                                  style: TextStyle(
+                                      color: ColorPaltte().darkBlue,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                subtitle: Text(
+                                  "1995-07-07",
+                                  style: TextStyle(
+                                      color: ColorPaltte().darkBlue,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
                                 leading: Icon(Icons.calendar_month),
                               ),
                             )
@@ -78,7 +118,7 @@ class Profile extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 60),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: ColorPaltte().lightgreentr),
+                    color: ColorPaltte().newlightBlue),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Column(
                   children: [
@@ -90,11 +130,11 @@ class Profile extends StatelessWidget {
                       "ID:0512345678",
                     ),
                     const Divider(),
-                    const TabBar(dividerColor: Colors.transparent, tabs: [
+                    TabBar(dividerColor: Colors.transparent, tabs: [
                       Tab(
                         child: Text(
                           "Personal info",
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: ColorPaltte().darkBlue),
                         ),
                       ),
                       Tab(
@@ -103,7 +143,7 @@ class Profile extends StatelessWidget {
                       Tab(
                         child: Text(
                           "Tools",
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: ColorPaltte().darkBlue),
                         ),
                       ),
                     ])
@@ -116,7 +156,7 @@ class Profile extends StatelessWidget {
               top: 150,
               child: ClipOval(
                 child: Container(
-                  color: ColorPaltte().darkGreen,
+                  color: ColorPaltte().newBlue,
                   height: 100,
                   width: 100,
                   child: const Icon(Icons.person_outline),
