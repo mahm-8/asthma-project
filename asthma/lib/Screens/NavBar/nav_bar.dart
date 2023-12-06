@@ -1,6 +1,7 @@
-import 'package:asthma/Screens/HomeScreen/home_screen%20copy.dart';
+import 'package:asthma/Screens/HomeScreen/home_screen.dart';
 import 'package:asthma/Screens/NavBar/navigator_bar.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
+import 'package:asthma/Screens/profile/profile.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
     const HomeScreen(),
     const HomeScreen(),
     const ChatGPT(),
-    const HomeScreen()
+    const Profile()
   ];
   @override
   Widget build(BuildContext context) {

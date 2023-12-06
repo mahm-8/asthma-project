@@ -4,16 +4,14 @@ extension ExtString on String {
     return emailRegExp.hasMatch(this);
   }
 
-  bool get isValidPassword{
-    final passwordRegExp =
-    RegExp(r'^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$');
+  bool get isValidPassword {
+    final passwordRegExp = RegExp(
+        r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$");
     return passwordRegExp.hasMatch(this);
   }
 
-
-  bool get isValidPhone{
-    final phoneRegExp = RegExp(r"^+?05[0-9]{8}$");
+  bool get isValidPhone {
+    final phoneRegExp = RegExp(r"^\+?05[0-9]{8}$");
     return phoneRegExp.hasMatch(this);
   }
-
 }
