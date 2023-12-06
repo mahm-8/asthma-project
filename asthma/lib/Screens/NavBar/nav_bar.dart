@@ -1,9 +1,11 @@
-import 'package:asthma/Screens/HomeScreen/home_screen%20copy.dart';
+import 'package:asthma/Screens/HomeScreen/home_screen.dart';
 import 'package:asthma/Screens/NavBar/navigator_bar.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
 import 'package:asthma/Screens/medication/add_medication_screen.dart';
+import 'package:asthma/Screens/profile/profile.dart';
 import 'package:asthma/Screens/symptoms/add_symptoms_screen.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/navigator.dart';
 import 'package:flutter/material.dart';
 
 class NavigatorBarScreen extends StatefulWidget {
@@ -23,7 +25,7 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
     const HomeScreen(),
     const AddMedicationScreen(),
     const ChatGPT(),
-    const AddSymptomsScreen()
+    const Profile()
   ];
   @override
   Widget build(BuildContext context) {
@@ -86,45 +88,7 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
           foregroundColor: ColorPaltte().white,
           shape: const CircleBorder(),
           onPressed: () {
-            showBottomSheet(
-                context: context,
-                builder: (context) => Container(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextFormField(
-                            controller: nameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Medicine Name',
-                            ),
-                          ),
-                          const SizedBox(height: 16.0),
-                          TextFormField(
-                            controller: quantityController,
-                            decoration: const InputDecoration(
-                              labelText: 'Quantity',
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(height: 16.0),
-                          TextFormField(
-                            controller: daysController,
-                            decoration: const InputDecoration(
-                              labelText: 'Number of Days',
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(height: 16.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Submit'),
-                          ),
-                        ],
-                      ),
-                    ));
+            context.push(view: AddSymptomsScreen());
           },
           child: const Icon(Icons.add),
         ),
@@ -134,3 +98,45 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
     );
   }
 }
+
+
+
+// showBottomSheet(
+            //     context: context,
+            //     builder: (context) => Container(
+            //           padding: const EdgeInsets.all(16.0),
+            //           child: Column(
+            //             mainAxisSize: MainAxisSize.min,
+            //             children: [
+            //               TextFormField(
+            //                 controller: nameController,
+            //                 decoration: const InputDecoration(
+            //                   labelText: 'Medicine Name',
+            //                 ),
+            //               ),
+            //               const SizedBox(height: 16.0),
+            //               TextFormField(
+            //                 controller: quantityController,
+            //                 decoration: const InputDecoration(
+            //                   labelText: 'Quantity',
+            //                 ),
+            //                 keyboardType: TextInputType.number,
+            //               ),
+            //               const SizedBox(height: 16.0),
+            //               TextFormField(
+            //                 controller: daysController,
+            //                 decoration: const InputDecoration(
+            //                   labelText: 'Number of Days',
+            //                 ),
+            //                 keyboardType: TextInputType.number,
+            //               ),
+            //               const SizedBox(height: 16.0),
+            //               ElevatedButton(
+            //                 onPressed: () {
+            //                   Navigator.pop(context);
+            //                 },
+            //                 child: const Text('Submit'),
+            //               ),
+            //             ],
+            //           ),
+            //         ));
