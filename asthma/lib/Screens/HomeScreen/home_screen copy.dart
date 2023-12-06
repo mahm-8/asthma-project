@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
   }
+
   Future<void> getCurrentLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
@@ -85,8 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       print(e);
     }
-    final country = 'CA';
-    final city = 'Toronto';
+    final country = 'AR';
+    final city = 'Buenos Aires';
     final airQualityData = await airQualityMethod(country, city);
   }
 
@@ -105,7 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       nearestLocations.sort((a, b) => a.distance.compareTo(b.distance));
       nearestLocations = nearestLocations.take(5).toList();
-
       setState(() {});
     }
   }
