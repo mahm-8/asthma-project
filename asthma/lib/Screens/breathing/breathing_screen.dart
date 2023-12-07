@@ -1,7 +1,6 @@
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-
 import 'componnets/audio_circles.dart';
 import 'componnets/button_widget.dart';
 
@@ -19,6 +18,13 @@ class _BreathingScreenState extends State<BreathingScreen> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
     setupAudioPlyer();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _player.dispose();
   }
 
   @override
@@ -76,7 +82,6 @@ class _BreathingScreenState extends State<BreathingScreen> {
     }, onError: (Object e, StackTrace stacktrace) {
       print("audio stream error: $e");
     });
-
     try {
       print('jjjjj');
       _player.setAudioSource(

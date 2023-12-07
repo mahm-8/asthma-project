@@ -4,12 +4,14 @@ import 'package:asthma/Screens/HomeScreen/widgets/air_quality.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/medication_reminder.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/nerest_hospital.dart';
 import 'package:asthma/Screens/symptoms/add_symptoms_screen.dart';
+import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value;
@@ -42,34 +44,34 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  List<Location> locations = [
-    Location(
-        latitude: 24.711517493335617,
-        longitude: 46.67436749233474,
-        name: 'Kingdom Centre'),
-    Location(
-        latitude: 24.74308571150349,
-        longitude: 46.67918719436232,
-        name: 'Hayat Mall'),
-    Location(
-        latitude: 24.559035517748324,
-        longitude: 46.63795466736618,
-        name: 'Salam Mall'),
-    Location(
-        latitude: 24.692604330125604,
-        longitude: 46.66943633484204,
-        name: 'Hayat Mall'),
-    Location(
-        latitude: 24.692604330125604,
-        longitude: 46.66943633484204,
-        name: 'Panorama Mall'),
-    Location(
-        latitude: 24.69611438141796,
-        longitude: 46.72863692503346,
-        name: 'The View Mall'),
-  ];
+  // List<LocationModel> locations = [
+  //   LocationModel(
+  //       latitude: 24.711517493335617,
+  //       longitude: 46.67436749233474,
+  //       name: 'Kingdom Centre'),
+  //   LocationModel(
+  //       latitude: 24.74308571150349,
+  //       longitude: 46.67918719436232,
+  //       name: 'Hayat Mall'),
+  //   LocationModel(
+  //       latitude: 24.559035517748324,
+  //       longitude: 46.63795466736618,
+  //       name: 'Salam Mall'),
+  //   LocationModel(
+  //       latitude: 24.692604330125604,
+  //       longitude: 46.66943633484204,
+  //       name: 'Hayat Mall'),
+  //   LocationModel(
+  //       latitude: 24.692604330125604,
+  //       longitude: 46.66943633484204,
+  //       name: 'Panorama Mall'),
+  //   LocationModel(
+  //       latitude: 24.69611438141796,
+  //       longitude: 46.72863692503346,
+  //       name: 'The View Mall'),
+  // ];
   Position? currentLocation;
-  List<Location> nearestLocations = [];
+  List<LocationModel> nearestLocations = [];
   @override
   void initState() {
     super.initState();
@@ -96,17 +98,17 @@ class _HomeScreenState extends State<HomeScreen> {
   findNearestLocations() {
     if (currentLocation != null) {
       nearestLocations = [];
-      for (var location in locations) {
+      for (var location in allHospetal) {
         double distance = Geolocator.distanceBetween(
           currentLocation!.latitude,
           currentLocation!.longitude,
-          location.latitude,
-          location.longitude,
+          location.latitude!,
+          location.longitude!,
         );
         location.distance = distance;
         nearestLocations.add(location);
       }
-      nearestLocations.sort((a, b) => a.distance.compareTo(b.distance));
+      nearestLocations.sort((a, b) => a.distance!.compareTo(b.distance!));
       nearestLocations = nearestLocations.take(5).toList();
       setState(() {});
     }
@@ -114,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SupabaseServer().getHospitalData();
     return Scaffold(
       body: Stack(
         children: [

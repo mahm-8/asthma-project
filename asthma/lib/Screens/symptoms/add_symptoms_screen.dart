@@ -1,7 +1,6 @@
 import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
 import 'package:asthma/Screens/medication/components/add_textfield.dart';
 import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class AddSymptomsScreen extends StatefulWidget {
@@ -55,7 +54,7 @@ class _AddSymptomsScreenState extends State<AddSymptomsScreen> {
                             fontSize: 25,
                             fontWeight: FontWeight.w800),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       AddTextfield(
@@ -70,7 +69,7 @@ class _AddSymptomsScreenState extends State<AddSymptomsScreen> {
                         fieldWidth: MediaQuery.of(context).size.width * 0.95,
                         fieldHeight: 135,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Container(
@@ -106,7 +105,7 @@ class _AddSymptomsScreenState extends State<AddSymptomsScreen> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       ButtonWidget(

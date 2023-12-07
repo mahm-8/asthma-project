@@ -10,7 +10,7 @@ class AudioCircles extends StatefulWidget {
   State<AudioCircles> createState() => _AudioCirclesState();
 }
 
-double size = 250;
+double size = 230;
 bool large = false;
 
 class _AudioCirclesState extends State<AudioCircles> {
@@ -29,13 +29,13 @@ class _AudioCirclesState extends State<AudioCircles> {
           ),
         ),
         Container(
-          height: 150,
+          height: 140,
           decoration: BoxDecoration(
               color: ColorPaltte().newBlue, shape: BoxShape.circle),
         ),
         Container(
           alignment: Alignment.center,
-          height: 65,
+          height: 60,
           decoration: BoxDecoration(
               color: ColorPaltte().newDarkBlue, shape: BoxShape.circle),
           child: const Text(
