@@ -42,7 +42,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 300,
+              height: 250,
             ),
             // audio timer inside the circles stack
             // Text(_player.duration.toString());
@@ -50,7 +50,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
             // Text(_player.duration?.inSeconds.toString() ?? ''),
 
             const SizedBox(
-              height: 150,
+              height: 100,
             ),
             ButtonWidget(
               onPress: updateSize,
@@ -77,8 +77,8 @@ class _BreathingScreenState extends State<BreathingScreen> {
     });
 
     try {
-      _player
-          .setAudioSource(AudioSource.asset('assets/Breathing_Exercise.mp3'));
+      _player.setAudioSource(
+          AudioSource.asset('lib/assets/audio/Breathing_Exercise.mp3'));
     } catch (e) {
       print("error loading audio: $e");
     }
