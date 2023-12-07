@@ -5,7 +5,7 @@ import 'componnets/audio_circles.dart';
 import 'componnets/button_widget.dart';
 
 class BreathingScreen extends StatefulWidget {
-  BreathingScreen({super.key});
+  const BreathingScreen({super.key});
 
   @override
   State<BreathingScreen> createState() => _BreathingScreenState();
@@ -17,7 +17,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
-    _setupAudioPlyer();
+    setupAudioPlyer();
   }
 
   @override
@@ -29,14 +29,14 @@ class _BreathingScreenState extends State<BreathingScreen> {
             bottom: 15,
             child: Image.asset(
               "lib/assets/images/stack_background.png",
-              color: ColorPaltte().lightgreen,
+              color: ColorPaltte().newlightBlue,
             )),
         Positioned(
             left: -185,
             top: 255,
             child: Image.asset(
               "lib/assets/images/stack_background.png",
-              color: ColorPaltte().lightgreen,
+              color: ColorPaltte().newlightBlue,
             )),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,14 +47,14 @@ class _BreathingScreenState extends State<BreathingScreen> {
             // audio timer inside the circles stack
             // Text(_player.duration.toString());
             const AudioCircles(),
-            Text(_player.duration!.inSeconds.toString()),
+            // Text(_player.duration?.inSeconds.toString() ?? ''),
 
             const SizedBox(
-              height: 200,
+              height: 150,
             ),
             ButtonWidget(
               onPress: updateSize,
-              widget: _playControlButton(),
+              widget: playControlButton(),
             ),
           ],
         ),
@@ -69,7 +69,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
     });
   }
 
-  Future<void> _setupAudioPlyer() async {
+  Future<void> setupAudioPlyer() async {
     _player.playbackEventStream.listen((event) {
       print('Playback event: $event');
     }, onError: (Object e, StackTrace stacktrace) {
@@ -77,14 +77,14 @@ class _BreathingScreenState extends State<BreathingScreen> {
     });
 
     try {
-      _player.setAudioSource(
-          AudioSource.asset('lib/assets/audio/Breathing_Exercise.mp3'));
+      _player
+          .setAudioSource(AudioSource.asset('assets/Breathing_Exercise.mp3'));
     } catch (e) {
       print("error loading audio: $e");
     }
   }
 
-  Widget _playControlButton() {
+  Widget playControlButton() {
     return StreamBuilder<PlayerState>(
         stream: _player.playerStateStream,
         builder: (context, snapshot) {

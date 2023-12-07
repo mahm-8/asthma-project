@@ -3,12 +3,13 @@ import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/air_quality.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/medication_reminder.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/nerest_hospital.dart';
+import 'package:asthma/Screens/symptoms/add_symptoms_screen.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value;
 
@@ -86,8 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       print(e);
     }
-    final country = 'CA';
-    final city = 'Toronto';
+    final country = 'AR';
+    final city = 'Buenos Aires';
     final airQualityData = await airQualityMethod(country, city);
   }
 
@@ -106,7 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       nearestLocations.sort((a, b) => a.distance.compareTo(b.distance));
       nearestLocations = nearestLocations.take(5).toList();
-
       setState(() {});
     }
   }
@@ -117,42 +117,32 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           Container(
-            height: 260,
+            height: 240,
             width: context.getWidth(),
             decoration: BoxDecoration(
-                color: ColorPaltte().lightBlue,
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30))),
+                color: ColorPaltte().newDarkBlue,
+                borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20))),
           ),
           SingleChildScrollView(
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 120),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 100),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      ClipOval(
-                        child: Image.asset(
-                          'lib/assets/images/image.jpg',
-                          width: 70,
-                          height: 70,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Welcome,',
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.grey),
+                                color: ColorPaltte().white),
                           ),
                           Text(
                             'Wadha',
@@ -160,21 +150,54 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 22,
                                 fontWeight: FontWeight.w800,
                                 color: ColorPaltte().darkBlue),
-                          )
+                          ),
                         ],
+                      ),
+                      const Spacer(),
+                      ClipOval(
+                        child: Image.asset(
+                          'lib/assets/images/image.jpg',
+                          width: 70,
+                          height: 70,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  AirQuality(),
+                  const AirQuality(),
                   const SizedBox(
                     height: 20,
                   ),
-                  MedicationReminder(),
+                  const MedicationReminder(),
                   const SizedBox(
-                    height: 30,
+                    height: 15,
+                  ),
+                  SizedBox(
+                    height: 75,
+                    width: context.getWidth(),
+                    child: InkWell(
+                      onTap: () {
+                        context.push(view: const AddSymptomsScreen());
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: ColorPaltte().newDarkBlue,
+                        child: const Center(
+                            child: Text(
+                          'Add Symptoms',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Colors.white),
+                        )),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   Text(
                     'Nearest Hospital ',

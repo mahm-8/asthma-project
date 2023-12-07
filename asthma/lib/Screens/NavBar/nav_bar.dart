@@ -1,5 +1,5 @@
 import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/Screens/NavBar/navigator_bar.dart';
+import 'package:asthma/Screens/breathing/breathing_screen.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
 import 'package:asthma/Screens/profile/profile.dart';
 import 'package:asthma/constants/colors.dart';
@@ -13,123 +13,42 @@ class NavigatorBarScreen extends StatefulWidget {
 }
 
 class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
-  TextEditingController daysController = TextEditingController();
-
-  int selectedindex = 0;
-  List scrren = [
-    const HomeScreen(),
-    const HomeScreen(),
-    const ChatGPT(),
-    const Profile()
-  ];
+  List screen = [const HomeScreen(), BreathingScreen(), const ChatGPT(), const Profile()];
+  late int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 10,
-        height: 60,
-        color: ColorPaltte().lightgreen,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: NavigatorBar(
-                isSelect: selectedindex == 0 ? true : false,
-                icons: Icons.chat_bubble,
-                onPressed: () {
-                  selectedindex = 0;
-                  setState(() {});
-                },
-              ),
+      body: screen[index],
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: ColorPaltte().darkBlue,
+        unselectedItemColor: ColorPaltte().lightBlue,
+        currentIndex: index,
+        onTap: (value) {
+          setState(() {
+            index = value;
+          });
+        },
+        items: [
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.access_alarms_rounded),
+            label: '',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat_bubble_outline,
             ),
-            Expanded(
-              child: NavigatorBar(
-                isSelect: selectedindex == 1 ? true : false,
-                icons: Icons.mail,
-                onPressed: () {
-                  selectedindex = 1;
-                  setState(() {});
-                },
-              ),
-            ),
-            const Expanded(child: SizedBox()),
-            Expanded(
-              child: NavigatorBar(
-                isSelect: selectedindex == 2 ? true : false,
-                icons: Icons.calendar_month_rounded,
-                onPressed: () {
-                  selectedindex = 2;
-                  setState(() {});
-                },
-              ),
-            ),
-            Expanded(
-              child: NavigatorBar(
-                isSelect: selectedindex == 3 ? true : false,
-                icons: Icons.more_horiz,
-                onPressed: () {
-                  selectedindex = 3;
-                  setState(() {});
-                },
-              ),
-            ),
-          ],
-        ),
+            label: '',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '',
+          ),
+        ],
       ),
-      floatingActionButton: GestureDetector(
-        child: FloatingActionButton(
-          backgroundColor: ColorPaltte().darkBlue,
-          foregroundColor: ColorPaltte().white,
-          shape: const CircleBorder(),
-          onPressed: () {
-            showBottomSheet(
-                context: context,
-                builder: (context) => Container(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextFormField(
-                            controller: nameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Medicine Name',
-                            ),
-                          ),
-                          const SizedBox(height: 16.0),
-                          TextFormField(
-                            controller: quantityController,
-                            decoration: const InputDecoration(
-                              labelText: 'Quantity',
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(height: 16.0),
-                          TextFormField(
-                            controller: daysController,
-                            decoration: const InputDecoration(
-                              labelText: 'Number of Days',
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(height: 16.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Submit'),
-                          ),
-                        ],
-                      ),
-                    ));
-          },
-          child: const Icon(Icons.add),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: scrren[selectedindex],
     );
   }
 }

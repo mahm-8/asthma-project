@@ -26,6 +26,7 @@ class NerestHospital extends StatelessWidget {
                 Location location = nearestLocations[index];
                 return InkWell(
                   onTap: () async {
+                    // get from user database
                     final latitude = 24.559035517748324;
                     final longitude = 46.63795466736618;
                     final url =
@@ -33,21 +34,13 @@ class NerestHospital extends StatelessWidget {
                     await launchUrl(Uri.parse(url));
                   },
                   child: Card(
-                    color: ColorPaltte().lightBlue,
+                    color: ColorPaltte().newlightBlue,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       width: 150,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Image.asset(
-                          //   'lib/assets/images/hospital.png',
-                          //   width: 80,
-                          //   height: 80,
-                          // ),
-                          // const Divider(
-                          //   thickness: 1,
-                          // ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

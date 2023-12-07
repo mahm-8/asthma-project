@@ -26,21 +26,23 @@ class AddTextfield extends StatelessWidget {
         width: fieldWidth,
         height: fieldHeight,
         decoration: BoxDecoration(
-            color: ColorPaltte().lightgreentr,
+            color: ColorPaltte().newlightBlue,
             borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: TextField(
-            cursorColor: Colors.black,
-            textAlign: TextAlign.center,
-            controller: fieldController,
-            decoration: InputDecoration(
+              cursorColor: ColorPaltte().darkBlue,
+              textAlign: TextAlign.left,
+              controller: fieldController,
+              decoration: InputDecoration(
+                focusedBorder:
+                    UnderlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder:
+                    UnderlineInputBorder(borderSide: BorderSide.none),
                 prefixIcon: icon,
-                label: Text(
-                  label,
-                  style: const TextStyle(color: Colors.black),
-                )),
-          ),
+                hintText: label,
+                hintStyle: TextStyle(color: ColorPaltte().darkBlue),
+              )),
         ),
       ),
     );
