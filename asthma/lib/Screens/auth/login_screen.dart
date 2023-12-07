@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:asthma/Screens/NavBar/nav_bar.dart';
 import 'package:asthma/Screens/auth/otp_screen.dart';
 import 'package:asthma/Screens/auth/signup_screen.dart';
 import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
@@ -117,20 +118,34 @@ class LoginScreen extends StatelessWidget {
                     BlocBuilder<AuthBloc, AuthState>(
                       buildWhen: (oldstate, newstate) {
                         if (newstate is LoginSuccessState) {
-                          context.push(view: const OtpScreen());
+                          context.push(
+                              view: OtpScreen(
+                            email: emailController.text,
+                          ));
                         }
                         return false;
                       },
                       builder: (context, state) {
-                        return ButtonAuthWidget(
-                          onPressed: () {
-                            context.read<AuthBloc>().add(LogInAuthEvent(
-                                email: emailController.text,
-                                password: passwordController.text,
-                                emailKey: _emailKey,
-                                passwordKey: _passwordKey));
+                        return BlocListener<AuthBloc, AuthState>(
+                          listener: (context, state) {
+                            if (state is LoginSuccessState) {
+                              context.pushAndRemoveUntil(
+                                  view: NavigatorBarScreen());
+                            } else if (state is ErrorState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(state.message)));
+                            }
                           },
-                          text: 'Login',
+                          child: ButtonAuthWidget(
+                            onPressed: () {
+                              context.read<AuthBloc>().add(LogInAuthEvent(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  emailKey: _emailKey,
+                                  passwordKey: _passwordKey));
+                            },
+                            text: 'Login',
+                          ),
                         );
                       },
                     ),

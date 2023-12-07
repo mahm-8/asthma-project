@@ -1,15 +1,16 @@
 import 'package:asthma/Screens/NavBar/nav_bar.dart';
+import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
-
 import 'package:asthma/extensions/text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
-
+  const OtpScreen({super.key, required this.email});
+  final String email;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -48,13 +49,25 @@ class OtpScreen extends StatelessWidget {
                   const SizedBox(
                     height: 100,
                   ),
-                  Pinput(
-                    autofocus: true,
-                    length: 4,
-                    onCompleted: (pin) {
-                      context.pushAndRemoveUntil(
-                          view: const NavigatorBarScreen());
+                  BlocListener<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      if (state is SuccessVerificationState) {
+                        context.pushAndRemoveUntil(
+                            view: const NavigatorBarScreen());
+                      } else if (state is ErrorVerificationState) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message)));
+                      }
                     },
+                    child: Pinput(
+                      autofocus: true,
+                      length: 6,
+                      onCompleted: (pin) {
+                        context
+                            .read<AuthBloc>()
+                            .add(VerificationEvent(otp: pin, email: email));
+                      },
+                    ),
                   ),
                 ],
               ),

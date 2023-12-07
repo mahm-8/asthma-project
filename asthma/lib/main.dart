@@ -1,5 +1,6 @@
-import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/Screens/NavBar/nav_bar.dart';
+import 'package:asthma/Screens/auth/signup_screen.dart';
+
 import 'package:asthma/Services/supabase_service.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 
@@ -7,8 +8,16 @@ import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'Services/networking_api.dart';
+import 'blocs/user_bloc/user_bloc.dart';
+
 void main() async {
-  await supabaseConfig();
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  SupabaseNetworking().getSupabaseInitialize;
+  SupabaseNetworking().getSupabase;
   runApp(const MainApp());
 }
 
@@ -23,12 +32,14 @@ class MainApp extends StatelessWidget {
           create: (context) => AuthBloc(),
         ),
         BlocProvider(
-          create: (context) => AsthmaBloc()..add(getHospitalDataEvent()),
+            create: (context) => AsthmaBloc()..add(getHospitalDataEvent())),
+        BlocProvider(
+          create: (context) => UserBloc()..add(LoadUserData()),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const NavigatorBarScreen(),
+        home: SignupScreen(),
         theme: ThemeData(useMaterial3: false),
       ),
     );
