@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+// import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class DataSymptomsScreen extends StatefulWidget {
   DataSymptomsScreen({super.key});
@@ -72,7 +72,7 @@ class _DataSymptomsScreenState extends State<DataSymptomsScreen> {
   }
 
   _saved(image) async {
-    final result = await ImageGallerySaver.saveImage(image);
+    // final result = await ImageGallerySaver.saveImage(image);
     print("File Saved to Gallery");
   }
 }
