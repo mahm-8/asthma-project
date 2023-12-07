@@ -1,7 +1,6 @@
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-
 import 'componnets/audio_circles.dart';
 import 'componnets/button_widget.dart';
 
@@ -29,14 +28,14 @@ class _BreathingScreenState extends State<BreathingScreen> {
             right: -185,
             bottom: 15,
             child: Image.asset(
-              "assets/stack_background.png",
+              "lib/assets/images/stack_background.png",
               color: ColorPaltte().lightgreen,
             )),
         Positioned(
             left: -185,
             top: 255,
             child: Image.asset(
-              "assets/stack_background.png",
+              "lib/assets/images/stack_background.png",
               color: ColorPaltte().lightgreen,
             )),
         Column(
@@ -78,8 +77,8 @@ class _BreathingScreenState extends State<BreathingScreen> {
     });
 
     try {
-      _player
-          .setAudioSource(AudioSource.asset('assets/Breathing_Exercise.mp3'));
+      _player.setAudioSource(
+          AudioSource.asset('lib/assets/audio/Breathing_Exercise.mp3'));
     } catch (e) {
       print("error loading audio: $e");
     }
