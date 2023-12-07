@@ -8,8 +8,13 @@ import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+
+import '../../Services/networking_request.dart';
+import '../../blocs/user_bloc/user_bloc.dart';
+
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value;
 
@@ -73,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getCurrentLocation();
+    getUserProfile();
   }
 
   Future<void> getCurrentLocation() async {
@@ -113,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // context.read<UserBloc>().add(LoadUserData());
     return Scaffold(
       body: Stack(
         children: [

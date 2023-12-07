@@ -1,7 +1,7 @@
 class UserModel {
   int? id;
   String? email;
-  int? age;
+  String? age;
   String? dob;
   String? gender;
   String? phone;
@@ -22,14 +22,14 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    email = json['email'];
-    age = json['age'];
-    dob = json['dob'];
-    gender = json['gender'];
-    phone = json['phone'];
-    image = json['image'];
-    idAuth = json['id_auth'];
-    name = json['name'];
+    email = json['email'] ?? "";
+    age = json['age'] ?? "";
+    dob = json['dob'] ?? "";
+    gender = json['gender'] ?? "";
+    phone = json['phone'] ?? "";
+    image = json['image'] ?? "";
+    idAuth = json['id_auth'] ?? "";
+    name = json['name'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

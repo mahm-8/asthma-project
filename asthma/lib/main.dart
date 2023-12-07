@@ -1,9 +1,11 @@
-import 'package:asthma/Screens/auth/signup_screen.dart';
+import 'package:asthma/Screens/NavBar/nav_bar.dart';
 import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'Services/networking_request.dart';
+import 'blocs/user_bloc/user_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,11 +20,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignupScreen(),
+        home: NavigatorBarScreen(),
         theme: ThemeData(useMaterial3: false),
       ),
     );
