@@ -37,8 +37,8 @@ class LogInAuthEvent extends AuthEvent {
 class VerificationEvent extends AuthEvent {
   final String otp;
   final String email;
-  final String type;
+
 
   VerificationEvent(
-      {required this.otp, required this.email, required this.type});
+      {required this.otp, required this.email,});
 }

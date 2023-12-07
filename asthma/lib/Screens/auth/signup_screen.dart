@@ -140,7 +140,7 @@ class SignupScreen extends StatelessWidget {
                   BlocBuilder<AuthBloc, AuthState>(
                     buildWhen: (oldStete, newState) {
                       if (newState is SignUpSuccessState) {
-                        context.push(view: const OtpScreen());
+                        context.push(view:  OtpScreen(email: emailController.text,));
                       }
                       return false;
                     },
