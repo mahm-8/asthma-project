@@ -1,14 +1,17 @@
+import 'dart:io';
+
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../blocs/user_bloc/user_bloc.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
-
+  Profile({super.key});
+  final ImagePicker picker = ImagePicker();
+  File? imageFile;
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
@@ -171,18 +174,28 @@ class Profile extends StatelessWidget {
                     left: 145,
                     top: 150,
                     child: ClipOval(
-                      child: Container(
-                        color: ColorPaltte().newBlue,
-                        height: 100,
-                        width: 100,
-                        child: const Icon(Icons.person_outline),
+                      child: InkWell(
+                        onTap: () async {
+                          XFile? image = await picker.pickImage(
+                              source: ImageSource.gallery);
+                          imageFile = File(image!.path);
+                          print(imageFile);
+                        },
+                        child: Container(
+                          color: ColorPaltte().newBlue,
+                          height: 100,
+                          width: 100,
+                          child: imageFile != null
+                              ? Image.file(imageFile!)
+                              : const Icon(Icons.person_outline),
+                        ),
                       ),
                     ),
                   ),
                 ],
               );
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },

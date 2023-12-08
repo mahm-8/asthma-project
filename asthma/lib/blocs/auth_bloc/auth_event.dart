@@ -42,3 +42,6 @@ class VerificationEvent extends AuthEvent {
   VerificationEvent(
       {required this.otp, required this.email,});
 }
+class CheckLoginEvent extends AuthEvent {
+
+}
