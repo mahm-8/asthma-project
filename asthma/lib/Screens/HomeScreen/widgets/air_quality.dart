@@ -56,15 +56,15 @@ class AirQuality extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        title: Text('Emergency Call'),
+                        title: const Text('Emergency Call'),
                         content:
-                            Text('Are you sure you want to call emergency?'),
+                            const Text('Are you sure you want to call emergency?'),
                         actions: [
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text('Cancel'),
+                            child: const Text('Cancel'),
                           ),
                           TextButton(
                             onPressed: () async {
@@ -72,7 +72,7 @@ class AirQuality extends StatelessWidget {
                               await launchUrl(tel);
                               Navigator.of(context).pop();
                             },
-                            child: Text(
+                            child: const Text(
                               'Call',
                             ),
                           ),

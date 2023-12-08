@@ -9,6 +9,9 @@ class AddTextfield extends StatelessWidget {
     required this.fieldWidth,
     this.icon,
     this.fieldHeight,
+    this.onTapped,
+    required this.onlyRead,
+    required this.title,
   });
   final String label;
   final TextEditingController fieldController;
@@ -16,34 +19,55 @@ class AddTextfield extends StatelessWidget {
 
   final double fieldWidth;
   final Icon? icon;
+  final String title;
+  final Function()? onTapped;
+  final bool onlyRead;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Container(
-        alignment: Alignment.center,
-        width: fieldWidth,
-        height: fieldHeight,
-        decoration: BoxDecoration(
-            color: ColorPaltte().newlightBlue,
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextField(
-              cursorColor: ColorPaltte().darkBlue,
-              textAlign: TextAlign.left,
-              controller: fieldController,
-              decoration: InputDecoration(
-                focusedBorder:
-                    UnderlineInputBorder(borderSide: BorderSide.none),
-                enabledBorder:
-                    UnderlineInputBorder(borderSide: BorderSide.none),
-                prefixIcon: icon,
-                hintText: label,
-                hintStyle: TextStyle(color: ColorPaltte().darkBlue),
-              )),
-        ),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+                fontSize: 18,
+                color: ColorPaltte().darkBlue,
+                fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: fieldWidth,
+            height: fieldHeight,
+            decoration: BoxDecoration(
+                color: ColorPaltte().newlightBlue,
+                borderRadius: BorderRadius.circular(10)),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextField(
+                  readOnly: onlyRead,
+                  onTap: onTapped,
+                  cursorColor: ColorPaltte().darkBlue,
+                  textAlign: TextAlign.left,
+                  controller: fieldController,
+                  decoration: InputDecoration(
+                    focusedBorder:
+                        const UnderlineInputBorder(borderSide: BorderSide.none),
+                    enabledBorder:
+                        const UnderlineInputBorder(borderSide: BorderSide.none),
+                    prefixIcon: icon,
+                    iconColor: ColorPaltte().darkBlue,
+                    hintText: label,
+                    hintStyle: TextStyle(color: ColorPaltte().darkBlue),
+                  )),
+            ),
+          ),
+        ],
       ),
     );
   }

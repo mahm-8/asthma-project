@@ -21,6 +21,11 @@ dependencies:
   image_gallery_saver: ^2.0.3
   supabase_flutter: ^1.10.25
 
+  rxdart: ^0.27.7
+  supabase_flutter: ^1.10.25
+  flutter_dotenv: ^5.1.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -31,4 +36,8 @@ flutter:
   assets:
     - lib/assets/images/
     - assets/
+    - lib/assets/
+    - lib/assets/audio/Breathing_Exercise.mp3
+    - .env
+
     - lib\assets\audio\Breathing_Exercise.mp3

@@ -5,7 +5,7 @@ import 'componnets/audio_circles.dart';
 import 'componnets/button_widget.dart';
 
 class BreathingScreen extends StatefulWidget {
-  BreathingScreen({super.key});
+  const BreathingScreen({super.key});
 
   @override
   State<BreathingScreen> createState() => _BreathingScreenState();
@@ -18,13 +18,6 @@ class _BreathingScreenState extends State<BreathingScreen> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
     setupAudioPlyer();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _player.dispose();
   }
 
   @override
@@ -49,7 +42,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 300,
+              height: 250,
             ),
             // audio timer inside the circles stack
             // Text(_player.duration.toString());
@@ -57,7 +50,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
             // Text(_player.duration?.inSeconds.toString() ?? ''),
 
             const SizedBox(
-              height: 150,
+              height: 100,
             ),
             ButtonWidget(
               onPress: updateSize,
@@ -82,11 +75,10 @@ class _BreathingScreenState extends State<BreathingScreen> {
     }, onError: (Object e, StackTrace stacktrace) {
       print("audio stream error: $e");
     });
+
     try {
-      print('jjjjj');
       _player.setAudioSource(
           AudioSource.asset('lib/assets/audio/Breathing_Exercise.mp3'));
-      print('jjjjj');
     } catch (e) {
       print("error loading audio: $e");
     }

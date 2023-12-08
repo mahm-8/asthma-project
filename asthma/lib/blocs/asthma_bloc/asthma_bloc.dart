@@ -9,20 +9,14 @@ part 'asthma_event.dart';
 part 'asthma_state.dart';
 
 class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
-   LocationModel? hospitalData;
+  LocationModel? hospitalData;
   AsthmaBloc() : super(AsthmaInitial()) {
-   
-    on<AsthmaEvent>((event, emit) {
-      // TODO: implement event handler
-    });
-
     on<getHospitalDataEvent>(getData);
   }
-  
+
   Future<void> getData(
       getHospitalDataEvent event, Emitter<AsthmaState> emit) async {
     try {
-    
       emit(LoadingState());
       hospitalData = await SupabaseServer().getHospitalData();
       print("i am here 1");

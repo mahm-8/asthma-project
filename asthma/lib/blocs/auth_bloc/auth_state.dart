@@ -17,15 +17,19 @@ class DisplayState extends AuthState {
 
   DisplayState({required this.display});
 }
+
 final class SignUpErrorState extends AuthState {
   final String message;
 
   SignUpErrorState(this.message);
 }
+
 final class ErrorVerificationState extends AuthState {
   final String message;
 
   ErrorVerificationState(this.message);
 }
+
+final class SuccessVerificationState extends AuthState {}
 
 final class LoginSuccessState extends AuthState {}

@@ -13,7 +13,7 @@ class NavigatorBarScreen extends StatefulWidget {
 }
 
 class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
-  List screen = [HomeScreen(), BreathingScreen(), ChatGPT(), Profile()];
+  List screen = [const HomeScreen(), BreathingScreen(), const ChatGPT(), const Profile()];
   late int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -29,21 +29,21 @@ class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
           });
         },
         items: [
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.access_alarms_rounded),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(
               Icons.chat_bubble_outline,
             ),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: '',
           ),

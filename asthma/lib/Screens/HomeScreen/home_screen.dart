@@ -9,9 +9,10 @@ import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../Services/networking_request.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value;
@@ -44,38 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // List<LocationModel> locations = [
-  //   LocationModel(
-  //       latitude: 24.711517493335617,
-  //       longitude: 46.67436749233474,
-  //       name: 'Kingdom Centre'),
-  //   LocationModel(
-  //       latitude: 24.74308571150349,
-  //       longitude: 46.67918719436232,
-  //       name: 'Hayat Mall'),
-  //   LocationModel(
-  //       latitude: 24.559035517748324,
-  //       longitude: 46.63795466736618,
-  //       name: 'Salam Mall'),
-  //   LocationModel(
-  //       latitude: 24.692604330125604,
-  //       longitude: 46.66943633484204,
-  //       name: 'Hayat Mall'),
-  //   LocationModel(
-  //       latitude: 24.692604330125604,
-  //       longitude: 46.66943633484204,
-  //       name: 'Panorama Mall'),
-  //   LocationModel(
-  //       latitude: 24.69611438141796,
-  //       longitude: 46.72863692503346,
-  //       name: 'The View Mall'),
-  // ];
   Position? currentLocation;
   List<LocationModel> nearestLocations = [];
   @override
   void initState() {
     super.initState();
     getCurrentLocation();
+    getUserProfile();
   }
 
   Future<void> getCurrentLocation() async {
@@ -125,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: context.getWidth(),
             decoration: BoxDecoration(
                 color: ColorPaltte().newDarkBlue,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(20),
                     bottomLeft: Radius.circular(20))),
           ),
@@ -157,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       ClipOval(
                         child: Image.asset(
                           'lib/assets/images/image.jpg',
@@ -170,11 +146,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  AirQuality(),
+                  const AirQuality(),
                   const SizedBox(
                     height: 20,
                   ),
-                  MedicationReminder(),
+                  const MedicationReminder(),
                   const SizedBox(
                     height: 15,
                   ),
@@ -183,13 +159,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: context.getWidth(),
                     child: InkWell(
                       onTap: () {
-                        context.push(view: AddSymptomsScreen());
+                        context.push(view: const AddSymptomsScreen());
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         color: ColorPaltte().newDarkBlue,
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           'Add Symptoms',
                           style: TextStyle(
@@ -222,27 +198,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-Future<Position> _determinePosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-  return await Geolocator.getCurrentPosition();
 }

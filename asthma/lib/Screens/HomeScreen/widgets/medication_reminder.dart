@@ -61,10 +61,10 @@ class _MedicationReminderState extends State<MedicationReminder> {
                   color: ColorPaltte().darkBlue,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                   onPressed: () {
-                    context.push(view: AddMedicationScreen());
+                    context.push(view: const AddMedicationScreen());
                   },
                   child: Text(
                     'Add Medication',
@@ -73,7 +73,7 @@ class _MedicationReminderState extends State<MedicationReminder> {
                   ))
             ],
           ),
-          Divider(
+          const Divider(
             thickness: 1,
           ),
           Container(
@@ -85,7 +85,7 @@ class _MedicationReminderState extends State<MedicationReminder> {
                 String day = getDayName(index);
                 return Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     Text(
