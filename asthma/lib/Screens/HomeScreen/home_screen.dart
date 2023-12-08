@@ -45,32 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // List<LocationModel> locations = [
-  //   LocationModel(
-  //       latitude: 24.711517493335617,
-  //       longitude: 46.67436749233474,
-  //       name: 'Kingdom Centre'),
-  //   LocationModel(
-  //       latitude: 24.74308571150349,
-  //       longitude: 46.67918719436232,
-  //       name: 'Hayat Mall'),
-  //   LocationModel(
-  //       latitude: 24.559035517748324,
-  //       longitude: 46.63795466736618,
-  //       name: 'Salam Mall'),
-  //   LocationModel(
-  //       latitude: 24.692604330125604,
-  //       longitude: 46.66943633484204,
-  //       name: 'Hayat Mall'),
-  //   LocationModel(
-  //       latitude: 24.692604330125604,
-  //       longitude: 46.66943633484204,
-  //       name: 'Panorama Mall'),
-  //   LocationModel(
-  //       latitude: 24.69611438141796,
-  //       longitude: 46.72863692503346,
-  //       name: 'The View Mall'),
-  // ];
   Position? currentLocation;
   List<LocationModel> nearestLocations = [];
   @override
@@ -119,9 +93,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SupabaseServer().getHospitalData();
-
-    // context.read<UserBloc>().add(LoadUserData());
-
     return Scaffold(
       body: Stack(
         children: [
@@ -227,27 +198,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-Future<Position> _determinePosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-  return await Geolocator.getCurrentPosition();
 }

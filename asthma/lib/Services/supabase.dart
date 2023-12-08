@@ -1,7 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Models/medication_model.dart';
 import 'package:asthma/Models/symptoms_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 List<LocationModel> allHospetal = [];
 
@@ -46,4 +51,13 @@ class SupabaseServer {
   addSymptom(Map body) async {
     await supabase.from("symptoms").insert(body).select();
   }
+
+  saveCaptrueImage(Uint8List pathImagefile) async {
+    final supabase = Supabase.instance.client;
+    final response = await supabase.storage.from('captrue_image').uploadBinary(
+        'image${DateTime.now().millisecondsSinceEpoch}.png', pathImagefile);
+    print(response);
+  }
+
+ 
 }

@@ -1,3 +1,4 @@
+import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/Screens/auth/signup_screen.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
@@ -33,7 +34,7 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignupScreen(),
+        home: SymptomTrackerScreen(),
         theme: ThemeData(useMaterial3: false),
       ),
     );
