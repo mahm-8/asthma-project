@@ -1,13 +1,18 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../blocs/user_bloc/user_bloc.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  Profile({super.key});
+  final ImagePicker picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +21,18 @@ class Profile extends StatelessWidget {
       initialIndex: 1,
       length: 3,
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          actions: [Icon(Icons.mode_edit_outline_sharp)],
+        ),
         backgroundColor: ColorPaltte().newDarkBlue,
         body: BlocBuilder<UserBloc, UserState>(
-          // buildWhen: (oldState, newState) {
-          //   if (newState is LoadState) {
-          //     return true;
-          //   }
-          //   return false;
-          // },
+          buildWhen: (oldState, newState) {
+            if (newState is LoadState) {
+              return true;
+            }
+            return false;
+          },
           builder: (context, state) {
             if (state is LoadState) {
               return Stack(
@@ -171,18 +180,55 @@ class Profile extends StatelessWidget {
                     left: 145,
                     top: 150,
                     child: ClipOval(
-                      child: Container(
-                        color: ColorPaltte().newBlue,
-                        height: 100,
-                        width: 100,
-                        child: const Icon(Icons.person_outline),
+                      child: InkWell(
+                        onTap: () async {
+                          XFile? image = await picker.pickImage(
+                              source: ImageSource.gallery);
+
+                          final imageFile = await image!.readAsBytes();
+
+                          context
+                              .read<UserBloc>()
+                              .add(UploadeImageEvent(imageFile));
+                          print(imageFile);
+                        },
+                        child: BlocConsumer<UserBloc, UserState>(
+                          listener: (context, state) {
+                            if (state is ErrorUploadState) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content: Text(state.msg),
+                                    );
+                                  });
+                            }
+                          },
+                          builder: (context, state) {
+                            if (state is UploadImageState) {
+                              return Container(
+                                  color: ColorPaltte().newBlue,
+                                  height: 100,
+                                  width: 100,
+                                  child: Image.network(state.url));
+                            }
+                            return Container(
+                              color: ColorPaltte().newBlue,
+                              height: 100,
+                              width: 100,
+                              child: bloc.user!.image != null
+                                  ? Image.network(bloc.user!.image!)
+                                  : const Icon(Icons.person_outline),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
                 ],
               );
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },

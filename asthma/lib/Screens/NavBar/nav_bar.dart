@@ -13,7 +13,7 @@ class NavigatorBarScreen extends StatefulWidget {
 }
 
 class _NavigatorBarScreenState extends State<NavigatorBarScreen> {
-  List screen = [const HomeScreen(), BreathingScreen(), const ChatGPT(), const Profile()];
+  List screen = [const HomeScreen(), BreathingScreen(), const ChatGPT(),  Profile()];
   late int index = 0;
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,6 @@
 .history
 .svn/
 migrate_working_dir/
-.env
 *.env
 
 # IntelliJ related
@@ -32,6 +31,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+asthma/.env
 
 # Symbolication related
 app.*.symbols
