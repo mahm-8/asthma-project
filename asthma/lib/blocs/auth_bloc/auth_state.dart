@@ -33,3 +33,7 @@ final class ErrorVerificationState extends AuthState {
 final class SuccessVerificationState extends AuthState {}
 
 final class LoginSuccessState extends AuthState {}
+
+class CheckLoginState extends AuthState {}
+
+class ErrorChecktate extends AuthState {}

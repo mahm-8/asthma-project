@@ -25,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     on<LogInAuthEvent>(loginMethod);
     on<VerificationEvent>(verificationMethod);
+    on<CheckLoginEvent>(_check);
   }
   validation({required GlobalKey<FormState> keyForm}) {
     if (!keyForm.currentState!.validate()) {
@@ -105,5 +106,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(ErrorState("bgh"));
     }
+  }
+
+  FutureOr<void> _check(CheckLoginEvent event, Emitter<AuthState> emit) async {
+    final supabaseClint = SupabaseNetworking().getSupabase;
+
+    await Future.delayed(const Duration(seconds: 1), () async {
+      if (supabaseClint.auth.currentSession != null) {
+        final token = supabaseClint.auth.currentSession?.accessToken;
+        final isExp = supabaseClint.auth.currentSession!.isExpired;
+        if (token != null) {
+          print("token");
+          if (isExp) {
+            print("Exp");
+            await supabaseClint.auth
+                .setSession(supabaseClint.auth.currentSession!.refreshToken!);
+            emit(CheckLoginState());
+          } else {
+            emit(CheckLoginState());
+          }
+        } else {
+          emit(ErrorChecktate());
+        }
+      } else {
+        emit(ErrorChecktate());
+      }
+    });
   }
 }
