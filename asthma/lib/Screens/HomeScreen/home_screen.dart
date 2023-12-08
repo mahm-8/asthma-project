@@ -9,9 +9,10 @@ import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../Services/networking_request.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value;
@@ -76,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getCurrentLocation();
+    getUserProfile();
   }
 
   Future<void> getCurrentLocation() async {
@@ -117,6 +119,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SupabaseServer().getHospitalData();
+
+    // context.read<UserBloc>().add(LoadUserData());
+
     return Scaffold(
       body: Stack(
         children: [
@@ -125,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: context.getWidth(),
             decoration: BoxDecoration(
                 color: ColorPaltte().newDarkBlue,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(20),
                     bottomLeft: Radius.circular(20))),
           ),
@@ -157,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       ClipOval(
                         child: Image.asset(
                           'lib/assets/images/image.jpg',
@@ -170,11 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  AirQuality(),
+                  const AirQuality(),
                   const SizedBox(
                     height: 20,
                   ),
-                  MedicationReminder(),
+                  const MedicationReminder(),
                   const SizedBox(
                     height: 15,
                   ),
@@ -183,13 +188,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: context.getWidth(),
                     child: InkWell(
                       onTap: () {
-                        context.push(view: AddSymptomsScreen());
+                        context.push(view: const AddSymptomsScreen());
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         color: ColorPaltte().newDarkBlue,
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           'Add Symptoms',
                           style: TextStyle(

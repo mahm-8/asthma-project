@@ -1,12 +1,11 @@
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-
 import 'componnets/audio_circles.dart';
 import 'componnets/button_widget.dart';
 
 class BreathingScreen extends StatefulWidget {
-  BreathingScreen({super.key});
+  const BreathingScreen({super.key});
 
   @override
   State<BreathingScreen> createState() => _BreathingScreenState();

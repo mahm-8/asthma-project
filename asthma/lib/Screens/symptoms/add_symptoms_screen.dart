@@ -3,11 +3,10 @@ import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
 import 'package:asthma/Screens/medication/components/add_textfield.dart';
 import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class AddSymptomsScreen extends StatefulWidget {
-  AddSymptomsScreen({super.key});
+  const AddSymptomsScreen({super.key});
 
   @override
   State<AddSymptomsScreen> createState() => _AddSymptomsScreenState();

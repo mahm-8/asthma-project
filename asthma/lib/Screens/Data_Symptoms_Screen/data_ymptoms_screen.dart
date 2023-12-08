@@ -5,7 +5,6 @@ import 'package:screenshot/screenshot.dart';
 
 class DataSymptomsScreen extends StatefulWidget {
   DataSymptomsScreen({super.key});
-
   @override
   State<DataSymptomsScreen> createState() => _DataSymptomsScreenState();
 }
