@@ -69,7 +69,9 @@ class _MedicationReminderState extends State<MedicationReminder> {
                   child: Text(
                     'Add Medication',
                     style: TextStyle(
-                        color: ColorPaltte().newDarkBlue, fontSize: 16),
+                        fontWeight: FontWeight.w700,
+                        color: ColorPaltte().newDarkBlue,
+                        fontSize: 16),
                   ))
             ],
           ),

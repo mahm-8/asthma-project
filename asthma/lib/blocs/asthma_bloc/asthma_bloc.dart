@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Services/supabase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
 part 'asthma_event.dart';
 part 'asthma_state.dart';
 
