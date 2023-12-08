@@ -57,8 +57,8 @@ class AirQuality extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         title: const Text('Emergency Call'),
-                        content:
-                            const Text('Are you sure you want to call emergency?'),
+                        content: const Text(
+                            'Are you sure you want to call emergency?'),
                         actions: [
                           TextButton(
                             onPressed: () {

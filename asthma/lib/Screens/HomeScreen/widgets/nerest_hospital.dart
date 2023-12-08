@@ -1,6 +1,7 @@
 import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,7 +23,8 @@ class NerestHospital extends StatelessWidget {
         children: [
           if (nearestLocations.isNotEmpty)
             Container(
-              height: 90,
+              height: context.getHeight() * 0.21,
+              width: context.getWidth(),
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
@@ -37,41 +39,51 @@ class NerestHospital extends StatelessWidget {
                           'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
                       await launchUrl(Uri.parse(url));
                     },
-                    child: Card(
-                      color: ColorPaltte().newlightBlue,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        width: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  location.name!,
-                                  style: TextStyle(
-                                      color: ColorPaltte().darkBlue,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
+                    child: Container(
+                      width: context.getWidth(divide: 1.9),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  'lib/assets/images/Address-bro2.png',
+                                  width: 80,
+                                  height: 80,
                                 ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on_outlined,
-                                      size: 20,
-                                    ),
-                                    Text(
-                                        '${(location.distance! / 1000).toStringAsFixed(2)} km'),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                              const Divider(
+                                thickness: 2,
+                              ),
+                              Text(
+                                location.name!,
+                                style: TextStyle(
+                                    color: ColorPaltte().darkBlue,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Icon(
+                                    Icons.location_on_outlined,
+                                    size: 20,
+                                  ),
+                                  Text(
+                                    '${(location.distance! / 1000).toStringAsFixed(2)} km',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
