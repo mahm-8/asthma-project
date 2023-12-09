@@ -47,15 +47,19 @@ class DataCardWidget extends StatelessWidget {
                   children: [
                     Text(
                       "$textEntry1",
+                      maxLines: 2,
+                      overflow: TextOverflow.clip,
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
                       "$textEntry2",
+                      maxLines: 2,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
                       "$textEntry3",
+                      maxLines: 1,
                       style: const TextStyle(fontSize: 16),
                     ),
                   ],
