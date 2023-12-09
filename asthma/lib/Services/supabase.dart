@@ -63,8 +63,13 @@ class SupabaseServer {
 
   saveCaptrueImage(Uint8List pathImagefile) async {
     final supabase = Supabase.instance.client;
+    final time = DateTime.now().millisecondsSinceEpoch;
     final response = await supabase.storage.from('captrue_image').uploadBinary(
-        'image${DateTime.now().millisecondsSinceEpoch}.png', pathImagefile);
+        'image$time.png', pathImagefile,
+        fileOptions: FileOptions(upsert: true));
+    final up =
+        supabase.storage.from('captrue_image').getPublicUrl('image$time.png');
+    print('vvvvvvvvv $up');
     print(response);
   }
 }
