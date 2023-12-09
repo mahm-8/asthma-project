@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:asthma/Screens/Data_Symptoms_Screen/components/add_textfield.dart';
+import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
 import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
 import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
@@ -27,12 +28,6 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
       medicationQuantitysController = TextEditingController(),
       medicationDateController = TextEditingController(),
       medicationDaysController = TextEditingController();
-
-  @override
-  void initState() {
-    context.read<AsthmaBloc>().add(GetMedicationDataEvent());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,53 +79,45 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          width: context.getWidth(),
-          decoration: BoxDecoration(
-              border: Border.all(
-                style: BorderStyle.solid,
-                color: Colors.black,
-              ),
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Your Medication',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPaltte().darkBlue),
-                  ),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      showButtonSheet(context);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.add,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Your Medication',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: ColorPaltte().darkBlue),
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    showButtonSheet(context);
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: ColorPaltte().newDarkBlue,
+                      ),
+                      Text(
+                        'Add Medication',
+                        style: TextStyle(
                           color: ColorPaltte().newDarkBlue,
                         ),
-                        Text(
-                          'Add Medication',
-                          style: TextStyle(
-                            color: ColorPaltte().newDarkBlue,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Expanded(
-                child: BlocBuilder<AsthmaBloc, AsthmaState>(
-                  builder: (context, state) {
-                    if (state is SuccessGetMedicationState) {
-                      return ListView.builder(
+                ),
+              ],
+            ),
+            BlocBuilder<AsthmaBloc, AsthmaState>(
+              builder: (context, state) {
+                if (state is SuccessGetMedicationState) {
+                  if (state.medications.isNotEmpty) {
+                    return Expanded(
+                      child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: state.medications.length,
                         itemBuilder: (context, index) {
@@ -142,26 +129,35 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                             textEntry3: "start date: ${medication.date}",
                             deleteTap: () {
                               context.read<AsthmaBloc>().add(
-                                  DeleteMedicationEvent(
-                                      id: medication.medicationID!));
+                                    DeleteMedicationEvent(
+                                        id: medication.medicationID!),
+                                  );
                             },
                           );
                         },
-                      );
-                    } else if (state is ErrorGetState) {
-                      const Center(child: Text("Error getting data"));
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(state.message)));
-                    }
-
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                      ),
                     );
-                  },
-                ),
-              ),
-            ],
-          ),
+                  } else {
+                    return Center(
+                      child: Text(
+                        "No medication added",
+                        style: TextStyle(
+                            fontSize: 18, color: ColorPaltte().darkBlue),
+                      ),
+                    );
+                  }
+                } else if (state is ErrorGetState) {
+                  const Center(child: Text("Error getting data"));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(state.message)));
+                }
+
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -171,6 +167,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
     return showModalBottomSheet(
       showDragHandle: true,
       useSafeArea: true,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -179,20 +176,16 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
       ),
       context: context,
       builder: (BuildContext context) {
-        return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+        return Container(
+          constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height * 0.75),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "Add Medication",
-                  style: TextStyle(
-                      color: ColorPaltte().newDarkBlue,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800),
-                ),
+            
                 const SizedBox(height: 16),
                 AddTextfield(
                   label: 'Medication Name',
@@ -273,8 +266,12 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                           .showSnackBar(SnackBar(content: Text(state.message)));
                     }
                   },
-                  child: InkWell(
-                    onTap: () {
+                  child: ButtonWidget(
+                    widget: const Text(
+                      "Add",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    onPress: () {
                       context.read<AsthmaBloc>().add(AddMedicationEvent(
                           medicationNameController.text,
                           int.parse(medicationDaysController.text),
@@ -282,23 +279,6 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
 
                       Navigator.pop(context);
                     },
-                    child: Container(
-                      height: context.getHeight() * 0.04,
-                      width: context.getWidth() * 0.3,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ColorPaltte().newDarkBlue,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Add',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: ColorPaltte().white),
-                        ),
-                      ),
-                    ),
                   ),
                 ),
                 TextButton(

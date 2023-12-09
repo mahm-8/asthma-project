@@ -53,7 +53,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
               height: 100,
             ),
             ButtonWidget(
-              onPress: updateSize,
+              onPress: circleSize,
               widget: playControlButton(),
             ),
           ],
@@ -62,10 +62,9 @@ class _BreathingScreenState extends State<BreathingScreen> {
     );
   }
 
-  void updateSize() {
+  void circleSize() {
     setState(() {
-      size = large ? 250.0 : 350.0;
-      large = !large;
+      circleHeight = 500;
     });
   }
 
