@@ -112,7 +112,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final supabaseClint = SupabaseNetworking().getSupabase;
 
     await Future.delayed(const Duration(seconds: 1), () async {
-      if (supabaseClint.auth.currentSession != null) {
+      if (supabaseClint.auth.currentUser?.emailConfirmedAt != null) {
+        print(supabaseClint.auth.currentUser);
         final token = supabaseClint.auth.currentSession?.accessToken;
         final isExp = supabaseClint.auth.currentSession!.isExpired;
         if (token != null) {

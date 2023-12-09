@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
-
-import 'dart:io';
-
+import 'package:asthma/Screens/profile/edit_profile.dart';
+import 'package:asthma/Screens/profile/widget/info.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:flutter/material.dart';
@@ -13,17 +13,36 @@ import '../../blocs/user_bloc/user_bloc.dart';
 class Profile extends StatelessWidget {
   Profile({super.key});
   final ImagePicker picker = ImagePicker();
-
+  TextEditingController? phoneController = TextEditingController();
+  TextEditingController? nameController = TextEditingController();
+  TextEditingController? ageController = TextEditingController();
+  TextEditingController? birthdayController = TextEditingController();
+  TextEditingController? genderController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
+    getControllerValue(context: context);
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.transparent,
-          actions: [Icon(Icons.mode_edit_outline_sharp)],
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.mode_edit_outline_sharp),
+              onPressed: () {
+                context.push(
+                    view: EditProfile(
+                        phoneController: phoneController!,
+                        nameController: nameController!,
+                        ageController: ageController!,
+                        birthdayController: birthdayController!,
+                        genderController: genderController!));
+              },
+            )
+          ],
         ),
         backgroundColor: ColorPaltte().newDarkBlue,
         body: BlocBuilder<UserBloc, UserState>(
@@ -50,83 +69,12 @@ class Profile extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.6,
                         child: TabBarView(
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                      height: context.getHeight(divide: 6)),
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    color: ColorPaltte().white,
-                                    child: ListTile(
-                                      title: Text(
-                                        "Phone",
-                                        style: TextStyle(
-                                            color: ColorPaltte().darkBlue,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      subtitle: Text(
-                                        bloc.user!.phone!,
-                                        style: TextStyle(
-                                          color: ColorPaltte().darkBlue,
-                                        ),
-                                      ),
-                                      leading: const Icon(Icons.phone),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Card(
-                                    color: ColorPaltte().white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    child: ListTile(
-                                      title: Text(
-                                        "city",
-                                        style: TextStyle(
-                                            color: ColorPaltte().darkBlue,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      subtitle: Text("riyadh",
-                                          style: TextStyle(
-                                            color: ColorPaltte().darkBlue,
-                                          )),
-                                      leading: const Icon(Icons.location_on),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Card(
-                                    color: ColorPaltte().white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                    child: ListTile(
-                                      title: Text(
-                                        "birthday",
-                                        style: TextStyle(
-                                            color: ColorPaltte().darkBlue,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      subtitle: Text(
-                                        "1995-07-07",
-                                        style: TextStyle(
-                                            color: ColorPaltte().darkBlue,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      leading: const Icon(Icons.calendar_month),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
+                            CardInfo(
+                                phone: bloc.user!.phone!,
+                                birthday: bloc.user!.dob!,
+                                email: bloc.user!.email!,
+                                age: bloc.user!.age!,
+                                gender: bloc.user!.gender!),
                             const Center(
                               child: Text("It's rainy here"),
                             ),
@@ -139,8 +87,8 @@ class Profile extends StatelessWidget {
                     ],
                   ),
                   Positioned(
-                    left: 20,
-                    top: 200,
+                    left: context.getWidth(divide: 20),
+                    top: context.getHeight(divide: 10),
                     child: Container(
                       padding: const EdgeInsets.only(top: 60),
                       decoration: BoxDecoration(
@@ -177,8 +125,8 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 145,
-                    top: 150,
+                    left: context.getWidth(divide: 2.7),
+                    top: context.getHeight(divide: 25),
                     child: ClipOval(
                       child: InkWell(
                         onTap: () async {
@@ -190,7 +138,6 @@ class Profile extends StatelessWidget {
                           context
                               .read<UserBloc>()
                               .add(UploadeImageEvent(imageFile));
-                          print(imageFile);
                         },
                         child: BlocConsumer<UserBloc, UserState>(
                           listener: (context, state) {
@@ -203,6 +150,12 @@ class Profile extends StatelessWidget {
                                     );
                                   });
                             }
+                          },
+                          buildWhen: (oldState, newState) {
+                            if (newState is UploadImageState) {
+                              return true;
+                            }
+                            return false;
                           },
                           builder: (context, state) {
                             if (state is UploadImageState) {
@@ -235,5 +188,14 @@ class Profile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  getControllerValue({required BuildContext context}) {
+    final bloc = context.read<UserBloc>();
+    nameController!.text = bloc.user!.name ?? "";
+    phoneController!.text = bloc.user!.phone ?? "";
+    ageController!.text = bloc.user!.age ?? "";
+    birthdayController!.text = bloc.user!.dob ?? "";
+    genderController!.text = bloc.user!.gender ?? "";
   }
 }

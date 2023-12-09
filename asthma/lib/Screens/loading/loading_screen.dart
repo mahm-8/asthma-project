@@ -1,3 +1,4 @@
+import 'package:asthma/Screens/HomeScreen/home_screen.dart';
 import 'package:asthma/Screens/NavBar/nav_bar.dart';
 import 'package:asthma/Screens/auth/login_screen.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
@@ -14,12 +15,13 @@ class LoadingScreen extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       buildWhen: (oldState, newState) {
         if (newState is CheckLoginState) {
-          context.read<UserBloc>().add(LoadUserData());
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const NavigatorBarScreen()),
-              (route) => false);
+          //context.read<UserBloc>().add(LoadUserData());
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                (route) => false);
+          });
         } else if (newState is ErrorChecktate) {
           Navigator.pushAndRemoveUntil(
               context,

@@ -1,6 +1,5 @@
 part of 'user_bloc.dart';
 
-@immutable
 abstract class UserState {}
 
 class UserInitial extends UserState {}
@@ -15,8 +14,15 @@ class UploadImageState extends UserState {
   UploadImageState(this.url);
 }
 
-class ErrorUploadState extends UserState {
+class SuccessUpdateState extends UserState {}
+
+class ErrorUpdateState extends UserState {
   final String msg;
 
+  ErrorUpdateState({required this.msg});
+}
+
+class ErrorUploadState extends UserState {
+  final String msg;
   ErrorUploadState(this.msg);
 }
