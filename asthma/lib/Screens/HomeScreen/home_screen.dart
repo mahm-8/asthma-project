@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:asthma/Models/location_model.dart';
+import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/air_quality.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/medication_reminder.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/nerest_hospital.dart';
+
 import 'package:asthma/Screens/breathing/breathing_screen.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
 import 'package:asthma/Screens/profile/profile.dart';
-import 'package:asthma/Screens/symptoms/add_symptoms_screen.dart';
+
 import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:asthma/constants/colors.dart';
@@ -186,6 +188,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Text('Terms of Service | Privacy Policy'),
                   ),
                 ),
+                SizedBox(
+                  height: 75,
+                  width: context.getWidth(),
+                  child: InkWell(
+                    onTap: () {
+                      context.push(view: SymptomTrackerScreen());
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      color: ColorPaltte().newDarkBlue,
+                      child: const Center(
+                          child: Text(
+                        'Add Symptoms',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            color: Colors.white),
+                      )),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -272,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: context.getWidth(),
                       child: InkWell(
                         onTap: () {
-                          context.push(view: const AddSymptomsScreen());
+                          context.push(view: SymptomTrackerScreen());
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(

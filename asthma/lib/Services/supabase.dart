@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:asthma/Models/location_model.dart';
@@ -9,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 List<LocationModel> allHospetal = [];
+List<MedicationModel> allMedication = [];
+List<SymptomsModel> allSymptoms = [];
 
 class SupabaseServer {
   final supabase = Supabase.instance.client;
@@ -24,24 +25,24 @@ class SupabaseServer {
     return allHospetal;
   }
 
-  Future<List<MedicationModel>> getMedication() async {
+  getMedication() async {
     final data = await supabase.from("medication").select("*");
     print(data);
-    List<MedicationModel> medicationsList = [];
+
     for (var element in data) {
-      medicationsList.add(MedicationModel.fromJson(element));
+      allMedication.add(MedicationModel.fromJson(element));
     }
-    return medicationsList;
+    return allMedication;
   }
 
-  Future<List<SymptomsModel>> getSymptoms() async {
+  getSymptoms() async {
     final data = await supabase.from("symptoms").select("*");
     print(data);
-    List<SymptomsModel> symptomsList = [];
+
     for (var element in data) {
-      symptomsList.add(SymptomsModel.fromJson(element));
+      allSymptoms.add(SymptomsModel.fromJson(element));
     }
-    return symptomsList;
+    return allSymptoms;
   }
 
   addMedication(Map body) async {
@@ -52,12 +53,18 @@ class SupabaseServer {
     await supabase.from("symptoms").insert(body).select();
   }
 
+  deleteMedication({required int? id}) async {
+    await supabase.from("medication").delete().eq('id', id);
+  }
+
+  deleteSymptom({required int id}) async {
+    await supabase.from("symptoms").delete().eq('id', id);
+  }
+
   saveCaptrueImage(Uint8List pathImagefile) async {
     final supabase = Supabase.instance.client;
     final response = await supabase.storage.from('captrue_image').uploadBinary(
         'image${DateTime.now().millisecondsSinceEpoch}.png', pathImagefile);
     print(response);
   }
-
- 
 }

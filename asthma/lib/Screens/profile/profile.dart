@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import 'dart:io';
+
 
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
@@ -23,7 +23,7 @@ class Profile extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          actions: [Icon(Icons.mode_edit_outline_sharp)],
+          actions: const [Icon(Icons.mode_edit_outline_sharp)],
         ),
         backgroundColor: ColorPaltte().newDarkBlue,
         body: BlocBuilder<UserBloc, UserState>(

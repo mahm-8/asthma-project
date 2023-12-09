@@ -3,8 +3,6 @@ import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/Screens/loading/loading_screen.dart';
 
 import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/Screens/NavBar/nav_bar.dart';
-import 'package:asthma/Screens/auth/signup_screen.dart';
 
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
@@ -42,11 +40,7 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-
         home: const LoadingScreen(),
-
-        
-
         theme: ThemeData(useMaterial3: false),
       ),
     );
