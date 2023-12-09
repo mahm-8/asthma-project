@@ -34,6 +34,18 @@ final class SuccessVerificationState extends AuthState {}
 
 final class LoginSuccessState extends AuthState {}
 
+final class LogoutSuccessState extends AuthState {}
+
+final class ErrorLogoutState extends AuthState {
+  final String msg;
+
+  ErrorLogoutState(this.msg);
+}
+
 class CheckLoginState extends AuthState {}
 
-class ErrorChecktate extends AuthState {}
+class ErrorCheckState extends AuthState {}
+
+final class ValidSignUpState extends AuthState {}
+
+final class ValidLoginState extends AuthState {}

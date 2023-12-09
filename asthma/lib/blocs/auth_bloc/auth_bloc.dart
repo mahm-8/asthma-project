@@ -14,18 +14,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   UserModel? user;
   AuthBloc() : super(AuthInitial()) {
     on<SignUpAuthEvent>(signUpMethod);
-    on<DisplayPasswordEvent>((event, emit) {
-      if (event.display == true) {
-        event.display = false;
-        emit(DisplayState(display: event.display));
-      } else {
-        event.display = true;
-        emit(DisplayState(display: event.display));
-      }
-    });
+    on<DisplayPasswordEvent>(displayPass);
     on<LogInAuthEvent>(loginMethod);
     on<VerificationEvent>(verificationMethod);
     on<CheckLoginEvent>(_check);
+    on<LogoutEvent>(logoutMethod);
   }
   validation({required GlobalKey<FormState> keyForm}) {
     if (!keyForm.currentState!.validate()) {
@@ -51,6 +44,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           phone: event.phone,
         );
         emit(SignUpSuccessState());
+      } else {
+        emit(ValidSignUpState());
       }
     } catch (e) {
       return;
@@ -100,11 +95,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else if (login.user?.id == null) {
           emit(ErrorState("Wrong!!!!1"));
         }
+      } else {
+        emit(ValidLoginState());
       }
-    } on AuthException catch (e) {
+    } on AuthException {
       emit(ErrorState("Password or email wrong"));
     } catch (e) {
-      emit(ErrorState("bgh"));
+      return;
     }
   }
 
@@ -127,11 +124,33 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(CheckLoginState());
           }
         } else {
-          emit(ErrorChecktate());
+          emit(ErrorCheckState());
         }
       } else {
-        emit(ErrorChecktate());
+        emit(ErrorCheckState());
       }
     });
+  }
+
+  FutureOr<void> displayPass(
+      DisplayPasswordEvent event, Emitter<AuthState> emit) {
+    if (event.display == true) {
+      event.display = false;
+      emit(DisplayState(display: event.display));
+    } else {
+      event.display = true;
+      emit(DisplayState(display: event.display));
+    }
+  }
+
+  FutureOr<void> logoutMethod(
+      LogoutEvent event, Emitter<AuthState> emit) async {
+    try {
+      final supabase = SupabaseNetworking().getSupabase;
+      await supabase.auth.signOut();
+      emit(LogoutSuccessState());
+    } catch (error) {
+      emit(ErrorLogoutState(error.toString()));
+    }
   }
 }

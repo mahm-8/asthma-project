@@ -6,6 +6,7 @@ import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
 import 'package:asthma/Screens/auth/widgets/text_form_widget.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/loading_extension.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:asthma/extensions/validtor.dart';
@@ -140,7 +141,12 @@ class SignupScreen extends StatelessWidget {
                   BlocBuilder<AuthBloc, AuthState>(
                     buildWhen: (oldStete, newState) {
                       if (newState is SignUpSuccessState) {
-                        context.push(view:  OtpScreen(email: emailController.text,));
+                        context.push(
+                            view: OtpScreen(
+                          email: emailController.text,
+                        ));
+                      } else if (newState is ValidSignUpState) {
+                        Navigator.of(context).pop();
                       }
                       return false;
                     },
@@ -157,6 +163,7 @@ class SignupScreen extends StatelessWidget {
                               _emailKey,
                               _passwordKey,
                               _phoneKey));
+                          context.showLoading();
                         },
                       );
                     },
