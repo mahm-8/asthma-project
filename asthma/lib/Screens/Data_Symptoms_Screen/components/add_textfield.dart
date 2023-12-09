@@ -41,7 +41,7 @@ class AddTextfield extends StatelessWidget {
             height: 8,
           ),
           Container(
-            alignment: Alignment.center,
+            alignment: Alignment.topLeft,
             width: fieldWidth,
             height: fieldHeight,
             decoration: BoxDecoration(

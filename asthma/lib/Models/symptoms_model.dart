@@ -6,7 +6,7 @@ class SymptomsModel {
   String? symptomDetails;
 
   SymptomsModel({
-    this.symptomID,
+     this.symptomID,
     this.userID,
     this.symptomName,
     this.symptomIntensity,

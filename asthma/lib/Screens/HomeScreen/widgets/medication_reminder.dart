@@ -1,4 +1,4 @@
-import 'package:asthma/Screens/medication/add_medication_screen.dart';
+import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,7 @@ class _MedicationReminderState extends State<MedicationReminder> {
               const Spacer(),
               TextButton(
                   onPressed: () {
-                    context.push(view: const AddMedicationScreen());
+                    context.push(view: const MedicationTrackerScreen());
                   },
                   child: Text(
                     'Add Medication',

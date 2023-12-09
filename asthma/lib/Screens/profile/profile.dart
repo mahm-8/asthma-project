@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'package:asthma/Screens/profile/edit_profile.dart';
 import 'package:asthma/Screens/profile/widget/info.dart';
+
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
@@ -29,6 +31,7 @@ class Profile extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
+
           actions: [
             IconButton(
               icon: const Icon(Icons.mode_edit_outline_sharp),
@@ -43,6 +46,7 @@ class Profile extends StatelessWidget {
               },
             )
           ],
+
         ),
         backgroundColor: ColorPaltte().newDarkBlue,
         body: BlocBuilder<UserBloc, UserState>(
