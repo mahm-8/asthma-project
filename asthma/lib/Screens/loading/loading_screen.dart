@@ -22,7 +22,7 @@ class LoadingScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const HomeScreen()),
                 (route) => false);
           });
-        } else if (newState is ErrorChecktate) {
+        } else if (newState is ErrorCheckState) {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => LoginScreen()),

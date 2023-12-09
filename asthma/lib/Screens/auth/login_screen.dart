@@ -8,6 +8,7 @@ import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
 import 'package:asthma/Screens/auth/widgets/text_form_widget.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/loading_extension.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:asthma/extensions/validtor.dart';
@@ -130,10 +131,13 @@ class LoginScreen extends StatelessWidget {
                         return BlocListener<AuthBloc, AuthState>(
                           listener: (context, state) {
                             if (state is LoginSuccessState) {
-                              context.pushAndRemoveUntil(view: HomeScreen());
+                              context.pushAndRemoveUntil(
+                                  view: const HomeScreen());
                             } else if (state is ErrorState) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(state.message)));
+                              Navigator.of(context).pop();
+                              context.showErrorMessage(msg: state.message);
+                            } else if (state is ValidLoginState) {
+                              Navigator.of(context).pop();
                             }
                           },
                           child: ButtonAuthWidget(
@@ -143,6 +147,7 @@ class LoginScreen extends StatelessWidget {
                                   password: passwordController.text,
                                   emailKey: _emailKey,
                                   passwordKey: _passwordKey));
+                              context.showLoading();
                             },
                             text: 'Login',
                           ),

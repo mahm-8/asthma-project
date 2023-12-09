@@ -1,6 +1,7 @@
 import 'package:asthma/Screens/NavBar/nav_bar.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/loading_extension.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:asthma/extensions/text.dart';
@@ -56,8 +57,8 @@ class OtpScreen extends StatelessWidget {
                       if (state is SuccessVerificationState) {
                         context.pushAndRemoveUntil(view: const HomeScreen());
                       } else if (state is ErrorVerificationState) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(state.message)));
+                        Navigator.of(context).pop();
+                        context.showErrorMessage(msg: state.message);
                       }
                     },
                     child: Pinput(
@@ -67,6 +68,7 @@ class OtpScreen extends StatelessWidget {
                         context
                             .read<AuthBloc>()
                             .add(VerificationEvent(otp: pin, email: email));
+                        context.showLoading();
                       },
                     ),
                   ),
