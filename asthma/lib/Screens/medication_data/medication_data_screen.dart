@@ -30,12 +30,6 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
       medicationDaysController = TextEditingController();
 
   @override
-  void initState() {
-    context.read<AsthmaBloc>().add(GetMedicationDataEvent());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -135,8 +129,9 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                             textEntry3: "start date: ${medication.date}",
                             deleteTap: () {
                               context.read<AsthmaBloc>().add(
-                                  DeleteMedicationEvent(
-                                      id: medication.medicationID!));
+                                    DeleteMedicationEvent(
+                                        id: medication.medicationID!),
+                                  );
                             },
                           );
                         },
@@ -187,16 +182,10 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "Add Medication",
-                  style: TextStyle(
-                      color: ColorPaltte().newDarkBlue,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800),
-                ),
+            
                 const SizedBox(height: 16),
                 AddTextfield(
                   label: 'Medication Name',

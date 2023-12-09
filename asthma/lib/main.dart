@@ -1,4 +1,5 @@
 import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
+import 'package:asthma/Screens/breathing/size_animate.dart';
 import 'package:asthma/Screens/loading/loading_screen.dart';
 
 import 'package:asthma/Screens/HomeScreen/home_screen.dart';
@@ -40,7 +41,7 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const LoadingScreen(),
+        home: const HomeScreen(),
         theme: ThemeData(useMaterial3: false),
       ),
     );

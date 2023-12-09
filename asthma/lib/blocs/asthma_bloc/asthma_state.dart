@@ -25,9 +25,6 @@ final class SuccessAddSymptomState extends AsthmaState {}
 
 final class SuccessAddMedicationState extends AsthmaState {}
 
-final class SuccessDeleteState extends AsthmaState {
-  
-}
 
 
 final class SucsessMessageState extends AsthmaState {

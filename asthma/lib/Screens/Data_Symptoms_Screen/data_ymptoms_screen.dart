@@ -28,12 +28,6 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
       TextEditingController();
 
   @override
-  void initState() {
-    context.read<AsthmaBloc>().add(GetSymptomDataEvent());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
