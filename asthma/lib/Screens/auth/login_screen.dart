@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:asthma/Screens/HomeScreen/home_screen.dart';
 import 'package:asthma/Screens/NavBar/nav_bar.dart';
 import 'package:asthma/Screens/auth/otp_screen.dart';
 import 'package:asthma/Screens/auth/signup_screen.dart';
@@ -129,8 +130,7 @@ class LoginScreen extends StatelessWidget {
                         return BlocListener<AuthBloc, AuthState>(
                           listener: (context, state) {
                             if (state is LoginSuccessState) {
-                              context.pushAndRemoveUntil(
-                                  view: NavigatorBarScreen());
+                              context.pushAndRemoveUntil(view: HomeScreen());
                             } else if (state is ErrorState) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text(state.message)));
