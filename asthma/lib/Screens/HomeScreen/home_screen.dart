@@ -141,9 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.black26,
                     shape: BoxShape.circle,
                   ),
-                  child: Image.asset(
-                    'assets/images/flutter_logo.png',
-                  ),
+                  child: const Icon(Icons.person_outline),
                 ),
                 ListTile(
                   onTap: () {

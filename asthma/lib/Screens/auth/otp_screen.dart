@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 
+import '../HomeScreen/home_screen.dart';
+
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key, required this.email});
   final String email;
@@ -52,8 +54,7 @@ class OtpScreen extends StatelessWidget {
                   BlocListener<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state is SuccessVerificationState) {
-                        context.pushAndRemoveUntil(
-                            view: const NavigatorBarScreen());
+                        context.pushAndRemoveUntil(view: const HomeScreen());
                       } else if (state is ErrorVerificationState) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.message)));
