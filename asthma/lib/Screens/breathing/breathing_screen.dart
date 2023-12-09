@@ -1,8 +1,12 @@
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/screen_dimensions.dart';
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'audio_controls/audio_controls.dart';
 import 'componnets/audio_circles.dart';
 import 'componnets/button_widget.dart';
+import 'audio_controls/progress_bar_widget.dart';
 
 class BreathingScreen extends StatefulWidget {
   const BreathingScreen({super.key});
@@ -12,7 +16,7 @@ class BreathingScreen extends StatefulWidget {
 }
 
 class _BreathingScreenState extends State<BreathingScreen> {
-  final _player = AudioPlayer();
+  final player = AudioPlayer();
   @override
   void initState() {
     super.initState();
@@ -33,7 +37,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
             )),
         Positioned(
             left: -185,
-            top: 255,
+            top: 235,
             child: Image.asset(
               "lib/assets/images/stack_background.png",
               color: ColorPaltte().newlightBlue,
@@ -42,19 +46,22 @@ class _BreathingScreenState extends State<BreathingScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 250,
+              height: 200,
             ),
-            // audio timer inside the circles stack
-            // Text(_player.duration.toString());
-            const AudioCircles(),
-            // Text(_player.duration?.inSeconds.toString() ?? ''),
-
+            const SizedBox(height: 400, child: AudioCircles()),
             const SizedBox(
-              height: 100,
+              height: 75,
+            ),
+            SizedBox(
+              width: context.getWidth(divide: 1.5),
+              child: ProgressBarWidget(player: player),
+            ),
+            const SizedBox(
+              height: 15,
             ),
             ButtonWidget(
               onPress: circleSize,
-              widget: playControlButton(),
+              widget: AudioControlWidgets(player: player),
             ),
           ],
         ),
@@ -64,59 +71,24 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
   void circleSize() {
     setState(() {
-      circleHeight = 500;
+      backCircleHeight - 300;
+      middleCircleHeight = 170;
+      frontCircleHeight - 120;
     });
   }
 
   Future<void> setupAudioPlyer() async {
-    _player.playbackEventStream.listen((event) {
+    player.playbackEventStream.listen((event) {
       print('Playback event: $event');
     }, onError: (Object e, StackTrace stacktrace) {
       print("audio stream error: $e");
     });
 
     try {
-      _player.setAudioSource(
+      player.setAudioSource(
           AudioSource.asset('lib/assets/audio/Breathing_Exercise.mp3'));
     } catch (e) {
       print("error loading audio: $e");
     }
-  }
-
-  Widget playControlButton() {
-    return StreamBuilder<PlayerState>(
-        stream: _player.playerStateStream,
-        builder: (context, snapshot) {
-          final processingState = snapshot.data?.processingState;
-          final playing = snapshot.data?.playing;
-          if (processingState == ProcessingState.loading ||
-              processingState == ProcessingState.buffering) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (playing != true) {
-            return TextButton(
-              onPressed: _player.play,
-              child: const Text(
-                "Start",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            );
-          } else if (processingState != ProcessingState.completed) {
-            return TextButton(
-                onPressed: _player.pause,
-                child: const Text(
-                  "Pause",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ));
-          } else {
-            return TextButton(
-                onPressed: () => _player.seek(Duration.zero),
-                child: const Text(
-                  "Replay",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ));
-          }
-        });
   }
 }

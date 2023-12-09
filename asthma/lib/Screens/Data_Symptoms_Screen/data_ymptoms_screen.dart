@@ -110,8 +110,10 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                 ),
               ],
             ),
+          
             BlocBuilder<AsthmaBloc, AsthmaState>(
               builder: (context, state) {
+             
                 if (state is SuccessGetSymptomState) {
                   if (state.symptoms.isNotEmpty) {
                     return Expanded(
