@@ -43,7 +43,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       await supabase.storage.from('profile_image').uploadBinary(
           '$idAuth/$time.png', event.image,
           fileOptions: const FileOptions(upsert: true));
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 1));
       final upload = supabase.storage
           .from('profile_image')
           .getPublicUrl('$idAuth/$time.png');
