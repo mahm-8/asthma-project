@@ -8,6 +8,18 @@ class AirQuality extends StatelessWidget {
     super.key,
   });
 
+  getAirQualityStatus(double? airValue ) {
+    if (airValue! >= 0 && airValue <= 50) {
+      return 'good';
+    } else if (airValue >= 51 && airValue <= 100) {
+      return 'moderate';
+    } else if (airValue >= 100 && airValue <= 200) {
+      return 'unhealthy';
+    } else {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +52,7 @@ class AirQuality extends StatelessWidget {
               width: 8,
             ),
             Text(
-              ' normal',
+              getAirQualityStatus(value!).toString(),
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
@@ -68,7 +80,7 @@ class AirQuality extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () async {
-                              Uri tel = Uri.parse('tel:+966 507 625 994');
+                              Uri tel = Uri.parse('tel:997');
                               await launchUrl(tel);
                               Navigator.of(context).pop();
                             },
