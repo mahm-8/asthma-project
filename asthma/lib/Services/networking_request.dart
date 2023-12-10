@@ -4,7 +4,7 @@ import 'networking_api.dart';
 Future<UserModel?> getUserProfile() async {
   try {
     final supabase = SupabaseNetworking().getSupabase;
-    // await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 2));
     final userProfile = await supabase
         .from("users")
         .select()

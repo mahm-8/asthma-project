@@ -3,6 +3,7 @@ import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
 import 'package:asthma/Screens/profile/method/date_time_widget.dart';
 import 'package:asthma/Screens/profile/widget/edit_text_field.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
+import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,12 @@ class EditProfile extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: ColorPaltte().darkBlue,
+          elevation: 0,
+          title: Text("Edit Profile"),
+          centerTitle: true,
+        ),
         body: SafeArea(
             child: ListView(
           children: [
@@ -46,6 +52,7 @@ class EditProfile extends StatelessWidget {
             EditTextField(
               label: "birthday",
               hint: "1900/12/31",
+              keyboardType: TextInputType.datetime,
               controller: birthdayController,
               isFelid: false,
               onTap: () => showDatePickerWidget(
