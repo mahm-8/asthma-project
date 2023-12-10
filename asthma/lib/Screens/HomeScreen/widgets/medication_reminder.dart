@@ -117,7 +117,7 @@ class _MedicationReminderState extends State<MedicationReminder> {
             ),
           ),
 
-          //add medications name, how many 
+          //add medications name, how many
           Padding(
             padding: const EdgeInsets.only(left: 8, bottom: 8),
             child: Text(

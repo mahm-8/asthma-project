@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioControlWidgets extends StatelessWidget {
-  const AudioControlWidgets({
+  AudioControlWidgets({
     super.key,
     required this.player,
   });
@@ -24,28 +24,35 @@ class AudioControlWidgets extends StatelessWidget {
           } else if (playing != true) {
             return TextButton(
               onPressed: player.play,
-              child: const Text(
-                "Start",
-                style: TextStyle(color: Colors.white, fontSize: 18),
+              child: const Icon(
+                Icons.play_arrow_rounded,
+                size: 30,
+                color: Colors.white,
               ),
+              // Text(
+              //   "Start",
+              //   style: TextStyle(color: Colors.white, fontSize: 18),
+              // ),
             );
           } else if (processingState != ProcessingState.completed) {
             return TextButton(
-                onPressed: player.pause,
-                child: const Text(
-                  "Stop",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ));
+              onPressed: player.pause,
+              child: const Icon(
+                Icons.pause,
+                size: 30,
+                color: Colors.white,
+              ),
+            );
           } else {
             return TextButton(
-                onPressed: () => player.seek(Duration.zero),
-                child: const Text(
-                  "Replay",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ));
+              onPressed: () => player.seek(Duration.zero),
+              child: const Icon(
+                Icons.replay,
+                size: 30,
+                color: Colors.white,
+              ),
+            );
           }
         });
   }
 }
-
-
