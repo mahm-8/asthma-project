@@ -26,7 +26,7 @@ class EditProfile extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: ColorPaltte().darkBlue,
+          backgroundColor: ColorPaltte().newDarkBlue,
           elevation: 0,
           title: Text("Edit Profile"),
           centerTitle: true,

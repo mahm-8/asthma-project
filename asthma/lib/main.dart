@@ -1,6 +1,4 @@
-
 import 'package:asthma/Screens/loading/loading_screen.dart';
-
 
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:asthma/Screens/loading/loading_screen.dart';
@@ -43,11 +41,10 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-            useMaterial3: false,
-            scaffoldBackgroundColor: ColorPaltte().newDarkBlue),
+          useMaterial3: false,
+        ),
         debugShowCheckedModeBanner: false,
         home: const LoadingScreen(),
-
       ),
     );
   }
