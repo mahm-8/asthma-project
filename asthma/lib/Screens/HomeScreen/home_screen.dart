@@ -2,15 +2,14 @@ import 'dart:convert';
 import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/air_quality.dart';
-import 'package:asthma/Screens/HomeScreen/widgets/medication_reminder.dart';
+import 'package:asthma/Screens/HomeScreen/widgets/container_widget.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/nerest_hospital.dart';
-
 import 'package:asthma/Screens/breathing/breathing_screen.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
 import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
 import 'package:asthma/Screens/profile/profile.dart';
-
 import 'package:asthma/Services/supabase.dart';
+import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/navigator.dart';
@@ -21,9 +20,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import '../../Services/networking_request.dart';
+import 'package:geocoding/geocoding.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
-double? value;
+double? value = 0.0;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
+    SupabaseServer().getHospitalData();
   }
 
   Future<void> getCurrentLocation() async {
@@ -74,12 +75,18 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       print(e);
     }
+
     final country = 'AR';
     final city = 'Buenos Aires';
-    final airQualityData = await airQualityMethod(country, city);
+    // List<Placemark> placemarks = await placemarkFromCoordinates(
+    //   currentLocation!.altitude,
+    //   currentLocation!.longitude,
+    // );
+    // print('ssssssssssssssssssssss$placemarks');
+    await airQualityMethod(country, city);
   }
 
-  findNearestLocations() {
+  Future findNearestLocations() async {
     if (currentLocation != null) {
       nearestLocations = [];
       for (var location in allHospetal) {
@@ -92,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
         location.distance = distance;
         nearestLocations.add(location);
       }
+
       nearestLocations.sort((a, b) => a.distance!.compareTo(b.distance!));
       nearestLocations = nearestLocations.take(5).toList();
       setState(() {});
@@ -102,7 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
-    SupabaseServer().getHospitalData();
     return AdvancedDrawer(
       backdrop: Container(
         width: double.infinity,
@@ -132,19 +139,23 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: 128.0,
-                  height: 128.0,
-                  margin: const EdgeInsets.only(
-                    top: 24.0,
-                    bottom: 64.0,
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    color: Colors.black26,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.person_outline),
+                BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) {
+                    return Container(
+                      width: 128.0,
+                      height: 128.0,
+                      margin: const EdgeInsets.only(
+                        top: 24.0,
+                        bottom: 64.0,
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        color: Colors.black26,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.network(bloc.user!.image!),
+                    );
+                  },
                 ),
                 ListTile(
                   onTap: () {
@@ -162,17 +173,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   onTap: () {
-                    context.push(view: const ChatGPT());
-                  },
-                  leading: const Icon(Icons.chat_bubble_outline_outlined),
-                  title: const Text('ChatGPT'),
-                ),
-                ListTile(
-                  onTap: () {
                     context.push(view: Profile());
                   },
                   leading: const Icon(Icons.person_outline_outlined),
                   title: const Text('Profile'),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.read<AuthBloc>().add(LogoutEvent());
+                    showDialog(
+                        context: context,
+                        builder: (context) => const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            ));
+                  },
+                  leading: const Icon(Icons.login_outlined),
+                  title: const Text('LogOut'),
                 ),
                 const Spacer(),
                 DefaultTextStyle(
@@ -185,28 +201,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       vertical: 16.0,
                     ),
                     child: const Text('Terms of Service | Privacy Policy'),
-                  ),
-                ),
-                SizedBox(
-                  height: 75,
-                  width: context.getWidth(),
-                  child: InkWell(
-                    onTap: () {
-                      context.push(view: const SymptomTrackerScreen());
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      color: ColorPaltte().newDarkBlue,
-                      child: const Center(
-                          child: Text(
-                        'Add Symptoms',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Colors.white),
-                      )),
-                    ),
                   ),
                 ),
               ],
@@ -237,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Stack(
           children: [
             Container(
-              height: context.getHeight() * 0.14,
+              height: context.getHeight() * 0.29,
               width: context.getWidth(),
               decoration: BoxDecoration(
                   color: ColorPaltte().newDarkBlue,
@@ -269,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         BlocBuilder<UserBloc, UserState>(
                           builder: (context, state) {
                             return Text(
-                              'bloc.user!.name!',
+                              bloc.user!.name!,
                               style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w800,
@@ -286,75 +280,46 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // const MedicationReminder(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Container(
-                        //   alignment: Alignment.center,
-                        //   height: 175,
-                        //   width: 175,
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       color: ColorPaltte().newlightBlue),
-                        //   child: const Text("Symptoms"),
-                        // ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MedicationTrackerScreen()));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 175,
-                            width: 175,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: ColorPaltte().newlightBlue),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                //image
-                                Text(
-                                  "Medication",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorPaltte().darkBlue),
-                                ),
-                              ],
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 16,
+                        children: [
+                          ContainerWidget(
+                            imageurl: 'lib/assets/images/Chatbot-pana.png',
+                            title: 'Helper',
+                            onTap: () {
+                              context.push(view: ChatGPT());
+                            },
                           ),
-                        ),
-                      ],
+                          ContainerWidget(
+                            imageurl:
+                                'lib/assets/images/Breathingexercise-rafiki1.png',
+                            title: 'Breathing',
+                            onTap: () {
+                              context.push(view: BreathingScreen());
+                            },
+                          ),
+                          ContainerWidget(
+                            imageurl: 'lib/assets/images/Inhaller1-bro.png',
+                            title: 'medicine',
+                            onTap: () {
+                              context.push(view: MedicationTrackerScreen());
+                            },
+                          ),
+                          ContainerWidget(
+                            imageurl: 'lib/assets/images/Asymptomatic-bro.png',
+                            title: 'Asymptom',
+                            onTap: () {
+                              context.push(view: SymptomTrackerScreen());
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 15,
-                    ),
-                    SizedBox(
-                      height: 75,
-                      width: context.getWidth(),
-                      child: InkWell(
-                        onTap: () {
-                          context.push(view: const SymptomTrackerScreen());
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          color: ColorPaltte().newDarkBlue,
-                          child: const Center(
-                              child: Text(
-                            'Add Symptoms',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
-                                color: Colors.white),
-                          )),
-                        ),
-                      ),
                     ),
                     const SizedBox(
                       height: 15,

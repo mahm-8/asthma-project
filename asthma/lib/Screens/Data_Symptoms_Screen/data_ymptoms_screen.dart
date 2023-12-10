@@ -1,17 +1,17 @@
 import 'dart:typed_data';
 import 'package:asthma/Screens/Data_Symptoms_Screen/components/add_textfield.dart';
+import 'package:asthma/Screens/Data_Symptoms_Screen/methods/symptoms.dart';
 import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
 import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
 import 'package:asthma/Services/supabase.dart';
-import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:asthma/Services/supabase.dart';
+
+Widget? barcode;
+String? imageUrl;
 
 class SymptomTrackerScreen extends StatefulWidget {
   const SymptomTrackerScreen({super.key});
@@ -69,8 +69,12 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                         InheritedTheme.captureAll(
                             context, Material(child: container)),
                         delay: const Duration(seconds: 1));
-                await SupabaseServer().saveCaptrueImage(capturedImage);
+                imageUrl =
+                    await SupabaseServer().saveCaptrueImage(capturedImage);
                 // saved(capturedImage);
+                if (imageUrl != '') {
+                  barcode = generateBarcode(imageUrl!);
+                }
               },
               icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
         ],
@@ -111,6 +115,12 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
               ],
             ),
             BlocBuilder<AsthmaBloc, AsthmaState>(
+              buildWhen: (oldState, newState) {
+                if (newState is SuccessGetSymptomState) {
+                  return true;
+                }
+                return false;
+              },
               builder: (context, state) {
                 if (state is SuccessGetSymptomState) {
                   if (state.symptoms.isNotEmpty) {

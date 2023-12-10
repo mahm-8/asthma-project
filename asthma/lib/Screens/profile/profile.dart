@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/Screens/auth/login_screen.dart';
 import 'package:asthma/Screens/profile/edit_profile.dart';
 import 'package:asthma/Screens/profile/widget/info.dart';
-
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/loading_extension.dart';
 import 'package:asthma/extensions/navigator.dart';
@@ -81,8 +81,19 @@ class Profile extends StatelessWidget {
                                 email: bloc.user!.email!,
                                 age: bloc.user!.age!,
                                 gender: bloc.user!.gender!),
-                            const Center(
-                              child: Text("It's rainy here"),
+                            SizedBox(
+                              width: 400,
+                              height: 200,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color.fromARGB(
+                                              255, 71, 34, 159),
+                                          width: 1.5),
+                                      borderRadius: BorderRadius.circular(16)),
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: barcode)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(

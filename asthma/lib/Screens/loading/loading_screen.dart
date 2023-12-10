@@ -15,7 +15,8 @@ class LoadingScreen extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       buildWhen: (oldState, newState) {
         if (newState is CheckLoginState) {
-          //context.read<UserBloc>().add(LoadUserData());
+          context.read<UserBloc>().add(LoadUserDataEvent());
+      
           Future.delayed(Duration(seconds: 2), () {
             Navigator.pushAndRemoveUntil(
                 context,

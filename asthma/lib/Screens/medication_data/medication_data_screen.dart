@@ -3,16 +3,12 @@ import 'package:asthma/Screens/Data_Symptoms_Screen/components/add_textfield.dar
 import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
 import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
 import 'package:asthma/Services/supabase.dart';
-import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pinput/pinput.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:asthma/Services/supabase.dart';
 
 class MedicationTrackerScreen extends StatefulWidget {
   const MedicationTrackerScreen({super.key});
