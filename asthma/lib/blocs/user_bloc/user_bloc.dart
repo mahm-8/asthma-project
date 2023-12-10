@@ -14,7 +14,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<LoadUserDataEvent>(getData);
     on<UploadeImageEvent>(saveProfileImage);
     on<UpdateUserEvent>(updateUser);
-   // add(LoadUserDataEvent());
+
   }
 
   FutureOr<void> getData(

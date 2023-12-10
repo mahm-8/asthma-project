@@ -107,29 +107,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _check(CheckLoginEvent event, Emitter<AuthState> emit) async {
     final supabaseClint = SupabaseNetworking().getSupabase;
-
-    await Future.delayed(const Duration(seconds: 1), () async {
-      if (supabaseClint.auth.currentUser?.emailConfirmedAt != null) {
-        print(supabaseClint.auth.currentUser);
-        final token = supabaseClint.auth.currentSession?.accessToken;
-        final isExp = supabaseClint.auth.currentSession!.isExpired;
-        if (token != null) {
-          print("token");
-          if (isExp) {
-            print("Exp");
-            await supabaseClint.auth
-                .setSession(supabaseClint.auth.currentSession!.refreshToken!);
-            emit(CheckLoginState());
-          } else {
-            emit(CheckLoginState());
-          }
+    await Future.delayed(Duration(seconds: 1));
+    if (supabaseClint.auth.currentUser?.emailConfirmedAt != null) {
+      print(supabaseClint.auth.currentUser);
+      final token = supabaseClint.auth.currentSession?.accessToken;
+      final isExp = supabaseClint.auth.currentSession!.isExpired;
+      if (token != null) {
+        print("token");
+        if (isExp) {
+          print("Exp");
+          await supabaseClint.auth
+              .setSession(supabaseClint.auth.currentSession!.refreshToken!);
+          emit(CheckLoginState());
         } else {
-          emit(ErrorCheckState());
+          emit(CheckLoginState());
         }
       } else {
         emit(ErrorCheckState());
       }
-    });
+    } else {
+      emit(ErrorCheckState());
+    }
   }
 
   FutureOr<void> displayPass(

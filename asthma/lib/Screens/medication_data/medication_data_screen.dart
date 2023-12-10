@@ -109,6 +109,13 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
               ],
             ),
             BlocBuilder<AsthmaBloc, AsthmaState>(
+              buildWhen: (oldState, newState) {
+                if (newState is SuccessGetMedicationState) {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
               builder: (context, state) {
                 if (state is SuccessGetMedicationState) {
                   if (state.medications.isNotEmpty) {
@@ -181,7 +188,6 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-            
                 const SizedBox(height: 16),
                 AddTextfield(
                   label: 'Medication Name',

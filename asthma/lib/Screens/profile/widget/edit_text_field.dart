@@ -27,7 +27,10 @@ class EditTextField extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(label),
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 18),
+            ),
           ),
           InkWell(
             onTap: !isFelid ? onTap : null,
@@ -47,16 +50,16 @@ class EditTextField extends StatelessWidget {
                     hintText: hint == "" ? label : hint,
                     focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(8)),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(8)),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(8)),
                     errorBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(8)),
                   ),
                 ),
               ),

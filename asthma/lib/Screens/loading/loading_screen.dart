@@ -16,8 +16,9 @@ class LoadingScreen extends StatelessWidget {
       buildWhen: (oldState, newState) {
         if (newState is CheckLoginState) {
           context.read<UserBloc>().add(LoadUserDataEvent());
-      
-          Future.delayed(Duration(seconds: 2), () {
+
+          Future.delayed(Duration(seconds: 5), () {
+
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomeScreen()),

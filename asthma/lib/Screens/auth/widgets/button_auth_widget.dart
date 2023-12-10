@@ -15,7 +15,7 @@ class ButtonAuthWidget extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          backgroundColor: ColorPaltte().darkBlue,
+          backgroundColor: ColorPaltte().newDarkBlue,
           minimumSize: Size(MediaQuery.of(context).size.width * 0.9, 50)),
       child: Text(
         text,

@@ -1,6 +1,10 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+
 import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
+
+import 'package:adaptive_theme/adaptive_theme.dart';
+
 import 'package:asthma/Screens/auth/login_screen.dart';
 import 'package:asthma/Screens/profile/edit_profile.dart';
 import 'package:asthma/Screens/profile/widget/info.dart';
@@ -30,7 +34,7 @@ class Profile extends StatelessWidget {
     getControllerValue(context: context);
     return DefaultTabController(
       initialIndex: 0,
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -81,6 +85,7 @@ class Profile extends StatelessWidget {
                                 email: bloc.user!.email!,
                                 age: bloc.user!.age!,
                                 gender: bloc.user!.gender!),
+
                             SizedBox(
                               width: 400,
                               height: 200,
@@ -95,13 +100,13 @@ class Profile extends StatelessWidget {
                                       padding: const EdgeInsets.all(16),
                                       child: barcode)),
                             ),
+
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20, top: 30, bottom: 16, right: 20),
+                              padding:
+                                  const EdgeInsets.only(top: 30, bottom: 16),
                               child: Column(
                                 children: [
-                                  const ToolsWidget(title: "language"),
-                                  Spacer(),
+                                  const Spacer(),
                                   BlocListener<AuthBloc, AuthState>(
                                     listener: (context, state) {
                                       if (state is LogoutSuccessState) {
@@ -159,23 +164,26 @@ class Profile extends StatelessWidget {
                           ),
                           Text(bloc.user!.id!.toString()),
                           const Divider(),
-                          TabBar(dividerColor: Colors.transparent, tabs: [
-                            Tab(
-                              child: Text(
-                                "Personal info",
-                                style: TextStyle(color: ColorPaltte().darkBlue),
-                              ),
-                            ),
-                            const Tab(
-                              icon: Icon(Icons.beach_access_sharp),
-                            ),
-                            Tab(
-                              child: Text(
-                                "Tools",
-                                style: TextStyle(color: ColorPaltte().darkBlue),
-                              ),
-                            ),
-                          ])
+                          TabBar(
+                              indicatorColor: ColorPaltte().darkBlue,
+                              indicatorPadding:
+                                  EdgeInsets.symmetric(horizontal: 20),
+                              tabs: [
+                                Tab(
+                                  child: Text(
+                                    "Personal info",
+                                    style: TextStyle(
+                                        color: ColorPaltte().darkBlue),
+                                  ),
+                                ),
+                                Tab(
+                                  child: Text(
+                                    "Tools",
+                                    style: TextStyle(
+                                        color: ColorPaltte().darkBlue),
+                                  ),
+                                ),
+                              ])
                         ],
                       ),
                     ),

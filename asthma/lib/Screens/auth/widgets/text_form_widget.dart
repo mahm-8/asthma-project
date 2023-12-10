@@ -25,16 +25,19 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(titel),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: Text(
+                titel,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
             ),
             SizedBox(
-              height: 50,
+              height: 70,
               child: Form(
                 key: keyForm,
                 child: TextFormField(
