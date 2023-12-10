@@ -53,7 +53,7 @@ class SupabaseServer {
     await supabase.from("symptoms").insert(body).select();
   }
 
-  deleteMedication({required int? id}) async {
+  deleteMedication({required int id}) async {
     await supabase.from("medication").delete().eq('id', id);
   }
 

@@ -1,10 +1,4 @@
-import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
-import 'package:asthma/Screens/breathing/size_animate.dart';
 import 'package:asthma/Screens/loading/loading_screen.dart';
-
-import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
-
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +35,7 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const HomeScreen(),
+        home: const LoadingScreen(),
         theme: ThemeData(useMaterial3: false),
       ),
     );
