@@ -1,3 +1,5 @@
+import 'package:asthma/Screens/HomeScreen/home_screen.dart';
+import 'package:asthma/Screens/breathing/breathing_screen.dart';
 import 'package:asthma/Screens/loading/loading_screen.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';

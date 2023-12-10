@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: context.getWidth(),
                   child: InkWell(
                     onTap: () {
-                      context.push(view: const SymptomTrackerScreen());
+                      context.push(view: const MedicationTrackerScreen());
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(

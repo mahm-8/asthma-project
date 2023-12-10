@@ -1,6 +1,6 @@
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'audio_controls/audio_controls.dart';
@@ -17,6 +17,7 @@ class BreathingScreen extends StatefulWidget {
 
 class _BreathingScreenState extends State<BreathingScreen> {
   final player = AudioPlayer();
+
   @override
   void initState() {
     super.initState();
@@ -45,10 +46,15 @@ class _BreathingScreenState extends State<BreathingScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
+            SizedBox(
               height: 200,
+              width: context.getWidth(),
             ),
-            const SizedBox(height: 400, child: AudioCircles()),
+            //AudioCircles()
+            const SizedBox(
+              height: 400,
+              // child:
+            ),
             const SizedBox(
               height: 75,
             ),
@@ -59,22 +65,18 @@ class _BreathingScreenState extends State<BreathingScreen> {
             const SizedBox(
               height: 15,
             ),
-            ButtonWidget(
-              onPress: circleSize,
-              widget: AudioControlWidgets(player: player),
-            ),
+            FloatingActionButton(
+                backgroundColor: ColorPaltte().newDarkBlue,
+                child: AudioControlWidgets(player: player),
+                onPressed: () {}),
+            // ButtonWidget(
+            //   onPress: _togglePlay,
+            //   widget: AudioControlWidgets(player: player),
+            // ),
           ],
         ),
       ]),
     );
-  }
-
-  void circleSize() {
-    setState(() {
-      backCircleHeight - 300;
-      middleCircleHeight = 170;
-      frontCircleHeight - 120;
-    });
   }
 
   Future<void> setupAudioPlyer() async {

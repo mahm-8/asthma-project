@@ -12,7 +12,6 @@ import 'package:pinput/pinput.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:asthma/Services/supabase.dart';
 
 class MedicationTrackerScreen extends StatefulWidget {
   const MedicationTrackerScreen({super.key});
@@ -113,6 +112,13 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
               ],
             ),
             BlocBuilder<AsthmaBloc, AsthmaState>(
+              buildWhen: (oldState, newState) {
+                if (newState is SuccessGetMedicationState) {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
               builder: (context, state) {
                 if (state is SuccessGetMedicationState) {
                   if (state.medications.isNotEmpty) {
@@ -185,7 +191,6 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-            
                 const SizedBox(height: 16),
                 AddTextfield(
                   label: 'Medication Name',
