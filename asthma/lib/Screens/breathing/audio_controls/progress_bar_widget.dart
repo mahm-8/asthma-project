@@ -17,6 +17,7 @@ class ProgressBarWidget extends StatelessWidget {
         stream: player.positionStream,
         builder: (context, snapshot) {
           return ProgressBar(
+            
             // timeLabelType: TimeLabelType.totalTime,
             timeLabelTextStyle: TextStyle(
                 fontWeight: FontWeight.w700,

@@ -14,10 +14,15 @@ class Networking {
         body: json.encode({
           "model": "gpt-3.5-turbo",
           "messages": [
+            {
+              "role": "system",
+              "content":
+                  "You are a chest doctor dedicated to answering questions related to asthma, helping people understand asthma and ways to reduce harm, and answering any question in this regard with correct, scientifically and health-related information"
+            },
             {"role": "user", "content": msg}
           ],
-          "temperature": 1,
-          "max_tokens": 256,
+          "temperature": 0,
+          "max_tokens": 1024,
           "top_p": 1,
           "frequency_penalty": 0,
           "presence_penalty": 0

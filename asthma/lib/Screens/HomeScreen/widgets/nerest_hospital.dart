@@ -21,6 +21,11 @@ class NerestHospital extends StatelessWidget {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          // if (state is LoadingState)
+          //   Center(
+          //     child: CircularProgressIndicator(),
+          //   ),
+          // if (state is SuccessHospitalState)
           if (nearestLocations.isNotEmpty)
             Container(
               height: context.getHeight() * 0.21,
@@ -40,8 +45,11 @@ class NerestHospital extends StatelessWidget {
                       await launchUrl(Uri.parse(url));
                     },
                     child: Container(
-                      width: context.getWidth(divide: 1.9),
+                      width: context.getWidth(divide: 2.2),
+                      height: context.getWidth(divide: 1.9),
                       child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -60,6 +68,7 @@ class NerestHospital extends StatelessWidget {
                               ),
                               Text(
                                 location.name!,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     color: ColorPaltte().darkBlue,
                                     fontSize: 18,
@@ -91,6 +100,8 @@ class NerestHospital extends StatelessWidget {
                 },
               ),
             )
+          // else if (state is ErrorState)
+          //   Text("Error"),
         ],
       );
     });
