@@ -38,7 +38,6 @@ saved(image) async {
 }
 
 generateBarcode(String userId) {
-  final ss;
   return BarcodeWidget(
     data: userId,
     barcode: Barcode.qrCode(
@@ -46,7 +45,3 @@ generateBarcode(String userId) {
     ),
   );
 }
-
-// if (userId != '') {
-//barcode = generateBarcode(userId!);
-//}
