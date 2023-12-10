@@ -1,4 +1,5 @@
 import 'package:asthma/Screens/NavBar/nav_bar.dart';
+import 'package:asthma/Screens/loading/loading_screen.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/loading_extension.dart';
@@ -20,7 +21,6 @@ class OtpScreen extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: ColorPaltte().darkBlue,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -50,12 +50,28 @@ class OtpScreen extends StatelessWidget {
                     style: const TextStyle().bold24,
                   ),
                   const SizedBox(
-                    height: 100,
+                    height: 30,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.grey[700], fontSize: 16),
+                      children: const [
+                        TextSpan(
+                          text: "check otp code on your ",
+                        ),
+                        TextSpan(
+                            text: "Email ",
+                            style: TextStyle(fontWeight: FontWeight.w700))
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
                   ),
                   BlocListener<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state is SuccessVerificationState) {
-                        context.pushAndRemoveUntil(view: const HomeScreen());
+                        context.pushAndRemoveUntil(view: const LoadingScreen());
                       } else if (state is ErrorVerificationState) {
                         Navigator.of(context).pop();
                         context.showErrorMessage(msg: state.message);
