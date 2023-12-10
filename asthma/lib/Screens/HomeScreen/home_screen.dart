@@ -6,6 +6,7 @@ import 'package:asthma/Screens/HomeScreen/widgets/medication_reminder.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/nerest_hospital.dart';
 import 'package:asthma/Screens/breathing/breathing_screen.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
+import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
 import 'package:asthma/Screens/profile/profile.dart';
 import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
@@ -144,21 +145,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   onTap: () {
-                    context.push(view: HomeScreen());
+                    context.push(view: const HomeScreen());
                   },
                   leading: const Icon(Icons.home_outlined),
                   title: const Text('Home'),
                 ),
                 ListTile(
                   onTap: () {
-                    context.push(view: BreathingScreen());
+                    context.push(view: const BreathingScreen());
                   },
                   leading: const Icon(Icons.spa_outlined),
                   title: const Text('Breathing'),
                 ),
                 ListTile(
                   onTap: () {
-                    context.push(view: ChatGPT());
+                    context.push(view: const ChatGPT());
                   },
                   leading: const Icon(Icons.chat_bubble_outline_outlined),
                   title: const Text('ChatGPT'),
@@ -188,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: context.getWidth(),
                   child: InkWell(
                     onTap: () {
-                      context.push(view: SymptomTrackerScreen());
+                      context.push(view: const SymptomTrackerScreen());
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -249,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -288,7 +289,51 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const MedicationReminder(),
+                    // const MedicationReminder(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Container(
+                        //   alignment: Alignment.center,
+                        //   height: 175,
+                        //   width: 175,
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       color: ColorPaltte().newlightBlue),
+                        //   child: const Text("Symptoms"),
+                        // ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SymptomTrackerScreen()));
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 175,
+                            width: 175,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorPaltte().newlightBlue),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                //image
+                                Text(
+                                  "Medication",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorPaltte().darkBlue),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(
                       height: 15,
                     ),
@@ -297,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: context.getWidth(),
                       child: InkWell(
                         onTap: () {
-                          context.push(view: SymptomTrackerScreen());
+                          context.push(view: const SymptomTrackerScreen());
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(

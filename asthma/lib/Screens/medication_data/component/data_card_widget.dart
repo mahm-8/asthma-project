@@ -47,41 +47,37 @@ class DataCardWidget extends StatelessWidget {
                   children: [
                     Text(
                       "$textEntry1",
+                      maxLines: 2,
+                      overflow: TextOverflow.clip,
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
                       "$textEntry2",
+                      maxLines: 2,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
                       "$textEntry3",
+                      maxLines: 1,
                       style: const TextStyle(fontSize: 16),
                     ),
                   ],
                 ),
               ),
-              BlocListener<AsthmaBloc, AsthmaState>(
-                listener: (context, state) {
-                  if (state is SucsessMessageState) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.message)));
-                  }
-                },
-                child: InkWell(
-                  onTap: deleteTap,
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      shape: BoxShape.rectangle,
-                      color: Colors.red.shade100,
-                    ),
-                    child: Icon(
-                      Icons.delete_outline_rounded,
-                      color: Colors.red.shade400,
-                    ),
+              InkWell(
+                onTap: deleteTap,
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.rectangle,
+                    color: Colors.red.shade100,
+                  ),
+                  child: Icon(
+                    Icons.delete_outline_rounded,
+                    color: Colors.red.shade400,
                   ),
                 ),
               ),

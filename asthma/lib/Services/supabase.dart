@@ -28,7 +28,7 @@ class SupabaseServer {
   getMedication() async {
     final data = await supabase.from("medication").select("*");
     print(data);
-
+    allMedication.clear();
     for (var element in data) {
       allMedication.add(MedicationModel.fromJson(element));
     }
@@ -38,7 +38,7 @@ class SupabaseServer {
   getSymptoms() async {
     final data = await supabase.from("symptoms").select("*");
     print(data);
-
+    allSymptoms.clear();
     for (var element in data) {
       allSymptoms.add(SymptomsModel.fromJson(element));
     }
@@ -53,7 +53,7 @@ class SupabaseServer {
     await supabase.from("symptoms").insert(body).select();
   }
 
-  deleteMedication({required int? id}) async {
+  deleteMedication({required int id}) async {
     await supabase.from("medication").delete().eq('id', id);
   }
 
