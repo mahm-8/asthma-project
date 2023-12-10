@@ -14,6 +14,6 @@ class ColorPaltte {
   Color newBlue = const Color(0xffAFD3E2);
   Color newBlueTra = const Color.fromARGB(181, 175, 211, 226);
   Color newlightBlue = const Color.fromARGB(228, 220, 233, 239);
-
+  Color conlightBlue = const Color.fromARGB(255, 220, 233, 239);
   Color newDarkBlue = const Color(0xff146C94);
 }
