@@ -38,10 +38,12 @@ class VerificationEvent extends AuthEvent {
   final String otp;
   final String email;
 
-
-  VerificationEvent(
-      {required this.otp, required this.email,});
+  VerificationEvent({
+    required this.otp,
+    required this.email,
+  });
 }
-class CheckLoginEvent extends AuthEvent {
 
-}
+class CheckLoginEvent extends AuthEvent {}
+
+class LogoutEvent extends AuthEvent {}

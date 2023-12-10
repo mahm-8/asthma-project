@@ -11,13 +11,14 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserModel? user;
   UserBloc() : super(UserInitial()) {
-    on<LoadUserData>(getData);
+    on<LoadUserDataEvent>(getData);
     on<UploadeImageEvent>(saveProfileImage);
     on<UpdateUserEvent>(updateUser);
-    add(LoadUserData());
+    // add(LoadUserDataEvent());
   }
 
-  FutureOr<void> getData(LoadUserData event, Emitter<UserState> emit) async {
+  FutureOr<void> getData(
+      LoadUserDataEvent event, Emitter<UserState> emit) async {
     try {
       print("===================Load Date==================");
       user = await getUserProfile();
@@ -37,21 +38,25 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       UploadeImageEvent event, Emitter<UserState> emit) async {
     final supabase = SupabaseNetworking().getSupabase;
     try {
+      final time = DateTime.now().millisecondsSinceEpoch;
       final idAuth = supabase.auth.currentSession!.user.id;
       await supabase.storage.from('profile_image').uploadBinary(
-          '$idAuth/profile.png', event.image,
+          '$idAuth/$time.png', event.image,
           fileOptions: const FileOptions(upsert: true));
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 1));
       final upload = supabase.storage
           .from('profile_image')
-          .getPublicUrl('$idAuth/profile.png');
-
+          .getPublicUrl('$idAuth/$time.png');
+      // final userProfile =
+      //     await supabase.from("users").select().eq("id_auth", idAuth);
+      // if (userProfile == null) {
       await supabase
           .from('users')
           .update({'image': upload}).eq('id_auth', idAuth);
-
-      print(upload);
       emit(UploadImageState(upload));
+      // } else {
+      //   emit(UploadImageState(upload));
+      // }
     } on StorageException catch (e) {
       emit(ErrorUploadState(e.message));
     } catch (error) {
@@ -73,7 +78,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }).eq('id_auth', idAuth);
 
       print(user);
-      add(LoadUserData());
+      add(LoadUserDataEvent());
       emit(SuccessUpdateState());
     } catch (error) {
       emit(ErrorUpdateState(msg: error.toString()));

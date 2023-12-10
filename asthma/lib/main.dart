@@ -1,8 +1,10 @@
-import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/Screens/breathing/breathing_screen.dart';
+
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:asthma/Screens/loading/loading_screen.dart';
+import 'package:asthma/Screens/HomeScreen/home_screen.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
+import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -36,9 +38,11 @@ class MainApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+            useMaterial3: false,
+            scaffoldBackgroundColor: ColorPaltte().newDarkBlue),
         debugShowCheckedModeBanner: false,
         home: const LoadingScreen(),
-        theme: ThemeData(useMaterial3: false),
       ),
     );
   }

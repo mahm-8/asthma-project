@@ -24,7 +24,7 @@ class CardInfo extends StatelessWidget {
       child: ListView(
         children: [
           SizedBox(
-            height: 30,
+            height: 40,
           ),
           if (phone.isNotEmpty)
             CardWidget(

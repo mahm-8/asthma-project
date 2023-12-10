@@ -4,12 +4,10 @@ import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/air_quality.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/medication_reminder.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/nerest_hospital.dart';
-
 import 'package:asthma/Screens/breathing/breathing_screen.dart';
 import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
 import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
 import 'package:asthma/Screens/profile/profile.dart';
-
 import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:asthma/constants/colors.dart';
@@ -20,7 +18,6 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import '../../Services/networking_request.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value;
@@ -59,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getCurrentLocation();
-    getUserProfile();
+    // getUserProfile();
   }
 
   Future<void> getCurrentLocation() async {
@@ -267,9 +264,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: ColorPaltte().newlightBlue),
                         ),
                         BlocBuilder<UserBloc, UserState>(
+                          buildWhen: (oldState, newState) {
+                            if (newState is LoadState) {
+                              return true;
+                            }
+                            return false;
+                          },
                           builder: (context, state) {
                             return Text(
-                              'bloc.user!.name!',
+                              bloc.user!.name ?? "",
                               style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w800,

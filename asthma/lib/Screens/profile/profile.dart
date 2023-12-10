@@ -1,16 +1,21 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:asthma/Screens/auth/login_screen.dart';
 import 'package:asthma/Screens/profile/edit_profile.dart';
 import 'package:asthma/Screens/profile/widget/info.dart';
 
 import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/loading_extension.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/user_bloc/user_bloc.dart';
+import 'widget/tools_widget.dart';
 
 class Profile extends StatelessWidget {
   Profile({super.key});
@@ -26,12 +31,11 @@ class Profile extends StatelessWidget {
     getControllerValue(context: context);
     return DefaultTabController(
       initialIndex: 0,
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-
           actions: [
             IconButton(
               icon: const Icon(Icons.mode_edit_outline_sharp),
@@ -46,7 +50,6 @@ class Profile extends StatelessWidget {
               },
             )
           ],
-
         ),
         backgroundColor: ColorPaltte().newDarkBlue,
         body: BlocBuilder<UserBloc, UserState>(
@@ -79,12 +82,47 @@ class Profile extends StatelessWidget {
                                 email: bloc.user!.email!,
                                 age: bloc.user!.age!,
                                 gender: bloc.user!.gender!),
-                            const Center(
-                              child: Text("It's rainy here"),
-                            ),
-                            const Center(
-                              child: Text("It's sunny here"),
-                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 30, bottom: 16),
+                              child: Column(
+                                children: [
+                                  const Spacer(),
+                                  BlocListener<AuthBloc, AuthState>(
+                                    listener: (context, state) {
+                                      if (state is LogoutSuccessState) {
+                                        context.pushAndRemoveUntil(
+                                            view: LoginScreen());
+                                      } else if (state is ErrorLogoutState) {
+                                        Navigator.of(context).pop();
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                                  title: const Text("Error"),
+                                                  content: Text(state.msg),
+                                                ));
+                                      }
+                                    },
+                                    child: ToolsWidget(
+                                      title: 'Logout',
+                                      colorText: Colors.red,
+                                      onPressed: () {
+                                        context
+                                            .read<AuthBloc>()
+                                            .add(LogoutEvent());
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => const Center(
+                                                  child:
+                                                      CircularProgressIndicator
+                                                          .adaptive(),
+                                                ));
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       )
@@ -107,23 +145,26 @@ class Profile extends StatelessWidget {
                           ),
                           Text(bloc.user!.id!.toString()),
                           const Divider(),
-                          TabBar(dividerColor: Colors.transparent, tabs: [
-                            Tab(
-                              child: Text(
-                                "Personal info",
-                                style: TextStyle(color: ColorPaltte().darkBlue),
-                              ),
-                            ),
-                            const Tab(
-                              icon: Icon(Icons.beach_access_sharp),
-                            ),
-                            Tab(
-                              child: Text(
-                                "Tools",
-                                style: TextStyle(color: ColorPaltte().darkBlue),
-                              ),
-                            ),
-                          ])
+                          TabBar(
+                              indicatorColor: ColorPaltte().darkBlue,
+                              indicatorPadding:
+                                  EdgeInsets.symmetric(horizontal: 20),
+                              tabs: [
+                                Tab(
+                                  child: Text(
+                                    "Personal info",
+                                    style: TextStyle(
+                                        color: ColorPaltte().darkBlue),
+                                  ),
+                                ),
+                                Tab(
+                                  child: Text(
+                                    "Tools",
+                                    style: TextStyle(
+                                        color: ColorPaltte().darkBlue),
+                                  ),
+                                ),
+                              ])
                         ],
                       ),
                     ),
@@ -142,6 +183,7 @@ class Profile extends StatelessWidget {
                           context
                               .read<UserBloc>()
                               .add(UploadeImageEvent(imageFile));
+                          context.showLoading();
                         },
                         child: BlocConsumer<UserBloc, UserState>(
                           listener: (context, state) {
@@ -153,6 +195,9 @@ class Profile extends StatelessWidget {
                                       content: Text(state.msg),
                                     );
                                   });
+                            }
+                            if (state is UploadImageState) {
+                              Navigator.of(context).pop();
                             }
                           },
                           buildWhen: (oldState, newState) {
