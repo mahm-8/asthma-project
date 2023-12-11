@@ -1,6 +1,10 @@
+import 'package:asthma/constants/colors.dart';
+import 'package:asthma/extensions/screen_dimensions.dart';
+import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'audio_controls/audio_controls.dart';
+import 'package:lottie/lottie.dart';
 import 'audio_controls/progress_bar_widget.dart';
-import 'package:asthma/helper/imports.dart';
 
 class BreathingScreen extends StatefulWidget {
   const BreathingScreen({super.key});
@@ -32,7 +36,11 @@ class _BreathingScreenState extends State<BreathingScreen>
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      appBar: AppBar(leading: IconButton(onPressed: (){
+        Navigator.pop(context);
+      }, icon: Icon(Icons.arrow_back_ios_new)),),
       body: Stack(children: [
         // Positioned(
         //     right: -185,
@@ -41,23 +49,19 @@ class _BreathingScreenState extends State<BreathingScreen>
         //       "lib/assets/images/stack_background.png",
         //       color: ColorPaltte().newlightBlue,
         //     )),
-        Positioned(
-            left: -185,
-            top: 235,
-            child: Image.asset(
-              "lib/assets/images/stack_background.png",
-              color: ColorPaltte().newlightBlue,
-            )),
+        // Positioned(
+        //     left: -185,
+        //     top: 235,
+        //     child: Image.asset(
+        //       "lib/assets/images/stack_background.png",
+        //       color: ColorPaltte().newlightBlue,
+        //     )),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 200,
-              width: context.getWidth(),
-            ),
-            SizedBox(
-              height: 400,
-              child: Lottie.asset('lib/assets/images/lottie1.json',
+              height: 600,
+              child: Lottie.asset('lib/assets/images/lottie2.json',
                   controller: animationController, onLoaded: (composition) {}),
             ),
             const SizedBox(
@@ -71,12 +75,14 @@ class _BreathingScreenState extends State<BreathingScreen>
               height: 15,
             ),
             FloatingActionButton(
-                backgroundColor: ColorPaltte().newDarkBlue,
+                backgroundColor: Color(0xffAFD3E2),
                 child: AudioControlWidgets(
                   player: player,
                   controller: animationController,
                 ),
                 onPressed: () {}),
+            //xbox-w@live.com
+            //12345Aa!
           ],
         ),
       ]),
@@ -91,8 +97,7 @@ class _BreathingScreenState extends State<BreathingScreen>
     });
 
     try {
-      player.setAudioSource(
-          AudioSource.asset('lib/assets/audio/Breathing_Exercise.mp3'));
+      player.setAudioSource(AudioSource.asset('lib/assets/audio/AAA.mp3'));
     } catch (e) {
       print("error loading audio: $e");
     }
