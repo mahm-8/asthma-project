@@ -1,7 +1,6 @@
-import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
+
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DataCardWidget extends StatelessWidget {
   const DataCardWidget({
