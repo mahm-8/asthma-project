@@ -8,10 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 Widget? barcode;
 String? imageUrl;
-
 class SymptomTrackerScreen extends StatefulWidget {
   const SymptomTrackerScreen({super.key});
 

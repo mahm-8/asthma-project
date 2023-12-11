@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
-    context.read<AsthmaBloc>().add(getHospitalDataEvent());
+    
   }
 
   Future<void> getCurrentLocation() async {
@@ -111,25 +111,78 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       drawer: SafeArea(
-        child: ListTileTheme(
-          textColor: Colors.white,
-          iconColor: Colors.white,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              BlocBuilder<UserBloc, UserState>(
-                builder: (context, state) {
-                  return Container(
-                    width: 128.0,
-                    height: 128.0,
-                    margin: const EdgeInsets.only(
-                      top: 24.0,
-                      bottom: 64.0,
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                      color: Colors.black26,
-                      shape: BoxShape.circle,
+
+        child: Container(
+          child: ListTileTheme(
+            textColor: Colors.white,
+            iconColor: Colors.white,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) {
+                    return Container(
+                      width: 128.0,
+                      height: 128.0,
+                      margin: const EdgeInsets.only(
+                        top: 24.0,
+                        bottom: 64.0,
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        color: Colors.black26,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.network(
+                        bloc.user!.image!,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  onTap: () {
+                    context.push(view: const HomeScreen());
+                  },
+                  leading: const Icon(Icons.home_outlined),
+                  title: Text(AppLocalizations.of(context)!.home),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.push(view: const BreathingScreen());
+                  },
+                  leading: const Icon(Icons.spa_outlined),
+                  title: Text(AppLocalizations.of(context)!.breathing),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.push(view: Profile());
+                  },
+                  leading: const Icon(Icons.person_outline_outlined),
+                  title: Text(AppLocalizations.of(context)!.profile),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.read<AuthBloc>().add(LogoutEvent());
+                    showDialog(
+                        context: context,
+                        builder: (context) => const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            ));
+                  },
+                  leading: const Icon(Icons.login_outlined),
+                  title: Text(AppLocalizations.of(context)!.logout),
+                ),
+                const Spacer(),
+                DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.white54,
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 16.0,
+
                     ),
                     child: Image.network(bloc.user!.image!),
                   );

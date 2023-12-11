@@ -1,5 +1,3 @@
-
-
 import 'package:asthma/helper/imports.dart';
 
 class LoadingScreen extends StatelessWidget {
@@ -11,7 +9,7 @@ class LoadingScreen extends StatelessWidget {
       buildWhen: (oldState, newState) {
         if (newState is CheckLoginState) {
           context.read<UserBloc>().add(LoadUserDataEvent());
-
+          context.read<AsthmaBloc>().add(getHospitalDataEvent());
           Future.delayed(const Duration(seconds: 4), () {
             Navigator.pushAndRemoveUntil(
                 context,

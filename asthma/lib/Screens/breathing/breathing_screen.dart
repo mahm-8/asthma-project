@@ -47,6 +47,7 @@ class _BreathingScreenState extends State<BreathingScreen>
               Icons.arrow_back_ios_new,
               color: Colors.black,
             )),
+
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,7 +57,6 @@ class _BreathingScreenState extends State<BreathingScreen>
             child: Lottie.asset('lib/assets/images/lottie2.json',
                 controller: animationController, onLoaded: (composition) {}),
           ),
-
           SizedBox(
             width: context.getWidth(divide: 1.5),
             child: ProgressBarWidget(player: player),
@@ -66,13 +66,13 @@ class _BreathingScreenState extends State<BreathingScreen>
           ),
           FloatingActionButton(
               backgroundColor: const Color(0xffAFD3E2),
+
               child: AudioControlWidgets(
                 player: player,
                 controller: animationController,
               ),
               onPressed: () {}),
-          //xbox-w@live.com
-          //12345Aa!
+
         ],
       ),
     );
