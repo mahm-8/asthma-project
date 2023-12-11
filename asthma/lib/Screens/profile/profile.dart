@@ -1,3 +1,4 @@
+
 import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:asthma/blocs/language_bloc/language_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -100,8 +101,9 @@ class Profile extends StatelessWidget {
                                     child: Container(
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: const Color.fromARGB(
-                                                    255, 71, 34, 159),
+
+                                                color: ColorPaltte().darkBlue,
+
                                                 width: 1.5),
                                             borderRadius:
                                                 BorderRadius.circular(16)),

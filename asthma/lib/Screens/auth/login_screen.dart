@@ -125,15 +125,7 @@ class LoginScreen extends StatelessWidget {
                         height: 16,
                       ),
                       BlocBuilder<AuthBloc, AuthState>(
-                        buildWhen: (oldstate, newstate) {
-                          if (newstate is LoginSuccessState) {
-                            context.push(
-                                view: OtpScreen(
-                              email: emailController.text,
-                            ));
-                          }
-                          return false;
-                        },
+                        
                         builder: (context, state) {
                           return BlocListener<AuthBloc, AuthState>(
                             listener: (context, state) {
