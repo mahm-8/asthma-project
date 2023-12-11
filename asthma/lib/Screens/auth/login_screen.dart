@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/Screens/NavBar/nav_bar.dart';
 import 'package:asthma/Screens/auth/otp_screen.dart';
 import 'package:asthma/Screens/auth/signup_screen.dart';
 import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
@@ -30,6 +28,7 @@ class LoginScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: ColorPaltte().newDarkBlue,
         resizeToAvoidBottomInset: true,
         body: SizedBox(
           height: context.getHeight(),
@@ -54,6 +53,9 @@ class LoginScreen extends StatelessWidget {
                 child: ListView(shrinkWrap: true, children: [
                   Column(
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Text("Login", style: const TextStyle().bold24),
                       const SizedBox(
                         height: 10,
@@ -128,6 +130,7 @@ class LoginScreen extends StatelessWidget {
                           return BlocListener<AuthBloc, AuthState>(
                             listener: (context, state) {
                               if (state is LoginSuccessState) {
+                                context.read<AuthBloc>().add(CheckLoginEvent());
                                 context.pushAndRemoveUntil(
                                     view: const LoadingScreen());
                               } else if (state is ErrorState) {

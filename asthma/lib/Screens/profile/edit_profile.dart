@@ -6,6 +6,7 @@ import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfile extends StatelessWidget {
   const EditProfile(
@@ -26,31 +27,31 @@ class EditProfile extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: ColorPaltte().darkBlue,
+          backgroundColor: ColorPaltte().newDarkBlue,
           elevation: 0,
-          title: Text("Edit Profile"),
+          title: Text(AppLocalizations.of(context)!.edit_profile),
           centerTitle: true,
         ),
         body: SafeArea(
             child: ListView(
           children: [
             EditTextField(
-              label: "name",
+              label: AppLocalizations.of(context)!.name,
               hint: "Username",
               controller: nameController,
             ),
             EditTextField(
-              label: "phone",
+              label: AppLocalizations.of(context)!.phone,
               hint: "05xxxxxxxx",
               controller: phoneController,
             ),
             EditTextField(
-              label: "age",
+              label: AppLocalizations.of(context)!.age,
               hint: "age",
               controller: ageController,
             ),
             EditTextField(
-              label: "birthday",
+              label: AppLocalizations.of(context)!.birthday,
               hint: "1900/12/31",
               keyboardType: TextInputType.datetime,
               controller: birthdayController,
@@ -63,7 +64,7 @@ class EditProfile extends StatelessWidget {
               ),
             ),
             EditTextField(
-              label: "gender",
+              label: AppLocalizations.of(context)!.gender,
               hint: "male/female",
               controller: genderController,
             ),
@@ -83,7 +84,7 @@ class EditProfile extends StatelessWidget {
                   }
                 },
                 child: ButtonAuthWidget(
-                  text: "Update",
+                  text: AppLocalizations.of(context)!.update,
                   onPressed: () {
                     final user = UserModel(
                         name: nameController.text.trim(),

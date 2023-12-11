@@ -19,7 +19,7 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Services/networking_request.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -164,21 +164,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     context.push(view: const HomeScreen());
                   },
                   leading: const Icon(Icons.home_outlined),
-                  title: const Text('Home'),
+                  title: Text(AppLocalizations.of(context)!.home),
                 ),
                 ListTile(
                   onTap: () {
                     context.push(view: const BreathingScreen());
                   },
                   leading: const Icon(Icons.spa_outlined),
-                  title: const Text('Breathing'),
+                  title: Text(AppLocalizations.of(context)!.breathing),
                 ),
                 ListTile(
                   onTap: () {
                     context.push(view: Profile());
                   },
                   leading: const Icon(Icons.person_outline_outlined),
-                  title: const Text('Profile'),
+                  title: Text(AppLocalizations.of(context)!.profile),
                 ),
                 ListTile(
                   onTap: () {
@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ));
                   },
                   leading: const Icon(Icons.login_outlined),
-                  title: const Text('LogOut'),
+                  title: Text(AppLocalizations.of(context)!.logout),
                 ),
                 const Spacer(),
                 DefaultTextStyle(
@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          'Welcome, ',
+                          '${AppLocalizations.of(context)!.welcome}, ',
                           style: TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.w800,
@@ -296,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           ContainerWidget(
                             imageurl: 'lib/assets/images/Chatbot-pana.png',
-                            title: 'Helper',
+                            title: AppLocalizations.of(context)!.helper,
                             onTap: () {
                               context.push(view: ChatGPT());
                             },
@@ -306,21 +306,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           ContainerWidget(
                             imageurl:
                                 'lib/assets/images/Breathingexercise-rafiki1.png',
-                            title: 'Breathing',
+                            title: AppLocalizations.of(context)!.breathing,
                             onTap: () {
                               context.push(view: BreathingScreen());
                             },
                           ),
                           ContainerWidget(
                             imageurl: 'lib/assets/images/Inhaller1-bro.png',
-                            title: 'medicine',
+                            title: AppLocalizations.of(context)!.medicine,
                             onTap: () {
                               context.push(view: MedicationTrackerScreen());
                             },
                           ),
                           ContainerWidget(
                             imageurl: 'lib/assets/images/Asymptomatic-bro.png',
-                            title: 'Asymptom',
+                            title: AppLocalizations.of(context)!.symptom,
                             onTap: () {
                               context.push(view: SymptomTrackerScreen());
                             },
@@ -335,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 15,
                     ),
                     Text(
-                      'Nearest Hospital ',
+                      AppLocalizations.of(context)!.nearest,
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
