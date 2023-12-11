@@ -68,8 +68,10 @@ class SupabaseServer {
     final response = await supabase.storage.from('captrue_image').uploadBinary(
         'image$time.png', pathImagefile,
         fileOptions: FileOptions(upsert: true));
-    supabase.storage.from('captrue_image').getPublicUrl('image$time.png');
-    print(barcode);
+    final imagePath =
+        supabase.storage.from('captrue_image').getPublicUrl('image$time.png');
+
+    print('path$imagePath');
     print(response);
   }
 }

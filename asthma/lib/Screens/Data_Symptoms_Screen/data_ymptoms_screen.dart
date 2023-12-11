@@ -73,7 +73,8 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                     await SupabaseServer().saveCaptrueImage(capturedImage);
                 // saved(capturedImage);
                 if (imageUrl != '') {
-                  barcode = generateBarcode(imageUrl!);
+                  barcode = generateBarcode(imageUrl ?? 'ggggg');
+                  print(barcode);
                 }
               },
               icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
@@ -118,13 +119,11 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
               buildWhen: (oldState, newState) {
                 if (newState is SuccessGetSymptomState) {
                   return true;
-
                 } else if (oldState is SuccessGetSymptomState) {
                   return true;
                 } else {
                   return false;
                 }
-
               },
               builder: (context, state) {
                 if (state is SuccessGetSymptomState) {

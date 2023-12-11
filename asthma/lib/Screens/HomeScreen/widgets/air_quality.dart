@@ -8,7 +8,7 @@ class AirQuality extends StatelessWidget {
     super.key,
   });
 
-  getAirQualityStatus(double? airValue ) {
+  getAirQualityStatus(double? airValue) {
     if (airValue! >= 0 && airValue <= 50) {
       return 'good';
     } else if (airValue >= 51 && airValue <= 100) {

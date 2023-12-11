@@ -37,9 +37,9 @@ saved(image) async {
   final result = await ImageGallerySaver.saveImage(image);
 }
 
-generateBarcode(String userId) {
+generateBarcode(String imageUrl) {
   return BarcodeWidget(
-    data: userId,
+    data: imageUrl,
     barcode: Barcode.qrCode(
       errorCorrectLevel: BarcodeQRCorrectionLevel.high,
     ),

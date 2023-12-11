@@ -1,6 +1,5 @@
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'audio_controls/audio_controls.dart';
