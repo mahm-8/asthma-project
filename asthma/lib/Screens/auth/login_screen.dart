@@ -1,6 +1,6 @@
 
-import 'package:asthma/helper/imports.dart';
 
+import 'package:asthma/helper/imports.dart';
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -99,16 +99,8 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
+
                       BlocBuilder<AuthBloc, AuthStates>(
-                        buildWhen: (oldstate, newstate) {
-                          if (newstate is LoginSuccessState) {
-                            context.push(
-                                view: OtpScreen(
-                              email: emailController.text,
-                            ));
-                          }
-                          return false;
-                        },
                         builder: (context, state) {
                           return BlocListener<AuthBloc, AuthStates>(
                             listener: (context, state) {

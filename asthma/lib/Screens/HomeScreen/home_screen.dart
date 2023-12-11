@@ -1,3 +1,4 @@
+
 import 'package:asthma/helper/imports.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -39,9 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getCurrentLocation();
-
     getUserProfile();
-    SupabaseServer().getHospitalData();
+    context.read<AsthmaBloc>().add(getHospitalDataEvent());
   }
 
   Future<void> getCurrentLocation() async {
@@ -57,14 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
       print(e);
     }
 
-    final country = 'AR';
-    final city = 'Buenos Aires';
-    // List<Placemark> placemarks = await placemarkFromCoordinates(
-    //   currentLocation!.altitude,
-    //   currentLocation!.longitude,
-    // );
-    // print('ssssssssssssssssssssss$placemarks');
-    await airQualityMethod(country, city);
+    // final country = 'AR';
+    // final city = 'Buenos Aires';
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      currentLocation!.latitude,
+      currentLocation!.longitude,
+    );
+    await airQualityMethod(
+        placemarks.first.isoCountryCode!, placemarks.first.administrativeArea!);
   }
 
   Future findNearestLocations() async {

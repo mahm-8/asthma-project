@@ -8,8 +8,10 @@ class CardWidget extends StatelessWidget {
   final IconData? icon;
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 60,
+
       child: ListTile(
         title: Text(
           title,

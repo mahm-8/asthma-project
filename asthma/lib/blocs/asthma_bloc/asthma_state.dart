@@ -7,7 +7,11 @@ final class AsthmaInitial extends AsthmaState {}
 
 final class LoadingState extends AsthmaState {}
 
-final class SuccessHospitalState extends AsthmaState {}
+final class SuccessHospitalState extends AsthmaState {
+  final List<LocationModel>? hospitalsData;
+
+  SuccessHospitalState(this.hospitalsData);
+}
 
 final class SuccessGetSymptomState extends AsthmaState {
   final List<SymptomsModel> symptoms;
@@ -24,8 +28,6 @@ final class SuccessGetMedicationState extends AsthmaState {
 final class SuccessAddSymptomState extends AsthmaState {}
 
 final class SuccessAddMedicationState extends AsthmaState {}
-
-
 
 final class SucsessMessageState extends AsthmaState {
   final String message;

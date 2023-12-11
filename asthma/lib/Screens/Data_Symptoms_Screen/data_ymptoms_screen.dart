@@ -63,7 +63,6 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                     .read<UserBloc>()
                     .add(UploadImageCaptureEvent(capturedImage));
 
-                // saved(capturedImage);
               },
               icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
         ],
@@ -107,8 +106,10 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
               buildWhen: (oldState, newState) {
                 if (newState is SuccessGetSymptomState) {
                   return true;
+
                 }
                 return false;
+
               },
               builder: (context, state) {
                 if (state is SuccessGetSymptomState) {

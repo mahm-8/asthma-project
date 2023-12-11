@@ -3,6 +3,7 @@ import 'package:asthma/Models/medication_model.dart';
 import 'package:asthma/Models/symptoms_model.dart';
 import 'package:asthma/helper/imports.dart';
 
+
 List<LocationModel> allHospetal = [];
 List<MedicationModel> allMedication = [];
 List<SymptomsModel> allSymptoms = [];
@@ -11,13 +12,14 @@ class SupabaseServer {
   final supabase = Supabase.instance.client;
 
   getHospitalData() async {
+    
     final hospitalData = await supabase.from("hospitals").select();
-    print(hospitalData);
 
-    print(hospitalData);
+    
     for (var element in hospitalData) {
       allHospetal.add(LocationModel.fromJson(element));
     }
+   
     return allHospetal;
   }
 
