@@ -1,8 +1,11 @@
 import 'package:asthma/helper/imports.dart';
+import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value = 0.0;
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
@@ -38,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
-    context.read<AsthmaBloc>().add(getHospitalDataEvent());
+    
   }
 
   Future<void> getCurrentLocation() async {
@@ -130,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black26,
                         shape: BoxShape.circle,
                       ),
-                      child: Image.network(bloc.user!.image!),
+                      child: Image.network(
+                        bloc.user!.image!,
+                        fit: BoxFit.cover,
+                      ),
                     );
                   },
                 ),
