@@ -6,6 +6,7 @@ import 'package:asthma/Screens/auth/otp_screen.dart';
 import 'package:asthma/Screens/auth/signup_screen.dart';
 import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
 import 'package:asthma/Screens/auth/widgets/text_form_widget.dart';
+import 'package:asthma/Screens/loading/loading_screen.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/loading_extension.dart';
@@ -122,21 +123,13 @@ class LoginScreen extends StatelessWidget {
                         height: 16,
                       ),
                       BlocBuilder<AuthBloc, AuthState>(
-                        buildWhen: (oldstate, newstate) {
-                          if (newstate is LoginSuccessState) {
-                            context.push(
-                                view: OtpScreen(
-                              email: emailController.text,
-                            ));
-                          }
-                          return false;
-                        },
+                        
                         builder: (context, state) {
                           return BlocListener<AuthBloc, AuthState>(
                             listener: (context, state) {
                               if (state is LoginSuccessState) {
                                 context.pushAndRemoveUntil(
-                                    view: const HomeScreen());
+                                    view: const LoadingScreen());
                               } else if (state is ErrorState) {
                                 Navigator.of(context).pop();
                                 context.showErrorMessage(msg: state.message);

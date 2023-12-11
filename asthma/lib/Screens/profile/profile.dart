@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-
 import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -85,27 +84,25 @@ class Profile extends StatelessWidget {
                                 email: bloc.user!.email!,
                                 age: bloc.user!.age!,
                                 gender: bloc.user!.gender!),
-
-                            SizedBox(
-                              width: 400,
-                              height: 200,
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: const Color.fromARGB(
-                                              255, 71, 34, 159),
-                                          width: 1.5),
-                                      borderRadius: BorderRadius.circular(16)),
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: barcode)),
-                            ),
-
                             Padding(
                               padding:
                                   const EdgeInsets.only(top: 30, bottom: 16),
                               child: Column(
                                 children: [
+                                  SizedBox(
+                                    width: 400,
+                                    height: 200,
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: ColorPaltte().darkBlue,
+                                                width: 1.5),
+                                            borderRadius:
+                                                BorderRadius.circular(16)),
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: barcode)),
+                                  ),
                                   const Spacer(),
                                   BlocListener<AuthBloc, AuthState>(
                                     listener: (context, state) {

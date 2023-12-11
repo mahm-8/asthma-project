@@ -23,7 +23,6 @@ import 'package:http/http.dart' as http;
 import '../../Services/networking_request.dart';
 import 'package:geocoding/geocoding.dart';
 
-
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value = 0.0;
 
@@ -64,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     getUserProfile();
     SupabaseServer().getHospitalData();
-
   }
 
   Future<void> getCurrentLocation() async {
@@ -207,8 +205,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Text('Terms of Service | Privacy Policy'),
                   ),
                 ),
-
-
               ],
             ),
           ),
@@ -275,9 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           builder: (context, state) {
                             return Text(
-
                               bloc.user!.name ?? "",
-
                               style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w800,
@@ -294,7 +288,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Wrap(
@@ -308,8 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               context.push(view: ChatGPT());
                             },
 
-                    // const MedicationReminder(),
-
+                            // const MedicationReminder(),
                           ),
                           ContainerWidget(
                             imageurl:
