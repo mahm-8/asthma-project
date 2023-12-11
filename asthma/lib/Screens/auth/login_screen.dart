@@ -1,14 +1,9 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/Screens/NavBar/nav_bar.dart';
-import 'package:asthma/Screens/auth/otp_screen.dart';
 import 'package:asthma/Screens/auth/signup_screen.dart';
 import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
 import 'package:asthma/Screens/auth/widgets/text_form_widget.dart';
 import 'package:asthma/Screens/loading/loading_screen.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
-import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/loading_extension.dart';
 import 'package:asthma/extensions/navigator.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
