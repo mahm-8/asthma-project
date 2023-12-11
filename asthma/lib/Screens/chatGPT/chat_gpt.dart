@@ -15,6 +15,20 @@ class _ChatGPTState extends State<ChatGPT> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    color: ColorPaltte().darkBlue,
+                  ),
+                ))),
         backgroundColor: ColorPaltte().white,
         body: Stack(
           children: [

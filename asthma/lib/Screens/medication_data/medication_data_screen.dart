@@ -15,8 +15,6 @@ class MedicationTrackerScreen extends StatefulWidget {
 }
 
 class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
-  // ScreenshotController screenshotController = ScreenshotController();
-
   @override
   void initState() {
     context.read<AsthmaBloc>().add(GetMedicationDataEvent());
@@ -30,48 +28,15 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
         backgroundColor: ColorPaltte().newDarkBlue,
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          'Medications',
-          style: TextStyle(color: ColorPaltte().darkBlue),
-        ),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
-            Icons.arrow_back,
-            color: ColorPaltte().darkBlue,
+            Icons.arrow_back_ios_new,
+            color: ColorPaltte().white,
           ),
         ),
-        actions: const [
-
-          // IconButton(
-          //     onPressed: () async {
-          //       var container = Column(
-          //         children: [
-          //           ...allMedication.map(
-          //             (e) => Card(
-          //                 child: Column(
-          //               children: [
-          //                 Text(e.medicationName!),
-          //                 Text(e.days!.toString()),
-          //                 Text(e.date!)
-          //               ],
-          //             )),
-          //           )
-          //         ],
-          //       );
-          //       Uint8List? capturedImage =
-          //           await screenshotController.captureFromWidget(
-          //               InheritedTheme.captureAll(
-          //                   context, Material(child: container)),
-          //               delay: const Duration(seconds: 1));
-          //       // await SupabaseServer().saveCaptrueImage(capturedImage);
-
-          //       // saved(capturedImage);
-          //     },
-          //     icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
-        ],
       ),
       body: Stack(
         children: [
@@ -79,7 +44,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
             width: context.getWidth(),
             decoration: BoxDecoration(
                 color: ColorPaltte().newDarkBlue,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30))),
             height: 300,
@@ -94,11 +59,22 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
             ),
           ),
           Positioned(
+            left: 175,
+            top: 120,
+            child: Text(
+              "Medications",
+              style: TextStyle(
+                  fontSize: 35,
+                  color: ColorPaltte().white,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+          Positioned(
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 320,
                   ),
                   Row(
@@ -160,6 +136,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                                               id: medication.medicationID!),
                                         );
                                   },
+                                  imageURL: 'lib/assets/images/pills.png',
                                 );
                               },
                             ),

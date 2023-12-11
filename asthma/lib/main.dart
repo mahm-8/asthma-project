@@ -1,3 +1,4 @@
+import 'package:asthma/Screens/onboarding/onboarding_screen.dart';
 import 'package:asthma/helper/imports.dart';
 
 void main() async {
@@ -53,7 +54,7 @@ class MainApp extends StatelessWidget {
                 Locale('en'), // English
                 Locale('ar'), // Spanish
               ],
-              home: const LoadingScreen(),
+              home: const OnboradingScreen(),
             );
           }
           return MaterialApp(
@@ -72,7 +73,7 @@ class MainApp extends StatelessWidget {
               Locale('en'), // English
               Locale('ar'), // Spanish
             ],
-            home: const LoadingScreen(),
+            home: const OnboradingScreen(),
           );
         },
       ),

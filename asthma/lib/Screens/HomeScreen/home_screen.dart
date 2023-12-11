@@ -1,4 +1,5 @@
 import 'package:asthma/helper/imports.dart';
+import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
-    
   }
 
   Future<void> getCurrentLocation() async {
@@ -108,10 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
       animateChildDecoration: true,
       disabledGestures: false,
       childDecoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
       drawer: SafeArea(
-
         child: Container(
           child: ListTileTheme(
             textColor: Colors.white,
@@ -182,59 +181,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     margin: const EdgeInsets.symmetric(
                       vertical: 16.0,
-
                     ),
-                    child: Image.network(bloc.user!.image!),
-                  );
-                },
-              ),
-              ListTile(
-                onTap: () {
-                  context.push(view: const HomeScreen());
-                },
-                leading: const Icon(Icons.home_outlined),
-                title: Text(AppLocalizations.of(context)!.home),
-              ),
-              ListTile(
-                onTap: () {
-                  context.push(view: const BreathingScreen());
-                },
-                leading: const Icon(Icons.spa_outlined),
-                title: Text(AppLocalizations.of(context)!.breathing),
-              ),
-              ListTile(
-                onTap: () {
-                  context.push(view: Profile());
-                },
-                leading: const Icon(Icons.person_outline_outlined),
-                title: Text(AppLocalizations.of(context)!.profile),
-              ),
-              ListTile(
-                onTap: () {
-                  context.read<AuthBloc>().add(LogoutEvent());
-                  showDialog(
-                      context: context,
-                      builder: (context) => const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          ));
-                },
-                leading: const Icon(Icons.login_outlined),
-                title: Text(AppLocalizations.of(context)!.logout),
-              ),
-              const Spacer(),
-              DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.white54,
-                ),
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 16.0,
+                    child: const Text('Terms of Service | Privacy Policy'),
                   ),
-                  child: const Text('Terms of Service | Privacy Policy'),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -326,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageurl: 'lib/assets/images/Chatbot-pana.png',
                             title: AppLocalizations.of(context)!.helper,
                             onTap: () {
-                              context.push(view: const ChatGPT());
+                              context.push(view: ChatGPT());
                             },
 
                             // const MedicationReminder(),
@@ -336,22 +288,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'lib/assets/images/Breathingexercise-rafiki1.png',
                             title: AppLocalizations.of(context)!.breathing,
                             onTap: () {
-                              context.push(view: const BreathingScreen());
+                              context.push(view: BreathingScreen());
                             },
                           ),
                           ContainerWidget(
                             imageurl: 'lib/assets/images/Inhaller1-bro.png',
                             title: AppLocalizations.of(context)!.medicine,
                             onTap: () {
-                              context.push(
-                                  view: const MedicationTrackerScreen());
+                              context.push(view: MedicationTrackerScreen());
                             },
                           ),
                           ContainerWidget(
                             imageurl: 'lib/assets/images/Asymptomatic-bro.png',
                             title: AppLocalizations.of(context)!.symptom,
                             onTap: () {
-                              context.push(view: const SymptomTrackerScreen());
+                              context.push(view: SymptomTrackerScreen());
                             },
                           ),
                         ],

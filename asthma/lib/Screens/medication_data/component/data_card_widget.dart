@@ -1,5 +1,4 @@
 import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class DataCardWidget extends StatelessWidget {
@@ -9,9 +8,11 @@ class DataCardWidget extends StatelessWidget {
     this.textEntry2,
     this.textEntry3,
     this.deleteTap,
+    required this.imageURL,
   });
 
   final String? textEntry1, textEntry2, textEntry3;
+  final String imageURL;
 
   final Function()? deleteTap;
   @override
@@ -25,13 +26,13 @@ class DataCardWidget extends StatelessWidget {
                 height: 100,
                 width: 100,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10)),
                   shape: BoxShape.rectangle,
                   color: ColorPaltte().newBlue,
                 ),
-                child: Image.asset('lib/assets/images/pills.png')),
+                child: Image.asset(imageURL)),
             const SizedBox(
               width: 20,
             ),

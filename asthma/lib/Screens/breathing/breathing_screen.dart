@@ -1,3 +1,4 @@
+import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -36,6 +37,7 @@ class _BreathingScreenState extends State<BreathingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorPaltte().lightBlue,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -43,11 +45,13 @@ class _BreathingScreenState extends State<BreathingScreen>
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                color: ColorPaltte().darkBlue,
+              ),
             )),
-
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,14 +69,12 @@ class _BreathingScreenState extends State<BreathingScreen>
             height: 15,
           ),
           FloatingActionButton(
-              backgroundColor: const Color(0xffAFD3E2),
-
+              backgroundColor: ColorPaltte().newDarkBlue,
               child: AudioControlWidgets(
                 player: player,
                 controller: animationController,
               ),
               onPressed: () {}),
-
         ],
       ),
     );
