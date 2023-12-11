@@ -13,9 +13,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
   List<MedicationModel>? medicationData;
   List<SymptomsModel>? symptomsData;
 
-  // MedicationModel? medicationData;
-  // SymptomsModel? symptomsData;
-
   AsthmaBloc() : super(AsthmaInitial()) {
     on<getHospitalDataEvent>(getData);
     on<GetMedicationDataEvent>(getMedicationData);
@@ -48,9 +45,9 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
       GetMedicationDataEvent event, Emitter<AsthmaState> emit) async {
     try {
       emit(LoadingState());
+
       medicationData = await SupabaseServer().getMedication();
       await Future.delayed(const Duration(seconds: 1));
-
       emit(SuccessGetMedicationState(medications: medicationData!));
     } catch (error) {
       print(error);
@@ -61,7 +58,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
   FutureOr<void> getSymptomsData(
       GetSymptomDataEvent event, Emitter<AsthmaState> emit) async {
     try {
-      emit(LoadingState());
       symptomsData = await SupabaseServer().getSymptoms();
       await Future.delayed(const Duration(seconds: 1));
       emit(SuccessGetSymptomState(symptoms: symptomsData!));
@@ -83,7 +79,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
 
         emit(SuccessAddSymptomState());
         add(GetSymptomDataEvent());
-
         emit(SucsessMessageState(message: 'symptoms added'));
       } else {
         emit(ADDErrorState(message: 'Please fill all the fields'));

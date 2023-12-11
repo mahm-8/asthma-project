@@ -1,4 +1,3 @@
-import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -36,56 +35,46 @@ class _BreathingScreenState extends State<BreathingScreen>
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(leading: IconButton(onPressed: (){
-        Navigator.pop(context);
-      }, icon: Icon(Icons.arrow_back_ios_new)),),
-      body: Stack(children: [
-        // Positioned(
-        //     right: -185,
-        //     bottom: 15,
-        //     child: Image.asset(
-        //       "lib/assets/images/stack_background.png",
-        //       color: ColorPaltte().newlightBlue,
-        //     )),
-        // Positioned(
-        //     left: -185,
-        //     top: 235,
-        //     child: Image.asset(
-        //       "lib/assets/images/stack_background.png",
-        //       color: ColorPaltte().newlightBlue,
-        //     )),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 600,
-              child: Lottie.asset('lib/assets/images/lottie2.json',
-                  controller: animationController, onLoaded: (composition) {}),
-            ),
-            const SizedBox(
-              height: 75,
-            ),
-            SizedBox(
-              width: context.getWidth(divide: 1.5),
-              child: ProgressBarWidget(player: player),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            FloatingActionButton(
-                backgroundColor: Color(0xffAFD3E2),
-                child: AudioControlWidgets(
-                  player: player,
-                  controller: animationController,
-                ),
-                onPressed: () {}),
-            //xbox-w@live.com
-            //12345Aa!
-          ],
-        ),
-      ]),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.black,
+            )),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 600,
+            child: Lottie.asset('lib/assets/images/lottie2.json',
+                controller: animationController, onLoaded: (composition) {}),
+          ),
+
+          SizedBox(
+            width: context.getWidth(divide: 1.5),
+            child: ProgressBarWidget(player: player),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          FloatingActionButton(
+              backgroundColor: const Color(0xffAFD3E2),
+              child: AudioControlWidgets(
+                player: player,
+                controller: animationController,
+              ),
+              onPressed: () {}),
+          //xbox-w@live.com
+          //12345Aa!
+        ],
+      ),
     );
   }
 

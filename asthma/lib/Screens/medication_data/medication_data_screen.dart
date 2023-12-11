@@ -1,10 +1,7 @@
-import 'dart:typed_data';
 import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
 import 'package:asthma/Screens/medication_data/component/medication_bottomsheet.dart';
-import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +14,13 @@ class MedicationTrackerScreen extends StatefulWidget {
 }
 
 class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
-  ScreenshotController screenshotController = ScreenshotController();
+  // ScreenshotController screenshotController = ScreenshotController();
+
+  @override
+  void initState() {
+    context.read<AsthmaBloc>().add(GetMedicationDataEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,32 +42,32 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
             color: ColorPaltte().darkBlue,
           ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                var container = Column(
-                  children: [
-                    ...allMedication.map(
-                      (e) => Card(
-                          child: Column(
-                        children: [
-                          Text(e.medicationName!),
-                          Text(e.days!.toString()),
-                          Text(e.date!)
-                        ],
-                      )),
-                    )
-                  ],
-                );
-                Uint8List? capturedImage =
-                    await screenshotController.captureFromWidget(
-                        InheritedTheme.captureAll(
-                            context, Material(child: container)),
-                        delay: const Duration(seconds: 1));
-                await SupabaseServer().saveCaptrueImage(capturedImage);
-                // saved(capturedImage);
-              },
-              icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
+        actions: const [
+          // IconButton(
+          //     onPressed: () async {
+          //       var container = Column(
+          //         children: [
+          //           ...allMedication.map(
+          //             (e) => Card(
+          //                 child: Column(
+          //               children: [
+          //                 Text(e.medicationName!),
+          //                 Text(e.days!.toString()),
+          //                 Text(e.date!)
+          //               ],
+          //             )),
+          //           )
+          //         ],
+          //       );
+          //       Uint8List? capturedImage =
+          //           await screenshotController.captureFromWidget(
+          //               InheritedTheme.captureAll(
+          //                   context, Material(child: container)),
+          //               delay: const Duration(seconds: 1));
+          //       // await SupabaseServer().saveCaptrueImage(capturedImage);
+          //       // saved(capturedImage);
+          //     },
+          //     icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
         ],
       ),
       body: Padding(

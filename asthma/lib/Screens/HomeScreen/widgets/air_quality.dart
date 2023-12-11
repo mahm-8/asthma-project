@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:asthma/helper/imports.dart';
 
 class AirQuality extends StatelessWidget {

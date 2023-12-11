@@ -33,7 +33,7 @@ class TextFieldWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Text(
                 titel,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),
             SizedBox(
