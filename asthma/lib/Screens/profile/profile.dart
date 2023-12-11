@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-
 import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-
+import 'package:asthma/blocs/language_bloc/language_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:asthma/Screens/auth/login_screen.dart';
 import 'package:asthma/Screens/profile/edit_profile.dart';
 import 'package:asthma/Screens/profile/widget/info.dart';
@@ -28,6 +28,7 @@ class Profile extends StatelessWidget {
   TextEditingController? ageController = TextEditingController();
   TextEditingController? birthdayController = TextEditingController();
   TextEditingController? genderController = TextEditingController();
+  var lan = true;
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
@@ -85,28 +86,49 @@ class Profile extends StatelessWidget {
                                 email: bloc.user!.email!,
                                 age: bloc.user!.age!,
                                 gender: bloc.user!.gender!),
-
-                            SizedBox(
-                              width: 400,
-                              height: 200,
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: const Color.fromARGB(
-                                              255, 71, 34, 159),
-                                          width: 1.5),
-                                      borderRadius: BorderRadius.circular(16)),
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: barcode)),
-                            ),
-
                             Padding(
                               padding:
                                   const EdgeInsets.only(top: 30, bottom: 16),
                               child: Column(
                                 children: [
+                                  SizedBox(
+                                    width: 400,
+                                    height: 200,
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: const Color.fromARGB(
+                                                    255, 71, 34, 159),
+                                                width: 1.5),
+                                            borderRadius:
+                                                BorderRadius.circular(16)),
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: barcode)),
+                                  ),
                                   const Spacer(),
+                                  BlocBuilder<LanguageBloc, LanguageState>(
+                                    builder: (context, state) {
+                                      if (state is SwitchState) {
+                                        return Switch(
+                                            value: state.swit,
+                                            onChanged: (value) {
+                                              print(value);
+                                              context
+                                                  .read<LanguageBloc>()
+                                                  .add(ChangeLanguage(value));
+                                            });
+                                      }
+                                      return Switch(
+                                          value: lan,
+                                          onChanged: (value) {
+                                            print(value);
+                                            context
+                                                .read<LanguageBloc>()
+                                                .add(ChangeLanguage(value));
+                                          });
+                                    },
+                                  ),
                                   BlocListener<AuthBloc, AuthState>(
                                     listener: (context, state) {
                                       if (state is LogoutSuccessState) {
@@ -123,7 +145,8 @@ class Profile extends StatelessWidget {
                                       }
                                     },
                                     child: ToolsWidget(
-                                      title: 'Logout',
+                                      title:
+                                          AppLocalizations.of(context)!.logout,
                                       colorText: Colors.red,
                                       onPressed: () {
                                         context
@@ -149,7 +172,7 @@ class Profile extends StatelessWidget {
                   ),
                   Positioned(
                     left: context.getWidth(divide: 20),
-                    top: context.getHeight(divide: 10),
+                    top: context.getHeight(divide: 8),
                     child: Container(
                       padding: const EdgeInsets.only(top: 60),
                       decoration: BoxDecoration(
@@ -171,14 +194,21 @@ class Profile extends StatelessWidget {
                               tabs: [
                                 Tab(
                                   child: Text(
-                                    "Personal info",
+                                    AppLocalizations.of(context)!.personal,
                                     style: TextStyle(
                                         color: ColorPaltte().darkBlue),
                                   ),
                                 ),
+                                // Tab(
+                                //   child: Text(
+                                //     "QR",
+                                //     style: TextStyle(
+                                //         color: ColorPaltte().darkBlue),
+                                //   ),
+                                // ),
                                 Tab(
                                   child: Text(
-                                    "Tools",
+                                    AppLocalizations.of(context)!.setting,
                                     style: TextStyle(
                                         color: ColorPaltte().darkBlue),
                                   ),
@@ -190,7 +220,7 @@ class Profile extends StatelessWidget {
                   ),
                   Positioned(
                     left: context.getWidth(divide: 2.7),
-                    top: context.getHeight(divide: 25),
+                    top: context.getHeight(divide: 17),
                     child: ClipOval(
                       child: InkWell(
                         onTap: () async {
@@ -244,6 +274,30 @@ class Profile extends StatelessWidget {
                           },
                         ),
                       ),
+                    ),
+                  ),
+                  Positioned(
+                    left: context.getWidth(divide: 2.7),
+                    top: context.getHeight(divide: 17),
+                    child: ClipOval(
+                      child: InkWell(
+                          onTap: () async {
+                            XFile? image = await picker.pickImage(
+                                source: ImageSource.gallery);
+
+                            final imageFile = await image!.readAsBytes();
+
+                            context
+                                .read<UserBloc>()
+                                .add(UploadeImageEvent(imageFile));
+                            context.showLoading();
+                          },
+                          child: Container(
+                            color: ColorPaltte().newBlue,
+                            height: 30,
+                            width: 30,
+                            child: const Icon(Icons.person_outline),
+                          )),
                     ),
                   ),
                 ],

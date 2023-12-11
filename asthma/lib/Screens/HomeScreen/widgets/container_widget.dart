@@ -20,7 +20,7 @@ class ContainerWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: context.getWidth(divide: 2.6),
-        height: context.getWidth(divide: 2.6),
+        height: context.getWidth(divide: 2.5),
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

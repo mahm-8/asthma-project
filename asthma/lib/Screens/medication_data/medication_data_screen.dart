@@ -112,9 +112,8 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
               buildWhen: (oldState, newState) {
                 if (newState is SuccessGetMedicationState) {
                   return true;
-                } else {
-                  return false;
                 }
+                return false;
               },
               builder: (context, state) {
                 if (state is SuccessGetMedicationState) {
