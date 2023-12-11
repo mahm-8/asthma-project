@@ -1,12 +1,8 @@
 import 'dart:typed_data';
-
 import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Models/medication_model.dart';
 import 'package:asthma/Models/symptoms_model.dart';
-import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 List<LocationModel> allHospetal = [];
 List<MedicationModel> allMedication = [];
@@ -16,13 +12,14 @@ class SupabaseServer {
   final supabase = Supabase.instance.client;
 
   getHospitalData() async {
+    
     final hospitalData = await supabase.from("hospitals").select();
-    print(hospitalData);
 
-    print(hospitalData);
+    
     for (var element in hospitalData) {
       allHospetal.add(LocationModel.fromJson(element));
     }
+   
     return allHospetal;
   }
 

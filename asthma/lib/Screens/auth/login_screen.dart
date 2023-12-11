@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:asthma/Screens/auth/otp_screen.dart';
 import 'package:asthma/Screens/auth/signup_screen.dart';
 import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
 import 'package:asthma/Screens/auth/widgets/text_form_widget.dart';

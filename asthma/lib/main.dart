@@ -1,16 +1,11 @@
-
 import 'package:asthma/Screens/loading/loading_screen.dart';
 import 'package:asthma/blocs/language_bloc/language_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-
 
 import 'package:asthma/Screens/loading/loading_screen.dart';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:asthma/Screens/breathing/breathing_screen.dart';
-
-import 'package:asthma/Screens/loading/loading_screen.dart';
 
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
@@ -51,7 +46,6 @@ class MainApp extends StatelessWidget {
           create: (context) => UserBloc(),
         ),
       ],
-
       child: BlocBuilder<LanguageBloc, LanguageState>(
         buildWhen: (oldState, newState) {
           if (newState is ChangeLanguageState) {
@@ -99,7 +93,6 @@ class MainApp extends StatelessWidget {
             home: const LoadingScreen(),
           );
         },
-
       ),
     );
   }

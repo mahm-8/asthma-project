@@ -10,9 +10,11 @@ class CardWidget extends StatelessWidget {
   final IconData? icon;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      color: ColorPaltte().white,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: ColorPaltte().white,
+      ),
       child: ListTile(
         title: Text(
           title,

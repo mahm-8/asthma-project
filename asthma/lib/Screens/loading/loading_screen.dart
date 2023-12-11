@@ -1,5 +1,4 @@
 import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/Screens/NavBar/nav_bar.dart';
 import 'package:asthma/Screens/auth/login_screen.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';

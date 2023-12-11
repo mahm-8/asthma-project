@@ -9,6 +9,7 @@ import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
 import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
 import 'package:asthma/Screens/profile/profile.dart';
 import 'package:asthma/Services/supabase.dart';
+import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
 import 'package:asthma/constants/colors.dart';
@@ -60,9 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getCurrentLocation();
-
     getUserProfile();
-    SupabaseServer().getHospitalData();
+    context.read<AsthmaBloc>().add(getHospitalDataEvent());
   }
 
   Future<void> getCurrentLocation() async {
@@ -78,14 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
       print(e);
     }
 
-    final country = 'AR';
-    final city = 'Buenos Aires';
-    // List<Placemark> placemarks = await placemarkFromCoordinates(
-    //   currentLocation!.altitude,
-    //   currentLocation!.longitude,
-    // );
-    // print('ssssssssssssssssssssss$placemarks');
-    await airQualityMethod(country, city);
+    // final country = 'AR';
+    // final city = 'Buenos Aires';
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      currentLocation!.latitude,
+      currentLocation!.longitude,
+    );
+    await airQualityMethod(
+        placemarks.first.isoCountryCode!, placemarks.first.administrativeArea!);
   }
 
   Future findNearestLocations() async {

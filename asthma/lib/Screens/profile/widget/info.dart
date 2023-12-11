@@ -30,28 +30,28 @@ class CardInfo extends StatelessWidget {
               subtitle: phone,
               icon: Icons.phone,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (email.isNotEmpty)
             CardWidget(
               title: AppLocalizations.of(context)!.email,
               subtitle: email,
               icon: Icons.email,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (age.isNotEmpty)
             CardWidget(
               title: AppLocalizations.of(context)!.age,
               subtitle: age,
               icon: Icons.date_range,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (birthday.isNotEmpty)
             CardWidget(
               title: AppLocalizations.of(context)!.birthday,
               subtitle: birthday,
               icon: Icons.calendar_month,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (gender.isNotEmpty)
             CardWidget(
                 title: AppLocalizations.of(context)!.gender,
