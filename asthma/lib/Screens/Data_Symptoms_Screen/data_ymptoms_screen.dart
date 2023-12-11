@@ -1,14 +1,4 @@
-import 'dart:typed_data';
-import 'package:asthma/Screens/Data_Symptoms_Screen/components/add_textfield.dart';
-import 'package:asthma/Screens/Data_Symptoms_Screen/methods/symptoms.dart';
-import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
-import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
-import 'package:asthma/Services/supabase.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:asthma/helper/imports.dart';
 
 Widget? barcode;
 String? imageUrl;
@@ -69,12 +59,11 @@ class _SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                         InheritedTheme.captureAll(
                             context, Material(child: container)),
                         delay: const Duration(seconds: 1));
-                imageUrl =
-                    await SupabaseServer().saveCaptrueImage(capturedImage);
+                context
+                    .read<UserBloc>()
+                    .add(UploadImageCaptureEvent(capturedImage));
+
                 // saved(capturedImage);
-                if (imageUrl != '') {
-                  barcode = generateBarcode(imageUrl!);
-                }
               },
               icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
         ],

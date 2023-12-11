@@ -1,14 +1,6 @@
-import 'dart:typed_data';
-import 'package:asthma/Screens/Data_Symptoms_Screen/components/add_textfield.dart';
-import 'package:asthma/Screens/breathing/componnets/button_widget.dart';
-import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
-import 'package:asthma/Services/supabase.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:asthma/helper/imports.dart';
 
 class MedicationTrackerScreen extends StatefulWidget {
   const MedicationTrackerScreen({super.key});
@@ -62,13 +54,13 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                     )
                   ],
                 );
-                Uint8List? capturedImage =
-                    await screenshotController.captureFromWidget(
-                        InheritedTheme.captureAll(
-                            context, Material(child: container)),
-                        delay: const Duration(seconds: 1));
-                await SupabaseServer().saveCaptrueImage(capturedImage);
-                // saved(capturedImage);
+                // Uint8List? capturedImage =
+                //     await screenshotController.captureFromWidget(
+                //         InheritedTheme.captureAll(
+                //             context, Material(child: container)),
+                //         delay: const Duration(seconds: 1));
+                // await SupabaseServer().saveCaptrueImage(capturedImage);
+                // // saved(capturedImage);
               },
               icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
         ],

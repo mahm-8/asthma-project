@@ -1,18 +1,15 @@
-import 'dart:typed_data';
-import 'package:asthma/constants/colors.dart';
 import 'package:barcode_widget/barcode_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:asthma/helper/imports.dart';
 
-Future<dynamic> ShowCapturedWidget(
+Future<dynamic> showCapturedWidget(
     BuildContext context, Uint8List capturedImage) {
   return showDialog(
     useSafeArea: false,
     context: context,
     builder: (context) => Scaffold(
       appBar: AppBar(
-        title: Text("Symptoms"),
+        title: const Text("Symptoms"),
         backgroundColor: ColorPaltte().white,
         leading: IconButton(
           onPressed: () {

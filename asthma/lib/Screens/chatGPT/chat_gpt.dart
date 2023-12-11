@@ -1,8 +1,4 @@
-import 'package:asthma/Screens/chatGPT/widgets/card_chat.dart';
-import 'package:asthma/Services/api_networking.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:flutter/material.dart';
+import 'package:asthma/helper/imports.dart';
 
 class ChatGPT extends StatefulWidget {
   const ChatGPT({

@@ -1,27 +1,6 @@
-import 'dart:convert';
-import 'package:asthma/Models/location_model.dart';
-import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
-import 'package:asthma/Screens/HomeScreen/widgets/air_quality.dart';
-import 'package:asthma/Screens/HomeScreen/widgets/container_widget.dart';
-import 'package:asthma/Screens/HomeScreen/widgets/nerest_hospital.dart';
-import 'package:asthma/Screens/breathing/breathing_screen.dart';
-import 'package:asthma/Screens/chatGPT/chat_gpt.dart';
-import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
-import 'package:asthma/Screens/profile/profile.dart';
-import 'package:asthma/Services/supabase.dart';
-import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
+import 'package:asthma/helper/imports.dart';
 import 'package:asthma/blocs/user_bloc/user_bloc.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/navigator.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../Services/networking_request.dart';
-import 'package:geocoding/geocoding.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value = 0.0;
@@ -128,7 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 300),
       animateChildDecoration: true,
-      rtlOpening: false,
       disabledGestures: false,
       childDecoration: const BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(16)),

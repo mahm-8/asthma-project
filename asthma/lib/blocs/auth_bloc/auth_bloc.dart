@@ -10,7 +10,7 @@ import '../../Services/networking_api.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthStates> {
   UserModel? user;
   AuthBloc() : super(AuthInitial()) {
     on<SignUpAuthEvent>(signUpMethod);
@@ -53,7 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> verificationMethod(
-      VerificationEvent event, Emitter<AuthState> emit) async {
+      VerificationEvent event, Emitter<AuthStates> emit) async {
     try {
       final auth = SupabaseNetworking().getSupabase.auth;
       final verification = await auth.verifyOTP(
@@ -81,7 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> loginMethod(
-      LogInAuthEvent event, Emitter<AuthState> emit) async {
+      LogInAuthEvent event, Emitter<AuthStates> emit) async {
     List<bool> isValidation = [];
     try {
       isValidation.add(validation(keyForm: event.emailKey));
@@ -93,19 +93,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (login.user?.id != null) {
           emit(LoginSuccessState());
         } else if (login.user?.id == null) {
-          emit(ErrorState("Wrong!!!!1"));
+          emit(ErrorAuthState("Wrong!!!!1"));
         }
       } else {
         emit(ValidLoginState());
       }
     } on AuthException {
-      emit(ErrorState("Password or email wrong"));
+      emit(ErrorAuthState("Password or email wrong"));
     } catch (e) {
       return;
     }
   }
 
-  FutureOr<void> _check(CheckLoginEvent event, Emitter<AuthState> emit) async {
+  FutureOr<void> _check(CheckLoginEvent event, Emitter<AuthStates> emit) async {
     final supabaseClint = SupabaseNetworking().getSupabase;
     await Future.delayed(Duration(seconds: 1));
     if (supabaseClint.auth.currentUser?.emailConfirmedAt != null) {
@@ -131,7 +131,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> displayPass(
-      DisplayPasswordEvent event, Emitter<AuthState> emit) {
+      DisplayPasswordEvent event, Emitter<AuthStates> emit) {
     if (event.display == true) {
       event.display = false;
       emit(DisplayState(display: event.display));
@@ -142,7 +142,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   FutureOr<void> logoutMethod(
-      LogoutEvent event, Emitter<AuthState> emit) async {
+      LogoutEvent event, Emitter<AuthStates> emit) async {
     try {
       final supabase = SupabaseNetworking().getSupabase;
       await supabase.auth.signOut();

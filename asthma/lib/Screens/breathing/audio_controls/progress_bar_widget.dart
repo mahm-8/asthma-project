@@ -1,7 +1,6 @@
-import 'package:asthma/constants/colors.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:asthma/helper/imports.dart';
+
 
 class ProgressBarWidget extends StatelessWidget {
   const ProgressBarWidget({

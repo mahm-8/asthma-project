@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:asthma/Services/networking_api.dart';
 import 'package:asthma/Services/networking_request.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../Models/user_model.dart';
+import '../../Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
+import '../../Screens/Data_Symptoms_Screen/methods/symptoms.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 
@@ -12,8 +15,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserModel? user;
   UserBloc() : super(UserInitial()) {
     on<LoadUserDataEvent>(getData);
-    on<UploadeImageEvent>(saveProfileImage);
+    on<UploadImageEvent>(saveProfileImage);
     on<UpdateUserEvent>(updateUser);
+    on<UploadImageCaptureEvent>(saveCaptureImage);
   }
 
   FutureOr<void> getData(
@@ -31,12 +35,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
       emit(LoadState());
     } catch (error) {
-      emit(ErrorState());
+      emit(ErrorUserState());
     }
   }
 
   FutureOr<void> saveProfileImage(
-      UploadeImageEvent event, Emitter<UserState> emit) async {
+      UploadImageEvent event, Emitter<UserState> emit) async {
     final supabase = SupabaseNetworking().getSupabase;
     try {
       final time = DateTime.now().millisecondsSinceEpoch;
@@ -90,5 +94,37 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } catch (error) {
       emit(ErrorUpdateState(msg: error.toString()));
     }
+  }
+
+  FutureOr<void> saveCaptureImage(
+      UploadImageCaptureEvent event, Emitter<UserState> emit) async {
+    final supabase = Supabase.instance.client;
+    final time = DateTime.now().millisecondsSinceEpoch;
+    final idAuth = supabase.auth.currentUser!.id;
+    var list = await supabase.storage.from("captrue_image").list();
+    late String id;
+    // search for name image
+    for (var x in list) {
+      if (x.name.startsWith(idAuth)) {
+        id = x.name;
+      }
+    }
+    //remove old image
+
+    await supabase.storage.from('captrue_image').uploadBinary(
+        '$idAuth-$time.png', event.image,
+        fileOptions: FileOptions(upsert: true));
+    final image = supabase.storage
+        .from('captrue_image')
+        .getPublicUrl('$idAuth-$time.png');
+    print('ssssssss$image');
+    if (image != '') {
+      barcode = generateBarcode(image);
+      emit(UploadImageCaptureState(barcode!));
+    }
+    await supabase.storage.from("captrue_image").remove([id]);
+    await supabase
+        .from("users")
+        .update({"image_capture": image}).eq('id_auth', idAuth);
   }
 }

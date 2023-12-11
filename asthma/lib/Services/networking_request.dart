@@ -1,5 +1,4 @@
-import 'package:asthma/Models/user_model.dart';
-import 'networking_api.dart';
+import 'package:asthma/helper/imports.dart';
 
 Future<UserModel?> getUserProfile() async {
   try {
@@ -9,7 +8,6 @@ Future<UserModel?> getUserProfile() async {
         .from("users")
         .select()
         .eq("id_auth", supabase.auth.currentUser!.id);
-    // print(userProfile[0]);
     return UserModel.fromJson(userProfile[0]);
   } catch (t) {
     return null;

@@ -1,21 +1,17 @@
-import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:asthma/helper/imports.dart';
 
 class AirQuality extends StatelessWidget {
   const AirQuality({
     super.key,
   });
 
-  getAirQualityStatus(double? airValue) {
+  getAirQualityStatus(double? airValue, BuildContext context) {
     if (airValue! >= 0 && airValue <= 50) {
-      return 'good';
+      return AppLocalizations.of(context)!.good;
     } else if (airValue >= 51 && airValue <= 100) {
-      return 'moderate';
+      return AppLocalizations.of(context)!.normal;
     } else if (airValue >= 100 && airValue <= 200) {
-      return 'unhealthy';
+      return AppLocalizations.of(context)!.bad;
     } else {
       return '';
     }
@@ -53,7 +49,7 @@ class AirQuality extends StatelessWidget {
               width: 8,
             ),
             Text(
-              getAirQualityStatus(value!).toString(),
+              getAirQualityStatus(value!, context).toString(),
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,

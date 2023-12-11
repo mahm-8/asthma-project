@@ -1,11 +1,5 @@
-import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:asthma/helper/imports.dart';
 class NerestHospital extends StatelessWidget {
   const NerestHospital({
     super.key,
