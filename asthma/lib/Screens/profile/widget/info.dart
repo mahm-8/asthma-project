@@ -1,7 +1,5 @@
-import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constants/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'card_widget.dart';
 
 class CardInfo extends StatelessWidget {
@@ -23,40 +21,40 @@ class CardInfo extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           if (phone.isNotEmpty)
             CardWidget(
-              title: 'phone',
+              title: AppLocalizations.of(context)!.phone,
               subtitle: phone,
               icon: Icons.phone,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (email.isNotEmpty)
             CardWidget(
-              title: 'email',
+              title: AppLocalizations.of(context)!.email,
               subtitle: email,
               icon: Icons.email,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (age.isNotEmpty)
             CardWidget(
-              title: 'age',
+              title: AppLocalizations.of(context)!.age,
               subtitle: age,
               icon: Icons.date_range,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (birthday.isNotEmpty)
             CardWidget(
-              title: 'birthday',
+              title: AppLocalizations.of(context)!.birthday,
               subtitle: birthday,
               icon: Icons.calendar_month,
             ),
-          const SizedBox(height: 10),
+          Divider(),
           if (gender.isNotEmpty)
             CardWidget(
-                title: 'gender',
+                title: AppLocalizations.of(context)!.gender,
                 subtitle: gender,
                 icon: gender == 'male' ? Icons.male : Icons.female),
         ],

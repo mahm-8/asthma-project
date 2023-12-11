@@ -1,0 +1,27 @@
+{
+  "welcome": "Welcome",
+  "personal":"Personal Info",
+  "setting": "setting",
+    "logout": "logout",
+    "phone": "phone",
+    "email": "email",
+    "age": "age",
+    "gender":"gender",
+    "birthday": "birthday",
+    "update": "update",
+    "name": "name",
+    "edit_profile": "Edit Profile",
+    "home": "Home",
+"breathing": "Breathing",
+"profile": "Profile",
+"nearest": "Nearest Hospital",
+"symptom": "A symptom",
+"medicine": "Medicine",
+"helper": "Helper",
+"quality": "Air quality",
+"good": "good",
+"normal": "normal",
+"bad": "bad",
+"run": "run"
+
+}

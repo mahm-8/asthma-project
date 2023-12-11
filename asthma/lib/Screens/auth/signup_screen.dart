@@ -31,6 +31,7 @@ class SignupScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: ColorPaltte().newDarkBlue,
         resizeToAvoidBottomInset: true,
         body: SizedBox(
           height: context.getHeight(),

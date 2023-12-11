@@ -14,22 +14,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<LoadUserDataEvent>(getData);
     on<UploadeImageEvent>(saveProfileImage);
     on<UpdateUserEvent>(updateUser);
-
   }
 
   FutureOr<void> getData(
       LoadUserDataEvent event, Emitter<UserState> emit) async {
     try {
-      print("===================Load Date==================");
+      if (kDebugMode) {
+        print("===================Load Date==================");
+      }
       user = await getUserProfile();
-      // await Future.delayed(const Duration(seconds: 2));
-      print(user);
-      print("===================get Date==================");
+      if (kDebugMode) {
+        print(user);
+      }
+      if (kDebugMode) {
+        print("===================get Date==================");
+      }
       emit(LoadState());
     } catch (error) {
-      if (kDebugMode) {
-        print(error);
-      }
       emit(ErrorState());
     }
   }
@@ -40,23 +41,31 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final time = DateTime.now().millisecondsSinceEpoch;
       final idAuth = supabase.auth.currentSession!.user.id;
+
+      // get image by id
+      var list = await supabase.storage.from("profile_image").list();
+      late String id;
+      // search for name image
+      for (var x in list) {
+        if (x.name.startsWith(idAuth)) {
+          id = x.name;
+        }
+      }
+      //remove old image
+      await supabase.storage.from("profile_image").remove([id]);
+      //upload new image
       await supabase.storage.from('profile_image').uploadBinary(
-          '$idAuth/$time.png', event.image,
+          '$idAuth-$time.png', event.image,
           fileOptions: const FileOptions(upsert: true));
       await Future.delayed(const Duration(seconds: 1));
+      // get url and saved on table user
       final upload = supabase.storage
           .from('profile_image')
-          .getPublicUrl('$idAuth/$time.png');
-      // final userProfile =
-      //     await supabase.from("users").select().eq("id_auth", idAuth);
-      // if (userProfile == null) {
+          .getPublicUrl('$idAuth-$time.png');
       await supabase
           .from('users')
           .update({'image': upload}).eq('id_auth', idAuth);
       emit(UploadImageState(upload));
-      // } else {
-      //   emit(UploadImageState(upload));
-      // }
     } on StorageException catch (e) {
       emit(ErrorUploadState(e.message));
     } catch (error) {
@@ -76,8 +85,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         "phone": event.user.phone,
         "age": event.user.age!
       }).eq('id_auth', idAuth);
-
-      print(user);
       add(LoadUserDataEvent());
       emit(SuccessUpdateState());
     } catch (error) {

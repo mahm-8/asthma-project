@@ -2,6 +2,7 @@ import 'package:asthma/Screens/HomeScreen/home_screen.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AirQuality extends StatelessWidget {
   const AirQuality({
@@ -42,7 +43,7 @@ class AirQuality extends StatelessWidget {
               width: 8,
             ),
             Text(
-              'Air quality:',
+              AppLocalizations.of(context)!.quality,
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,

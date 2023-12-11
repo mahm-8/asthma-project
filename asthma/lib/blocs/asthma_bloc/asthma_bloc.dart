@@ -9,7 +9,7 @@ part 'asthma_event.dart';
 part 'asthma_state.dart';
 
 class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
-  LocationModel? hospitalData;
+  List<LocationModel>? hospitalData;
   List<MedicationModel>? medicationData;
   List<SymptomsModel>? symptomsData;
 
@@ -19,7 +19,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
   AsthmaBloc() : super(AsthmaInitial()) {
     on<getHospitalDataEvent>(getData);
     on<GetMedicationDataEvent>(getMedicationData);
-
     on<GetSymptomDataEvent>(getSymptomsData);
     on<AddMedicationEvent>(addMedicationMethod);
     on<AddSymptomEvent>(addSymptomMethod);
@@ -27,18 +26,18 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     on<DeleteSymptomEvent>(deleteSymtomMethod);
     add(GetMedicationDataEvent());
     add(GetSymptomDataEvent());
-
   }
-
+// xbox-w@live.com
+//12345Aa!
   Future<void> getData(
       getHospitalDataEvent event, Emitter<AsthmaState> emit) async {
     try {
       emit(LoadingState());
       hospitalData = await SupabaseServer().getHospitalData();
-      print("i am here 1");
+
       await Future.delayed(const Duration(seconds: 1));
-      emit(LoadingState());
-      emit(SuccessHospitalState());
+
+      emit(SuccessHospitalState(hospitalData));
     } catch (error) {
       print(error);
       emit(ErrorState());

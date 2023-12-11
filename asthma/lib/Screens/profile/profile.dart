@@ -1,9 +1,7 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
-
-import 'package:adaptive_theme/adaptive_theme.dart';
-
+import 'package:asthma/blocs/language_bloc/language_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:asthma/Screens/auth/login_screen.dart';
 import 'package:asthma/Screens/profile/edit_profile.dart';
 import 'package:asthma/Screens/profile/widget/info.dart';
@@ -27,6 +25,7 @@ class Profile extends StatelessWidget {
   TextEditingController? ageController = TextEditingController();
   TextEditingController? birthdayController = TextEditingController();
   TextEditingController? genderController = TextEditingController();
+  var lan = true;
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
@@ -39,18 +38,25 @@ class Profile extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.transparent,
           actions: [
-            IconButton(
-              icon: const Icon(Icons.mode_edit_outline_sharp),
-              onPressed: () {
-                context.push(
-                    view: EditProfile(
-                        phoneController: phoneController!,
-                        nameController: nameController!,
-                        ageController: ageController!,
-                        birthdayController: birthdayController!,
-                        genderController: genderController!));
-              },
-            )
+            InkWell(
+                onTap: () {
+                  context.push(
+                      view: EditProfile(
+                          phoneController: phoneController!,
+                          nameController: nameController!,
+                          ageController: ageController!,
+                          birthdayController: birthdayController!,
+                          genderController: genderController!));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Image.asset(
+                    'assets/edit_profile.png',
+                    color: ColorPaltte().white,
+                    height: 30,
+                    width: 30,
+                  ),
+                )),
           ],
         ),
         backgroundColor: ColorPaltte().newDarkBlue,
@@ -95,7 +101,9 @@ class Profile extends StatelessWidget {
                                     child: Container(
                                         decoration: BoxDecoration(
                                             border: Border.all(
+
                                                 color: ColorPaltte().darkBlue,
+
                                                 width: 1.5),
                                             borderRadius:
                                                 BorderRadius.circular(16)),
@@ -104,6 +112,26 @@ class Profile extends StatelessWidget {
                                             child: barcode)),
                                   ),
                                   const Spacer(),
+                                  BlocBuilder<LanguageBloc, LanguageState>(
+                                    builder: (context, state) {
+                                      if (state is SwitchState) {
+                                        return Switch(
+                                            value: state.swit,
+                                            onChanged: (value) {
+                                              context
+                                                  .read<LanguageBloc>()
+                                                  .add(ChangeLanguage(value));
+                                            });
+                                      }
+                                      return Switch(
+                                          value: lan,
+                                          onChanged: (value) {
+                                            context
+                                                .read<LanguageBloc>()
+                                                .add(ChangeLanguage(value));
+                                          });
+                                    },
+                                  ),
                                   BlocListener<AuthBloc, AuthState>(
                                     listener: (context, state) {
                                       if (state is LogoutSuccessState) {
@@ -120,7 +148,8 @@ class Profile extends StatelessWidget {
                                       }
                                     },
                                     child: ToolsWidget(
-                                      title: 'Logout',
+                                      title:
+                                          AppLocalizations.of(context)!.logout,
                                       colorText: Colors.red,
                                       onPressed: () {
                                         context
@@ -146,12 +175,12 @@ class Profile extends StatelessWidget {
                   ),
                   Positioned(
                     left: context.getWidth(divide: 20),
-                    top: context.getHeight(divide: 10),
+                    top: context.getHeight(divide: 8),
                     child: Container(
                       padding: const EdgeInsets.only(top: 60),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: ColorPaltte().newlightBlue),
+                          color: ColorPaltte().conlightBlue),
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: Column(
                         children: [
@@ -164,18 +193,25 @@ class Profile extends StatelessWidget {
                           TabBar(
                               indicatorColor: ColorPaltte().darkBlue,
                               indicatorPadding:
-                                  EdgeInsets.symmetric(horizontal: 20),
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               tabs: [
                                 Tab(
                                   child: Text(
-                                    "Personal info",
+                                    AppLocalizations.of(context)!.personal,
                                     style: TextStyle(
                                         color: ColorPaltte().darkBlue),
                                   ),
                                 ),
+                                // Tab(
+                                //   child: Text(
+                                //     "QR",
+                                //     style: TextStyle(
+                                //         color: ColorPaltte().darkBlue),
+                                //   ),
+                                // ),
                                 Tab(
                                   child: Text(
-                                    "Tools",
+                                    AppLocalizations.of(context)!.setting,
                                     style: TextStyle(
                                         color: ColorPaltte().darkBlue),
                                   ),
@@ -187,61 +223,74 @@ class Profile extends StatelessWidget {
                   ),
                   Positioned(
                     left: context.getWidth(divide: 2.7),
-                    top: context.getHeight(divide: 25),
+                    top: context.getHeight(divide: 17),
                     child: ClipOval(
-                      child: InkWell(
-                        onTap: () async {
-                          XFile? image = await picker.pickImage(
-                              source: ImageSource.gallery);
-
-                          final imageFile = await image!.readAsBytes();
-
-                          context
-                              .read<UserBloc>()
-                              .add(UploadeImageEvent(imageFile));
-                          context.showLoading();
+                      child: BlocConsumer<UserBloc, UserState>(
+                        listener: (context, state) {
+                          if (state is ErrorUploadState) {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    content: Text(state.msg),
+                                  );
+                                });
+                          }
+                          if (state is UploadImageState) {
+                            Navigator.of(context).pop();
+                          }
                         },
-                        child: BlocConsumer<UserBloc, UserState>(
-                          listener: (context, state) {
-                            if (state is ErrorUploadState) {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      content: Text(state.msg),
-                                    );
-                                  });
-                            }
-                            if (state is UploadImageState) {
-                              Navigator.of(context).pop();
-                            }
-                          },
-                          buildWhen: (oldState, newState) {
-                            if (newState is UploadImageState) {
-                              return true;
-                            }
-                            return false;
-                          },
-                          builder: (context, state) {
-                            if (state is UploadImageState) {
-                              return Container(
-                                  color: ColorPaltte().newBlue,
-                                  height: 100,
-                                  width: 100,
-                                  child: Image.network(state.url));
-                            }
+                        builder: (context, state) {
+                          if (state is UploadImageState) {
                             return Container(
-                              color: ColorPaltte().newBlue,
-                              height: 100,
-                              width: 100,
-                              child: bloc.user!.image != null
-                                  ? Image.network(bloc.user!.image!)
-                                  : const Icon(Icons.person_outline),
-                            );
-                          },
-                        ),
+                                color: ColorPaltte().newBlue,
+                                height: 100,
+                                width: 100,
+                                child: Image.network(
+                                  state.url,
+                                  fit: BoxFit.cover,
+                                ));
+                          }
+                          return Container(
+                            color: ColorPaltte().newBlue,
+                            height: 100,
+                            width: 100,
+                            child: bloc.user!.image != null
+                                ? Image.network(
+                                    bloc.user!.image!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Icon(Icons.person_outline),
+                          );
+                        },
                       ),
                     ),
+                  ),
+                  Positioned(
+                    left: context.getWidth(divide: 1.75),
+                    top: context.getHeight(divide: 8),
+                    child: ClipOval(
+                        child: InkWell(
+                      onTap: () async {
+                        XFile? image =
+                            await picker.pickImage(source: ImageSource.gallery);
+
+                        final imageFile = await image!.readAsBytes();
+
+                        context
+                            .read<UserBloc>()
+                            .add(UploadeImageEvent(imageFile));
+                        context.showLoading();
+                      },
+                      child: Container(
+                          padding: const EdgeInsets.all(4),
+                          color: ColorPaltte().lightBlue,
+                          child: Icon(
+                            Icons.mode_edit_outlined,
+                            size: 20,
+                            color: ColorPaltte().newDarkBlue,
+                          )),
+                    )),
                   ),
                 ],
               );
