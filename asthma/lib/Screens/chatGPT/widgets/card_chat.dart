@@ -13,8 +13,6 @@ class CardUser extends StatelessWidget {
         margin: isUser
             ? const EdgeInsets.only(top: 16, right: 4, left: 25)
             : const EdgeInsets.only(top: 16, left: 4, right: 25),
-        // constraints: const BoxConstraints(
-        //     maxHeight: 300, maxWidth: 200, minHeight: 60, minWidth: 100),
         alignment: Alignment.center,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(

@@ -8,6 +8,7 @@ class UserModel {
   String? image;
   String? idAuth;
   String? name;
+  String? imageCapture;
 
   UserModel(
       {this.id,
@@ -18,7 +19,8 @@ class UserModel {
       this.phone,
       this.image,
       this.idAuth,
-      this.name});
+      this.name,
+      this.imageCapture});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -30,6 +32,7 @@ class UserModel {
     image = json['image'] ?? "";
     idAuth = json['id_auth'] ?? "";
     name = json['name'] ?? "";
+    imageCapture = json['image_capture'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

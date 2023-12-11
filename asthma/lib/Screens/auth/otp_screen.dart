@@ -1,17 +1,5 @@
-import 'package:asthma/Screens/NavBar/nav_bar.dart';
-import 'package:asthma/Screens/loading/loading_screen.dart';
-import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/loading_extension.dart';
-import 'package:asthma/extensions/navigator.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:asthma/extensions/text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pinput/pinput.dart';
 
-import '../HomeScreen/home_screen.dart';
-
+import 'package:asthma/helper/imports.dart';
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key, required this.email});
   final String email;
@@ -69,7 +57,7 @@ class OtpScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  BlocListener<AuthBloc, AuthState>(
+                  BlocListener<AuthBloc, AuthStates>(
                     listener: (context, state) {
                       if (state is SuccessVerificationState) {
                         context.pushAndRemoveUntil(view: const LoadingScreen());

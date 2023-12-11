@@ -1,19 +1,7 @@
-// ignore_for_file: must_be_immutable
-import 'package:asthma/Screens/auth/signup_screen.dart';
-import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
-import 'package:asthma/Screens/auth/widgets/text_form_widget.dart';
-import 'package:asthma/Screens/loading/loading_screen.dart';
-import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/loading_extension.dart';
-import 'package:asthma/extensions/navigator.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:asthma/extensions/text.dart';
-import 'package:asthma/extensions/validtor.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+import 'package:asthma/helper/imports.dart';
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final emailController = TextEditingController();
@@ -33,15 +21,10 @@ class LoginScreen extends StatelessWidget {
           child: ListView(
             children: [
               SizedBox(
-                height: 300,
-                child: Center(
-                    child: Image.asset(
-                  "assets/A.png",
-                  color: Colors.white,
-                  height: 150,
-                  width: 150,
-                )),
-              ),
+                  height: 300,
+                  child: Center(
+                      child: Image.asset("assets/A.png",
+                          color: Colors.white, height: 150, width: 150))),
               Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
@@ -51,13 +34,9 @@ class LoginScreen extends StatelessWidget {
                 child: ListView(shrinkWrap: true, children: [
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       Text("Login", style: const TextStyle().bold24),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       TextFieldWidget(
                         keyForm: _emailKey,
                         hint: "exambel@exambel.com",
@@ -73,14 +52,34 @@ class LoginScreen extends StatelessWidget {
                           return null;
                         },
                       ),
-                      BlocBuilder<AuthBloc, AuthState>(
+                      BlocBuilder<AuthBloc, AuthStates>(
                         builder: (context, state) {
                           if (state is DisplayState) {
                             return TextFieldWidget(
+                                onTap: () => context
+                                    .read<AuthBloc>()
+                                    .add(DisplayPasswordEvent(state.display)),
+                                displayPass: state.display,
+                                obscure: true,
+                                keyForm: _passwordKey,
+                                hint: "Password",
+                                controller: passwordController,
+                                titel: "PASSWORD",
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "please enter password";
+                                  }
+                                  if (!value.isValidPassword) {
+                                    return "must be contain Uppercase, lowercase and (!@#*~)";
+                                  }
+                                  return null;
+                                });
+                          }
+                          return TextFieldWidget(
                               onTap: () => context
                                   .read<AuthBloc>()
-                                  .add(DisplayPasswordEvent(state.display)),
-                              displayPass: state.display,
+                                  .add(DisplayPasswordEvent(display)),
+                              displayPass: display,
                               obscure: true,
                               keyForm: _passwordKey,
                               hint: "Password",
@@ -94,44 +93,22 @@ class LoginScreen extends StatelessWidget {
                                   return "must be contain Uppercase, lowercase and (!@#*~)";
                                 }
                                 return null;
-                              },
-                            );
-                          }
-                          return TextFieldWidget(
-                            onTap: () => context
-                                .read<AuthBloc>()
-                                .add(DisplayPasswordEvent(display)),
-                            displayPass: display,
-                            obscure: true,
-                            keyForm: _passwordKey,
-                            hint: "Password",
-                            controller: passwordController,
-                            titel: "PASSWORD",
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "please enter password";
-                              }
-                              if (!value.isValidPassword) {
-                                return "must be contain Uppercase, lowercase and (!@#*~)";
-                              }
-                              return null;
-                            },
-                          );
+                              });
                         },
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      BlocBuilder<AuthBloc, AuthState>(
-                        
+
+                      BlocBuilder<AuthBloc, AuthStates>(
                         builder: (context, state) {
-                          return BlocListener<AuthBloc, AuthState>(
+                          return BlocListener<AuthBloc, AuthStates>(
                             listener: (context, state) {
                               if (state is LoginSuccessState) {
                                 context.read<AuthBloc>().add(CheckLoginEvent());
                                 context.pushAndRemoveUntil(
                                     view: const LoadingScreen());
-                              } else if (state is ErrorState) {
+                              } else if (state is ErrorAuthState) {
                                 Navigator.of(context).pop();
                                 context.showErrorMessage(msg: state.message);
                               } else if (state is ValidLoginState) {
@@ -152,9 +129,7 @@ class LoginScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
+                      const SizedBox(height: 16),
                       RichText(
                         text: TextSpan(
                           style: const TextStyle(

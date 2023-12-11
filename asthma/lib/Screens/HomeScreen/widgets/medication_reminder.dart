@@ -1,11 +1,8 @@
-import 'package:asthma/Screens/medication_data/medication_data_screen.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/navigator.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:asthma/helper/imports.dart';
 
 class MedicationReminder extends StatefulWidget {
-  const MedicationReminder({Key? key}) : super(key: key);
+  const MedicationReminder({super.key});
 
   @override
   State<MedicationReminder> createState() => _MedicationReminderState();

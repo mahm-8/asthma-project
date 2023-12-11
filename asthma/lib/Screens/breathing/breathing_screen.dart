@@ -1,10 +1,6 @@
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'audio_controls/audio_controls.dart';
-import 'package:lottie/lottie.dart';
 import 'audio_controls/progress_bar_widget.dart';
+import 'package:asthma/helper/imports.dart';
 
 class BreathingScreen extends StatefulWidget {
   const BreathingScreen({super.key});

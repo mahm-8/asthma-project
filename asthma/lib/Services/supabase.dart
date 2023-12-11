@@ -1,8 +1,8 @@
-import 'dart:typed_data';
-import 'package:asthma/Models/location_model.dart';
+
 import 'package:asthma/Models/medication_model.dart';
 import 'package:asthma/Models/symptoms_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:asthma/helper/imports.dart';
+
 
 List<LocationModel> allHospetal = [];
 List<MedicationModel> allMedication = [];
@@ -57,18 +57,5 @@ class SupabaseServer {
 
   deleteSymptom({required int id}) async {
     await supabase.from("symptoms").delete().eq('id', id);
-  }
-
-  saveCaptrueImage(Uint8List pathImagefile) async {
-    final supabase = Supabase.instance.client;
-    final time = DateTime.now().millisecondsSinceEpoch;
-    final response = await supabase.storage.from('captrue_image').uploadBinary(
-        'image$time.png', pathImagefile,
-        fileOptions: FileOptions(upsert: true));
-    final imagePath =
-        supabase.storage.from('captrue_image').getPublicUrl('image$time.png');
-
-    print('path$imagePath');
-    print(response);
   }
 }

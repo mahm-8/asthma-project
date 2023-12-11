@@ -4,10 +4,16 @@ abstract class UserEvent {}
 
 final class LoadUserDataEvent extends UserEvent {}
 
-final class UploadeImageEvent extends UserEvent {
+final class UploadImageEvent extends UserEvent {
   final Uint8List image;
 
-  UploadeImageEvent(this.image);
+  UploadImageEvent(this.image);
+}
+
+final class UploadImageCaptureEvent extends UserEvent {
+  final Uint8List image;
+
+  UploadImageCaptureEvent(this.image);
 }
 
 final class UpdateUserEvent extends UserEvent {

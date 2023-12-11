@@ -6,12 +6,18 @@ class UserInitial extends UserState {}
 
 class LoadState extends UserState {}
 
-class ErrorState extends UserState {}
+class ErrorUserState extends UserState {}
 
 class UploadImageState extends UserState {
   final String url;
 
   UploadImageState(this.url);
+}
+
+class UploadImageCaptureState extends UserState {
+  final Widget barcode;
+
+  UploadImageCaptureState(this.barcode);
 }
 
 class SuccessUpdateState extends UserState {}

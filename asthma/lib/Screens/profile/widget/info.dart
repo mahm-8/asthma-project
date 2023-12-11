@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'card_widget.dart';
+
+import 'package:asthma/helper/imports.dart';
 
 class CardInfo extends StatelessWidget {
   const CardInfo(
@@ -30,28 +29,48 @@ class CardInfo extends StatelessWidget {
               subtitle: phone,
               icon: Icons.phone,
             ),
-          Divider(),
+
+          const Divider(
+            height: 0.5,
+            color: Colors.black,
+          ),
+
           if (email.isNotEmpty)
             CardWidget(
               title: AppLocalizations.of(context)!.email,
               subtitle: email,
               icon: Icons.email,
             ),
-          Divider(),
+
+          const Divider(
+            height: 0.5,
+            color: Colors.black,
+          ),
+
           if (age.isNotEmpty)
             CardWidget(
               title: AppLocalizations.of(context)!.age,
               subtitle: age,
               icon: Icons.date_range,
             ),
-          Divider(),
+
+          const Divider(
+            height: 0.5,
+            color: Colors.black,
+          ),
+
           if (birthday.isNotEmpty)
             CardWidget(
               title: AppLocalizations.of(context)!.birthday,
               subtitle: birthday,
               icon: Icons.calendar_month,
             ),
-          Divider(),
+
+          const Divider(
+            height: 0.5,
+            color: Colors.black,
+          ),
+
           if (gender.isNotEmpty)
             CardWidget(
                 title: AppLocalizations.of(context)!.gender,

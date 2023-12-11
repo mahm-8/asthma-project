@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../constants/colors.dart';
+import 'package:asthma/helper/imports.dart';
 
 class CardWidget extends StatelessWidget {
   const CardWidget(
@@ -10,11 +8,10 @@ class CardWidget extends StatelessWidget {
   final IconData? icon;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: ColorPaltte().white,
-      ),
+
+    return SizedBox(
+      height: 60,
+
       child: ListTile(
         title: Text(
           title,

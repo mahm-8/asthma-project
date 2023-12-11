@@ -1,19 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:asthma/Screens/auth/login_screen.dart';
-import 'package:asthma/Screens/auth/otp_screen.dart';
-import 'package:asthma/Screens/auth/widgets/button_auth_widget.dart';
-import 'package:asthma/Screens/auth/widgets/text_form_widget.dart';
-import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/loading_extension.dart';
-import 'package:asthma/extensions/navigator.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:asthma/extensions/text.dart';
-import 'package:asthma/extensions/validtor.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:asthma/helper/imports.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -37,7 +25,7 @@ class SignupScreen extends StatelessWidget {
           height: context.getHeight(),
           child: ListView(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 200,
               ),
               Container(
@@ -97,7 +85,7 @@ class SignupScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
+                    BlocBuilder<AuthBloc, AuthStates>(
                       builder: (context, state) {
                         if (state is DisplayState) {
                           return TextFieldWidget(
@@ -143,10 +131,10 @@ class SignupScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
+                    BlocBuilder<AuthBloc, AuthStates>(
                       buildWhen: (oldStete, newState) {
                         if (newState is SignUpSuccessState) {
                           context.push(

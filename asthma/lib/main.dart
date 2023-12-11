@@ -1,22 +1,9 @@
-import 'package:asthma/Screens/loading/loading_screen.dart';
-import 'package:asthma/blocs/language_bloc/language_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:asthma/Screens/loading/loading_screen.dart';
-
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:asthma/Screens/breathing/breathing_screen.dart';
 
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
-import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'Services/networking_api.dart';
-import 'blocs/user_bloc/user_bloc.dart';
 import 'helper/observer.dart';
+import 'package:asthma/helper/imports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

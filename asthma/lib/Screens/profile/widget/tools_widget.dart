@@ -11,29 +11,20 @@ class ToolsWidget extends StatelessWidget {
   final Color? colorText;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: InkWell(
-        onTap: onPressed,
-        child: SizedBox(
-          height: 55,
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(color: colorText),
-                  )
-                ],
-              ),
-            ),
+    return InkWell(
+      onTap: onPressed,
+      child: Column(children: [
+        const Divider(
+          height: 1,
+          color: Colors.black,
+        ),
+        SizedBox(
+          height: 40,
+          child: ListTile(
+            title: Text(title, style: TextStyle(color: colorText)),
           ),
         ),
-      ),
+      ]),
     );
   }
 }

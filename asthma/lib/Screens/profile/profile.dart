@@ -1,21 +1,8 @@
 
-import 'package:asthma/Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
-import 'package:asthma/blocs/language_bloc/language_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:asthma/Screens/auth/login_screen.dart';
-import 'package:asthma/Screens/profile/edit_profile.dart';
-import 'package:asthma/Screens/profile/widget/info.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/loading_extension.dart';
-import 'package:asthma/extensions/navigator.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:asthma/extensions/text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import '../../blocs/auth_bloc/auth_bloc.dart';
-import '../../blocs/user_bloc/user_bloc.dart';
-import 'widget/tools_widget.dart';
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
+import 'package:asthma/helper/imports.dart';
+
 
 class Profile extends StatelessWidget {
   Profile({super.key});
@@ -25,7 +12,6 @@ class Profile extends StatelessWidget {
   TextEditingController? ageController = TextEditingController();
   TextEditingController? birthdayController = TextEditingController();
   TextEditingController? genderController = TextEditingController();
-  var lan = true;
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
@@ -90,181 +76,21 @@ class Profile extends StatelessWidget {
                                 email: bloc.user!.email!,
                                 age: bloc.user!.age!,
                                 gender: bloc.user!.gender!),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 30, bottom: 16),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    width: 400,
-                                    height: 200,
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
 
-                                                color: ColorPaltte().darkBlue,
+                            SettingWidget(
+                              bloc: bloc,
 
-                                                width: 1.5),
-                                            borderRadius:
-                                                BorderRadius.circular(16)),
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(16),
-                                            child: barcode)),
-                                  ),
-                                  const Spacer(),
-                                  BlocBuilder<LanguageBloc, LanguageState>(
-                                    builder: (context, state) {
-                                      if (state is SwitchState) {
-                                        return Switch(
-                                            value: state.swit,
-                                            onChanged: (value) {
-                                              context
-                                                  .read<LanguageBloc>()
-                                                  .add(ChangeLanguage(value));
-                                            });
-                                      }
-                                      return Switch(
-                                          value: lan,
-                                          onChanged: (value) {
-                                            context
-                                                .read<LanguageBloc>()
-                                                .add(ChangeLanguage(value));
-                                          });
-                                    },
-                                  ),
-                                  BlocListener<AuthBloc, AuthState>(
-                                    listener: (context, state) {
-                                      if (state is LogoutSuccessState) {
-                                        context.pushAndRemoveUntil(
-                                            view: LoginScreen());
-                                      } else if (state is ErrorLogoutState) {
-                                        Navigator.of(context).pop();
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                                  title: const Text("Error"),
-                                                  content: Text(state.msg),
-                                                ));
-                                      }
-                                    },
-                                    child: ToolsWidget(
-                                      title:
-                                          AppLocalizations.of(context)!.logout,
-                                      colorText: Colors.red,
-                                      onPressed: () {
-                                        context
-                                            .read<AuthBloc>()
-                                            .add(LogoutEvent());
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => const Center(
-                                                  child:
-                                                      CircularProgressIndicator
-                                                          .adaptive(),
-                                                ));
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
                             )
                           ],
                         ),
                       )
                     ],
                   ),
-                  Positioned(
-                    left: context.getWidth(divide: 20),
-                    top: context.getHeight(divide: 8),
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 60),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: ColorPaltte().conlightBlue),
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Column(
-                        children: [
-                          Text(
-                            bloc.user!.name!,
-                            style: const TextStyle().bold24,
-                          ),
-                          Text(bloc.user!.id!.toString()),
-                          const Divider(),
-                          TabBar(
-                              indicatorColor: ColorPaltte().darkBlue,
-                              indicatorPadding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              tabs: [
-                                Tab(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.personal,
-                                    style: TextStyle(
-                                        color: ColorPaltte().darkBlue),
-                                  ),
-                                ),
-                                // Tab(
-                                //   child: Text(
-                                //     "QR",
-                                //     style: TextStyle(
-                                //         color: ColorPaltte().darkBlue),
-                                //   ),
-                                // ),
-                                Tab(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.setting,
-                                    style: TextStyle(
-                                        color: ColorPaltte().darkBlue),
-                                  ),
-                                ),
-                              ])
-                        ],
-                      ),
-                    ),
+                  TapWidget(
+                    bloc: bloc,
                   ),
-                  Positioned(
-                    left: context.getWidth(divide: 2.7),
-                    top: context.getHeight(divide: 17),
-                    child: ClipOval(
-                      child: BlocConsumer<UserBloc, UserState>(
-                        listener: (context, state) {
-                          if (state is ErrorUploadState) {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    content: Text(state.msg),
-                                  );
-                                });
-                          }
-                          if (state is UploadImageState) {
-                            Navigator.of(context).pop();
-                          }
-                        },
-                        builder: (context, state) {
-                          if (state is UploadImageState) {
-                            return Container(
-                                color: ColorPaltte().newBlue,
-                                height: 100,
-                                width: 100,
-                                child: Image.network(
-                                  state.url,
-                                  fit: BoxFit.cover,
-                                ));
-                          }
-                          return Container(
-                            color: ColorPaltte().newBlue,
-                            height: 100,
-                            width: 100,
-                            child: bloc.user!.image != null
-                                ? Image.network(
-                                    bloc.user!.image!,
-                                    fit: BoxFit.cover,
-                                  )
-                                : const Icon(Icons.person_outline),
-                          );
-                        },
-                      ),
-                    ),
+                  ContainerImage(
+                    bloc: bloc,
                   ),
                   Positioned(
                     left: context.getWidth(divide: 1.75),
@@ -276,11 +102,13 @@ class Profile extends StatelessWidget {
                             await picker.pickImage(source: ImageSource.gallery);
 
                         final imageFile = await image!.readAsBytes();
+                        if (imageFile.isNotEmpty) {
+                          context
+                              .read<UserBloc>()
+                              .add(UploadImageEvent(imageFile));
 
-                        context
-                            .read<UserBloc>()
-                            .add(UploadeImageEvent(imageFile));
-                        context.showLoading();
+                          context.showLoading();
+                        }
                       },
                       child: Container(
                           padding: const EdgeInsets.all(4),
