@@ -1,15 +1,13 @@
 import 'package:asthma/Screens/loading/loading_screen.dart';
-
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:asthma/Screens/loading/loading_screen.dart';
-import 'package:asthma/Screens/HomeScreen/home_screen.dart';
-
+import 'package:asthma/blocs/language_bloc/language_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/blocs/auth_bloc/auth_bloc.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Services/networking_api.dart';
 import 'blocs/user_bloc/user_bloc.dart';
 import 'helper/observer.dart';
@@ -31,6 +29,9 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => LanguageBloc(),
+        ),
+        BlocProvider(
           create: (context) => AuthBloc()..add(CheckLoginEvent()),
         ),
         BlocProvider(
@@ -39,12 +40,53 @@ class MainApp extends StatelessWidget {
           create: (context) => UserBloc(),
         ),
       ],
-      child: MaterialApp(
-        theme: ThemeData(
-          useMaterial3: false,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: const LoadingScreen(),
+      child: BlocBuilder<LanguageBloc, LanguageState>(
+        buildWhen: (oldState, newState) {
+          if (newState is ChangeLanguageState) {
+            return true;
+          }
+          return false;
+        },
+        builder: (context, state) {
+          if (state is ChangeLanguageState) {
+            return MaterialApp(
+              locale: Locale(state.lang),
+              theme: ThemeData(
+                useMaterial3: false,
+              ),
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: const [
+                AppLocalizations.delegate, // Add this line
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en'), // English
+                Locale('ar'), // Spanish
+              ],
+              home: const LoadingScreen(),
+            );
+          }
+          return MaterialApp(
+            locale: const Locale('en'),
+            theme: ThemeData(
+                useMaterial3: false,
+                scaffoldBackgroundColor: ColorPaltte().newDarkBlue),
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              AppLocalizations.delegate, // Add this line
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), // English
+              Locale('ar'), // Spanish
+            ],
+            home: const LoadingScreen(),
+          );
+        },
       ),
     );
   }
