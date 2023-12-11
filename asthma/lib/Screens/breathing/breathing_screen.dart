@@ -3,8 +3,7 @@ import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'audio_controls/audio_controls.dart';
-import 'componnets/audio_circles.dart';
-import 'componnets/button_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'audio_controls/progress_bar_widget.dart';
 
 class BreathingScreen extends StatefulWidget {
@@ -14,27 +13,38 @@ class BreathingScreen extends StatefulWidget {
   State<BreathingScreen> createState() => _BreathingScreenState();
 }
 
-class _BreathingScreenState extends State<BreathingScreen> {
+class _BreathingScreenState extends State<BreathingScreen>
+    with TickerProviderStateMixin {
   final player = AudioPlayer();
+  late final AnimationController animationController;
+  bool isPlayed = false;
 
   @override
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
+    animationController = AnimationController(vsync: this);
     setupAudioPlyer();
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        Positioned(
-            right: -185,
-            bottom: 15,
-            child: Image.asset(
-              "lib/assets/images/stack_background.png",
-              color: ColorPaltte().newlightBlue,
-            )),
+        // Positioned(
+        //     right: -185,
+        //     bottom: 15,
+        //     child: Image.asset(
+        //       "lib/assets/images/stack_background.png",
+        //       color: ColorPaltte().newlightBlue,
+        //     )),
         Positioned(
             left: -185,
             top: 235,
@@ -49,10 +59,10 @@ class _BreathingScreenState extends State<BreathingScreen> {
               height: 200,
               width: context.getWidth(),
             ),
-            //AudioCircles()
-            const SizedBox(
+            SizedBox(
               height: 400,
-              // child:
+              child: Lottie.asset('lib/assets/images/lottie1.json',
+                  controller: animationController, onLoaded: (composition) {}),
             ),
             const SizedBox(
               height: 75,
@@ -66,12 +76,11 @@ class _BreathingScreenState extends State<BreathingScreen> {
             ),
             FloatingActionButton(
                 backgroundColor: ColorPaltte().newDarkBlue,
-                child: AudioControlWidgets(player: player),
+                child: AudioControlWidgets(
+                  player: player,
+                  controller: animationController,
+                ),
                 onPressed: () {}),
-            // ButtonWidget(
-            //   onPress: _togglePlay,
-            //   widget: AudioControlWidgets(player: player),
-            // ),
           ],
         ),
       ]),
