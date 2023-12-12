@@ -1,5 +1,5 @@
-
 import 'package:asthma/helper/imports.dart';
+
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key, required this.email});
   final String email;
@@ -60,6 +60,7 @@ class OtpScreen extends StatelessWidget {
                   BlocListener<AuthBloc, AuthStates>(
                     listener: (context, state) {
                       if (state is SuccessVerificationState) {
+                        context.read<AuthBloc>().add(CheckLoginEvent());
                         context.pushAndRemoveUntil(view: const LoadingScreen());
                       } else if (state is ErrorVerificationState) {
                         Navigator.of(context).pop();

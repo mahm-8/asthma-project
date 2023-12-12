@@ -1,6 +1,11 @@
+import 'package:asthma/Screens/chat/chat_screen.dart';
+import 'package:asthma/Screens/chat/chat_web_screen.dart';
+import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+
+import '../chat/chat_home.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value = 0.0;
@@ -132,10 +137,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black26,
                         shape: BoxShape.circle,
                       ),
-                      child: Image.network(
-                        bloc.user!.image!,
-                        fit: BoxFit.cover,
-                      ),
+
+                      child: bloc.user!.image == null
+                          ? Image.network(bloc.user!.image!)
+                          : const Icon(Icons.person)
                     );
                   },
                 ),
@@ -145,6 +150,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   leading: const Icon(Icons.home_outlined),
                   title: Text(AppLocalizations.of(context)!.home),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.push(view: const ChatHome());
+                  },
+                  leading: const Icon(Icons.chat),
+                  title: const Text('chat'),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.push(view: ChatWebScreen());
+                  },
+                  leading: const Icon(Icons.chat_outlined),
+                  title: const Text('chatWeb'),
                 ),
                 ListTile(
                   onTap: () {
@@ -278,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageurl: 'lib/assets/images/Chatbot-pana.png',
                             title: AppLocalizations.of(context)!.helper,
                             onTap: () {
-                              context.push(view: ChatGPT());
+                              context.push(view: const ChatGPT());
                             },
 
                             // const MedicationReminder(),
@@ -288,21 +307,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'lib/assets/images/Breathingexercise-rafiki1.png',
                             title: AppLocalizations.of(context)!.breathing,
                             onTap: () {
-                              context.push(view: BreathingScreen());
+                              context.push(view: const BreathingScreen());
                             },
                           ),
                           ContainerWidget(
                             imageurl: 'lib/assets/images/Inhaller1-bro.png',
                             title: AppLocalizations.of(context)!.medicine,
                             onTap: () {
-                              context.push(view: MedicationTrackerScreen());
+                              context.push(
+                                  view: const MedicationTrackerScreen());
                             },
                           ),
                           ContainerWidget(
                             imageurl: 'lib/assets/images/Asymptomatic-bro.png',
                             title: AppLocalizations.of(context)!.symptom,
                             onTap: () {
-                              context.push(view: SymptomTrackerScreen());
+                              context.push(view: const SymptomTrackerScreen());
                             },
                           ),
                         ],
