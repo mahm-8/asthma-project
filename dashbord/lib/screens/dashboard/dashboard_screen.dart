@@ -5,6 +5,8 @@ import 'package:dashboard/screens/dashboard/widgets/welcome_widget.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }

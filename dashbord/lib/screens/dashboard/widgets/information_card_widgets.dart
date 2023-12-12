@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -103,6 +105,7 @@ class InformationCard extends StatelessWidget {
                       child: const Text('Confirm'),
                     ),
                   ],
+
                 ),
               );
             },

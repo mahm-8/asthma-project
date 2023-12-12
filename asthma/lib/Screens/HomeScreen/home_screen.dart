@@ -45,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
-    
   }
 
   Future<void> getCurrentLocation() async {
@@ -126,22 +125,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 BlocBuilder<UserBloc, UserState>(
                   builder: (context, state) {
                     return Container(
-                      width: 128.0,
-                      height: 128.0,
-                      margin: const EdgeInsets.only(
-                        top: 24.0,
-                        bottom: 64.0,
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(
-                        color: Colors.black26,
-                        shape: BoxShape.circle,
-                      ),
-
-                      child: bloc.user!.image == null
-                          ? Image.network(bloc.user!.image!)
-                          : const Icon(Icons.person)
-                    );
+                        width: 128.0,
+                        height: 128.0,
+                        margin: const EdgeInsets.only(
+                          top: 24.0,
+                          bottom: 64.0,
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        decoration: const BoxDecoration(
+                          color: Colors.black26,
+                          shape: BoxShape.circle,
+                        ),
+                        child: bloc.user!.image == null
+                            ? Image.network(bloc.user!.image!)
+                            : const Icon(Icons.person));
                   },
                 ),
                 ListTile(
@@ -153,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   onTap: () {
+                    context.read<ChatBloc>().add(GetAdminChatEvent());
                     context.push(view: const ChatHome());
                   },
                   leading: const Icon(Icons.chat),
@@ -179,17 +177,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   leading: const Icon(Icons.person_outline_outlined),
                   title: Text(AppLocalizations.of(context)!.profile),
                 ),
-                ListTile(
-                  onTap: () {
-                    context.read<AuthBloc>().add(LogoutEvent());
-                    showDialog(
-                        context: context,
-                        builder: (context) => const Center(
-                              child: CircularProgressIndicator.adaptive(),
-                            ));
+                BlocListener<AuthBloc, AuthStates>(
+                  listener: (context, state) {
+                    if (state is LogoutSuccessState) {
+                      context.pushAndRemoveUntil(view: LoginScreen());
+                    }
                   },
-                  leading: const Icon(Icons.login_outlined),
-                  title: Text(AppLocalizations.of(context)!.logout),
+                  child: ListTile(
+                    onTap: () {
+                      context.read<AuthBloc>().add(LogoutEvent());
+                      showDialog(
+                          context: context,
+                          builder: (context) => const Center(
+                                child: CircularProgressIndicator.adaptive(),
+                              ));
+                    },
+                    leading: const Icon(Icons.login_outlined),
+                    title: Text(AppLocalizations.of(context)!.logout),
+                  ),
                 ),
                 const Spacer(),
                 DefaultTextStyle(

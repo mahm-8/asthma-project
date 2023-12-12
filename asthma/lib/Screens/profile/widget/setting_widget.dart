@@ -47,17 +47,25 @@ class SettingWidget extends StatelessWidget {
             BlocBuilder<LanguageBloc, LanguageState>(
               builder: (context, state) {
                 if (state is SwitchState) {
-                  return Switch(
-                      value: state.swit,
+                  return ListTile(
+                    title: Text(AppLocalizations.of(context)!.language),
+                    trailing: Switch(
+                        value: state.swit,
+                        onChanged: (value) {
+                          context
+                              .read<LanguageBloc>()
+                              .add(ChangeLanguage(value));
+                        }),
+                  );
+                }
+                return ListTile(
+                  title: Text(AppLocalizations.of(context)!.language),
+                  trailing: Switch(
+                      value: lan,
                       onChanged: (value) {
                         context.read<LanguageBloc>().add(ChangeLanguage(value));
-                      });
-                }
-                return Switch(
-                    value: lan,
-                    onChanged: (value) {
-                      context.read<LanguageBloc>().add(ChangeLanguage(value));
-                    });
+                      }),
+                );
               },
             ),
             BlocListener<AuthBloc, AuthStates>(
