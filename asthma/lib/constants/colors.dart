@@ -1,6 +1,9 @@
-import 'dart:ui';
+import 'package:asthma/helper/imports.dart';
 
 class ColorPaltte {
+  Color fieldGrey = Colors.grey.shade300;
+  Color authGrey = Colors.grey.shade600;
+  Color fieldBlack = Colors.black;
   Color lightgreen = const Color(0xffD6EADF);
   Color lightgreentr = const Color.fromARGB(138, 228, 239, 233);
   Color mBlue = const Color(0xff809BCE);

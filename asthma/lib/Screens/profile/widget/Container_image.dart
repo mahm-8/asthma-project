@@ -1,4 +1,4 @@
-// ignore: file_names
+
 import 'package:asthma/helper/imports.dart';
 
 class ContainerImage extends StatelessWidget {

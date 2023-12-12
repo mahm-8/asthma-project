@@ -52,14 +52,14 @@ class MainApp extends StatelessWidget {
               ),
               debugShowCheckedModeBanner: false,
               localizationsDelegates: const [
-                AppLocalizations.delegate, // Add this line
+                AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: const [
-                Locale('en'), // English
-                Locale('ar'), // Spanish
+                Locale('en'),
+                Locale('ar'),
               ],
               home: const LoadingScreen(),
             );
@@ -71,16 +71,16 @@ class MainApp extends StatelessWidget {
                 scaffoldBackgroundColor: ColorPaltte().newDarkBlue),
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
-              AppLocalizations.delegate, // Add this line
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
-              Locale('en'), // English
-              Locale('ar'), // Spanish
+              Locale('en'),
+              Locale('ar'),
             ],
-            home: const LoadingScreen(),
+            home: const OnboradingScreen(),
           );
         },
       ),

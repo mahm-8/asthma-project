@@ -1,4 +1,5 @@
 import 'package:asthma/helper/imports.dart';
+
 class TapWidget extends StatelessWidget {
   const TapWidget({super.key, required this.bloc});
   final UserBloc bloc;
@@ -33,7 +34,7 @@ class TapWidget extends StatelessWidget {
                   ),
                   Tab(
                     child: Text(
-                      AppLocalizations.of(context)!.setting,
+                      AppLocalizations.of(context)!.qrCode,
                       style: TextStyle(color: ColorPaltte().darkBlue),
                     ),
                   ),

@@ -1,5 +1,4 @@
 import 'package:asthma/helper/imports.dart';
-import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget({
@@ -34,11 +33,11 @@ class TextFieldWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Text(
                 titel,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: const TextStyle().authGreyFont,
               ),
             ),
             SizedBox(
-              height: 70,
+              height: 55,
               width: context.getWidth() > 700
                   ? context.getWidth(divide: 3)
                   : context.getWidth(divide: 1.2),
@@ -49,17 +48,19 @@ class TextFieldWidget extends StatelessWidget {
                   validator: validator,
                   obscureText: !obscure ? false : !displayPass,
                   controller: controller,
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle().fontTextfield,
                   decoration: InputDecoration(
-                    fillColor: Colors.grey[300],
+                    fillColor: ColorPaltte().fieldGrey,
                     filled: true,
                     suffixIcon: !obscure
                         ? null
                         : InkWell(
                             onTap: onTap,
-                            child: Icon(!displayPass
-                                ? Icons.visibility_off_sharp
-                                : Icons.remove_red_eye),
+                            child: Icon(
+                              !displayPass
+                                  ? Icons.visibility_off_sharp
+                                  : Icons.remove_red_eye,
+                            ),
                           ),
                     hintText: hint,
                     floatingLabelBehavior: FloatingLabelBehavior.always,

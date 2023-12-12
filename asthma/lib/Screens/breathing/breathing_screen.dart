@@ -1,3 +1,5 @@
+import 'package:asthma/Screens/breathing/componnets/custom_appbar.dart';
+import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -16,7 +18,6 @@ class _BreathingScreenState extends State<BreathingScreen>
     with TickerProviderStateMixin {
   final player = AudioPlayer();
   late final AnimationController animationController;
-  bool isPlayed = false;
 
   @override
   void initState() {
@@ -36,13 +37,9 @@ class _BreathingScreenState extends State<BreathingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios_new)),
-      ),
+      backgroundColor: const Color.fromARGB(255, 243, 250, 255),
+      appBar: customAppBar(context,
+          backcolor: Colors.transparent, iconColor: ColorPaltte().darkBlue),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -50,9 +47,6 @@ class _BreathingScreenState extends State<BreathingScreen>
             height: 600,
             child: Lottie.asset('lib/assets/images/lottie2.json',
                 controller: animationController, onLoaded: (composition) {}),
-          ),
-          const SizedBox(
-            height: 75,
           ),
           SizedBox(
             width: context.getWidth(divide: 1.5),
@@ -62,7 +56,7 @@ class _BreathingScreenState extends State<BreathingScreen>
             height: 15,
           ),
           FloatingActionButton(
-              backgroundColor: Color(0xffAFD3E2),
+              backgroundColor: ColorPaltte().newDarkBlue,
               child: AudioControlWidgets(
                 player: player,
                 controller: animationController,
@@ -74,11 +68,8 @@ class _BreathingScreenState extends State<BreathingScreen>
   }
 
   Future<void> setupAudioPlyer() async {
-    player.playbackEventStream.listen((event) {
-      print('Playback event: $event');
-    }, onError: (Object e, StackTrace stacktrace) {
-      print("audio stream error: $e");
-    });
+    player.playbackEventStream
+        .listen((event) {}, onError: (Object e, StackTrace stacktrace) {});
 
     try {
       player.setAudioSource(AudioSource.asset('lib/assets/audio/AAA.mp3'));

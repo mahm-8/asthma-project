@@ -1,11 +1,11 @@
-import 'dart:typed_data';
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:asthma/Screens/breathing/componnets/custom_appbar.dart';
 import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
 import 'package:asthma/Screens/medication_data/component/medication_bottomsheet.dart';
-import 'package:asthma/Services/supabase.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,63 +18,24 @@ class MedicationTrackerScreen extends StatefulWidget {
 }
 
 class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
-  ScreenshotController screenshotController = ScreenshotController();
+  @override
+  void initState() {
+    context.read<AsthmaBloc>().add(GetMedicationDataEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorPaltte().newDarkBlue,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'Medications',
-          style: TextStyle(color: ColorPaltte().darkBlue),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: ColorPaltte().darkBlue,
-          ),
-        ),
-        actions: [
-          // IconButton(
-          //     onPressed: () async {
-          //       var container = Column(
-          //         children: [
-          //           ...allMedication.map(
-          //             (e) => Card(
-          //                 child: Column(
-          //               children: [
-          //                 Text(e.medicationName!),
-          //                 Text(e.days!.toString()),
-          //                 Text(e.date!)
-          //               ],
-          //             )),
-          //           )
-          //         ],
-          //       );
-          //       Uint8List? capturedImage =
-          //           await screenshotController.captureFromWidget(
-          //               InheritedTheme.captureAll(
-          //                   context, Material(child: container)),
-          //               delay: const Duration(seconds: 1));
-          //       await SupabaseServer().saveCaptrueImage(capturedImage);
-          //       // saved(capturedImage);
-          //     },
-          //     icon: Icon(Icons.ios_share, color: ColorPaltte().darkBlue))
-        ],
-      ),
+      appBar: customAppBar(context,
+          backcolor: ColorPaltte().newDarkBlue, iconColor: ColorPaltte().white),
       body: Stack(
         children: [
           Container(
             width: context.getWidth(),
             decoration: BoxDecoration(
                 color: ColorPaltte().newDarkBlue,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30))),
             height: 300,
@@ -89,11 +50,22 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
             ),
           ),
           Positioned(
+            left: 175,
+            top: 120,
+            child: Text(
+              "Medications",
+              style: TextStyle(
+                  fontSize: 35,
+                  color: ColorPaltte().white,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+          Positioned(
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 320,
                   ),
                   Row(
@@ -132,6 +104,9 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                       if (newState is SuccessGetMedicationState) {
                         return true;
                       }
+                      if (newState is LoadingState) {
+                        return true;
+                      }
                       return false;
                     },
                     builder: (context, state) {
@@ -155,6 +130,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                                               id: medication.medicationID!),
                                         );
                                   },
+                                  imageURL: 'lib/assets/images/pills.png',
                                 );
                               },
                             ),
@@ -170,8 +146,11 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                         }
                       } else if (state is ErrorGetState) {
                         const Center(child: Text("Error getting data"));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(state.message)));
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  content: Text(state.message),
+                                ));
                       }
 
                       return const Center(

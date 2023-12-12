@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
 import 'package:asthma/helper/imports.dart';
 
 class AirQuality extends StatelessWidget {
@@ -28,12 +31,16 @@ class AirQuality extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
-            Text(
-              '$value%',
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  color: ColorPaltte().darkBlue),
+            BlocBuilder<AsthmaBloc, AsthmaState>(
+              builder: (context, state) {
+                return Text(
+                  '$value%',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: ColorPaltte().darkBlue),
+                );
+              },
             ),
             const SizedBox(
               width: 8,

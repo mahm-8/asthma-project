@@ -1,8 +1,6 @@
-
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:asthma/helper/imports.dart';
-
 
 class Profile extends StatelessWidget {
   Profile({super.key});
@@ -76,10 +74,8 @@ class Profile extends StatelessWidget {
                                 email: bloc.user!.email!,
                                 age: bloc.user!.age!,
                                 gender: bloc.user!.gender!),
-
                             SettingWidget(
                               bloc: bloc,
-
                             )
                           ],
                         ),

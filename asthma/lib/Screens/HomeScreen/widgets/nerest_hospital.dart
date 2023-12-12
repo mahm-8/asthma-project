@@ -1,4 +1,3 @@
-import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 
 class NerestHospital extends StatelessWidget {
@@ -12,6 +11,14 @@ class NerestHospital extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<AsthmaBloc>();
+// <<<<<<< Ruba-AlHilal
+//     return BlocBuilder<AsthmaBloc, AsthmaState>(builder: (context, state) {
+//       if (state is LoadingState) {
+//         return const Center(
+//           child: Icon(Icons.error),
+//         );
+//       } else if (state is SuccessHospitalState) {
+// =======
     return BlocBuilder<AsthmaBloc, AsthmaState>(
         buildWhen: (oldState, newState) {
       if (newState is SuccessHospitalState) {
@@ -20,8 +27,9 @@ class NerestHospital extends StatelessWidget {
       return false;
     }, builder: (context, state) {
       if (state is SuccessHospitalState) {
+// >>>>>>> main
         if (state.hospitalsData!.isNotEmpty) {
-          return Container(
+          return SizedBox(
             height: context.getHeight() * 0.21,
             width: context.getWidth(),
             child: ListView.builder(
@@ -38,7 +46,7 @@ class NerestHospital extends StatelessWidget {
                         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
                     await launchUrl(Uri.parse(url));
                   },
-                  child: Container(
+                  child: SizedBox(
                     width: context.getWidth(divide: 2.2),
                     height: context.getWidth(divide: 1.9),
                     child: Card(
@@ -80,7 +88,8 @@ class NerestHospital extends StatelessWidget {
                                 ),
                                 Text(
                                   '${(location.distance! / 1000).toStringAsFixed(2)} km',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ],
                             ),

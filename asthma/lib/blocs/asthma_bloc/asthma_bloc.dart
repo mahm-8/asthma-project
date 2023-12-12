@@ -13,9 +13,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
   List<MedicationModel>? medicationData;
   List<SymptomsModel>? symptomsData;
 
-  // MedicationModel? medicationData;
-  // SymptomsModel? symptomsData;
-
   AsthmaBloc() : super(AsthmaInitial()) {
     on<getHospitalDataEvent>(getData);
     on<GetMedicationDataEvent>(getMedicationData);
@@ -34,7 +31,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     try {
       emit(LoadingState());
       hospitalData = await SupabaseServer().getHospitalData();
-
       await Future.delayed(const Duration(seconds: 1));
 
       emit(SuccessHospitalState(hospitalData));
@@ -50,10 +46,8 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
       emit(LoadingState());
       medicationData = await SupabaseServer().getMedication();
       await Future.delayed(const Duration(seconds: 1));
-
       emit(SuccessGetMedicationState(medications: medicationData!));
     } catch (error) {
-      print(error);
       emit(ErrorState());
     }
   }
@@ -66,7 +60,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
       await Future.delayed(const Duration(seconds: 1));
       emit(SuccessGetSymptomState(symptoms: symptomsData!));
     } catch (error) {
-      print(error);
       emit(ErrorState());
     }
   }
@@ -80,10 +73,9 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
           "description": event.symtomDetails,
           "intensity": event.symptomIntensity,
         });
-
         emit(SuccessAddSymptomState());
         add(GetSymptomDataEvent());
-
+        emit(LoadingState());
         emit(SucsessMessageState(message: 'symptoms added'));
       } else {
         emit(ADDErrorState(message: 'Please fill all the fields'));
@@ -104,10 +96,9 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
           "days": event.days,
           "date": event.date,
         });
-
         emit(SuccessAddMedicationState());
         add(GetMedicationDataEvent());
-
+        emit(LoadingState());
         emit(SucsessMessageState(message: 'Medication Added'));
       } else {
         emit(ADDErrorState(message: 'Please fill all the fields'));
@@ -121,11 +112,11 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
       DeleteMedicationEvent event, Emitter<AsthmaState> emit) async {
     try {
       await SupabaseServer().deleteMedication(id: event.id);
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
       allMedication.remove(event.id);
       add(GetMedicationDataEvent());
+      emit(LoadingState());
     } catch (error) {
-      print(error);
       emit(ErrorState());
     }
   }
@@ -137,8 +128,8 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
       await Future.delayed(const Duration(seconds: 1));
       allSymptoms.remove(event.id);
       add(GetSymptomDataEvent());
+      emit(LoadingState());
     } catch (error) {
-      print(error);
       emit(ErrorState());
     }
   }

@@ -25,27 +25,24 @@ class SignupScreen extends StatelessWidget {
           child: ListView(
             children: [
               const SizedBox(
-                height: 200,
+                height: 180,
               ),
               Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
+                decoration: BoxDecoration(
+                    color: ColorPaltte().white,
                     borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(100))),
+                        const BorderRadius.only(topLeft: Radius.circular(100))),
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(AppLocalizations.of(context)!.create,
-                        style: const TextStyle().bold24),
-                    const SizedBox(
-                      height: 30,
-                    ),
+
+                    const SizedBox(height: 30),
+                    Text(AppLocalizations.of(context)!.create, style: const TextStyle().bold24),
+                    const SizedBox(height: 20),
                     TextFieldWidget(
                       keyForm: _userNameKey,
                       hint: AppLocalizations.of(context)!.name,
+
                       controller: nameController,
                       titel: AppLocalizations.of(context)!.name,
                       validator: (value) {
@@ -57,7 +54,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                     TextFieldWidget(
                       keyForm: _emailKey,
-                      hint: "exambel@exambel.com",
+                      hint: "example@example.com",
                       controller: emailController,
                       titel: AppLocalizations.of(context)!.email,
                       validator: (value) {
@@ -65,7 +62,9 @@ class SignupScreen extends StatelessWidget {
                           return AppLocalizations.of(context)!.emptyEmail;
                         }
                         if (!value.isValidEmail) {
+
                           return AppLocalizations.of(context)!.mustEmail;
+
                         }
                         return null;
                       },
@@ -103,7 +102,9 @@ class SignupScreen extends StatelessWidget {
                                 return AppLocalizations.of(context)!.emptyPass;
                               }
                               if (!value.isValidPassword) {
+
                                 return AppLocalizations.of(context)!.mustPass;
+
                               }
                               return null;
                             },
@@ -124,7 +125,9 @@ class SignupScreen extends StatelessWidget {
                               return AppLocalizations.of(context)!.emptyPass;
                             }
                             if (!value.isValidPassword) {
+
                               return AppLocalizations.of(context)!.mustPass;
+
                             }
                             return null;
                           },
@@ -132,7 +135,7 @@ class SignupScreen extends StatelessWidget {
                       },
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 15,
                     ),
                     BlocBuilder<AuthBloc, AuthStates>(
                       buildWhen: (oldState, newState) {
@@ -147,9 +150,10 @@ class SignupScreen extends StatelessWidget {
                         return false;
                       },
                       builder: (context, state) {
-                        return ButtonAuthWidget(
-                          text: AppLocalizations.of(context)!.signup,
-                          onPressed: () {
+
+                        return ButtonWidget(
+                          onPress: () {
+
                             context.read<AuthBloc>().add(SignUpAuthEvent(
                                 nameController.text,
                                 emailController.text,
@@ -161,6 +165,10 @@ class SignupScreen extends StatelessWidget {
                                 _phoneKey));
                             context.showLoading();
                           },
+                          widget: Text(
+                            AppLocalizations.of(context)!.signup,
+                            style: const TextStyle().fontButton,
+                          ),
                         );
                       },
                     ),
@@ -169,17 +177,20 @@ class SignupScreen extends StatelessWidget {
                     ),
                     RichText(
                       text: TextSpan(
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
+                        style: const TextStyle().authFont,
                         children: [
-                          TextSpan(text: AppLocalizations.of(context)!.already),
+
+                          const TextSpan(text: AppLocalizations.of(context)!.already),
+
                           TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => context.push(
                                       view: LoginScreen(),
                                     ),
+
                               text: AppLocalizations.of(context)!.loginHere,
-                              style: TextStyle(color: Colors.grey[700]))
+                              style: const TextStyle().authGreyFont)
+
                         ],
                       ),
                     ),
