@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../blocs/chat_bloc/chat_bloc.dart';
-import '../auth/login_screen.dart';
+import 'package:asthma/helper/imports.dart';
 import 'chat_screen.dart';
 
 class ChatHome extends StatefulWidget {
@@ -18,7 +13,7 @@ class _ChatHomeState extends State<ChatHome> {
   final TextEditingController controller = TextEditingController();
   @override
   void initState() {
-    context.read<ChatBloc>().add(GetUserChatEvent());
+    context.read<ChatBloc>().add(GetAdminChatEvent());
     super.initState();
   }
 
@@ -32,26 +27,12 @@ class _ChatHomeState extends State<ChatHome> {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,
-        actions: [
-          IconButton(
-              onPressed: () async {
-                await Supabase.instance.client.auth.signOut();
-                if (mounted) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
-                }
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.white,
-              ))
-        ],
       ),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (context, state) {
-          if (state is GetUsersSuccessedState) {
+          if (state is GetAdminSuccessedState) {
             return ListView.separated(
-              itemCount: state.users.length,
+              itemCount: state.admin.length,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
@@ -59,11 +40,11 @@ class _ChatHomeState extends State<ChatHome> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ChatScreen(
-                                  user: state.users[index],
+                                  user: state.admin[index],
                                 )));
                   },
                   child: ListTile(
-                    title: Text(state.users[index].name ?? ""),
+                    title: Text(state.admin[index].name ?? ""),
                   ),
                 );
               },

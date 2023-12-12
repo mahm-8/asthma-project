@@ -1,6 +1,6 @@
 import '../../blocs/chat_bloc/chat_bloc.dart';
 import '../../helper/imports.dart';
-import 'chat_screen.dart';
+import 'chat_web_widget.dart';
 
 class ChatWebScreen extends StatelessWidget {
   ChatWebScreen({super.key});
@@ -51,10 +51,9 @@ class ChatWebScreen extends StatelessWidget {
                     if (state is ScreenChatState) {
                       return SizedBox(
                           width: 300,
-                          child: ChatScreen(user: model![state.num]));
+                          child: ChatWebWidget(user: model![state.num]));
                     }
-                    return SizedBox(
-                        width: 300, child: ChatScreen(user: model![0]));
+                    return Expanded(child: ChatWebWidget(user: model![0]));
                   },
                 )
               ],
