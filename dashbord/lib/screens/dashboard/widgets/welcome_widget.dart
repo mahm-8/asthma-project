@@ -4,7 +4,6 @@ class WelcomeWidget extends StatelessWidget {
   const WelcomeWidget({
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -15,7 +14,9 @@ class WelcomeWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width / 1.5,
           height: 400,
           decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 159, 191, 206),
+
+              boxShadow: kElevationToShadow[1],
+              color: Color.fromARGB(255, 148, 186, 203),
               borderRadius: BorderRadius.circular(20)),
           child: Row(
             children: [
@@ -35,7 +36,6 @@ class WelcomeWidget extends StatelessWidget {
           ),
         ),
       ),
-           
     ]);
   }
 }

@@ -36,6 +36,16 @@ class MainApp extends StatelessWidget {
       child: const MaterialApp(
         locale: Locale('en'),
         home: LoadingScreen(),
+        theme: ThemeData(
+          datePickerTheme: const DatePickerThemeData(
+              confirmButtonStyle: ButtonStyle(
+                  textStyle: MaterialStatePropertyAll(
+                      TextStyle(color: Color(0xff146C94)))),
+              todayForegroundColor: MaterialStatePropertyAll(Color(0xff146C94)),
+              backgroundColor: Color.fromARGB(255, 149, 192, 212),
+              cancelButtonStyle: ButtonStyle(
+                  textStyle: MaterialStatePropertyAll(
+                      TextStyle(color: Colors.transparent))))),
         debugShowCheckedModeBanner: false,
         localizationsDelegates: [
           AppLocalizations.delegate, // Add this line
