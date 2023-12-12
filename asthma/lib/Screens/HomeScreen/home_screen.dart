@@ -1,7 +1,9 @@
-
+import 'package:asthma/Screens/chat/chat_screen.dart';
 import 'package:asthma/helper/imports.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+
+import '../chat/chat_home.dart';
 
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 double? value = 0.0;
@@ -140,6 +142,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListTile(
                   onTap: () {
                     context.push(view: const HomeScreen());
+                  },
+                  leading: const Icon(Icons.home_outlined),
+                  title: Text(AppLocalizations.of(context)!.home),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.push(view: ChatHome());
                   },
                   leading: const Icon(Icons.home_outlined),
                   title: Text(AppLocalizations.of(context)!.home),

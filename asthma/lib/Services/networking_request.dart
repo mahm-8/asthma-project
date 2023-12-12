@@ -13,3 +13,18 @@ Future<UserModel?> getUserProfile() async {
     return null;
   }
 }
+
+// Future<UserModel?> getAllUserProfile() async {
+//   try {
+//
+//     final supabase = SupabaseNetworking().getSupabase;
+//     await Future.delayed(const Duration(seconds: 2));
+//     final userProfile = await supabase
+//         .from("users")
+//         .select()
+//         .neq("id_auth", supabase.auth.currentUser!.id);
+//     return UserModel.fromJson(userProfile[0]);
+//   } catch (t) {
+//     return null;
+//   }
+// }
