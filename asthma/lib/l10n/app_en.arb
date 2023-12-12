@@ -22,6 +22,7 @@
 "good": "good",
 "normal": "normal",
 "bad": "bad",
+
 "run": "run",
  "oneTitle": "Air Quality and Breathing Excerises",
   "oneDetails": "Check air quality level, and make\nbreathing excerises",
@@ -33,4 +34,21 @@
   "fourDetails": "Add medications and symptoms\nand share it with doctors from the app\nas a QR code",
   "next": "NEXT",
   "start": "START"
+
+"language": "English",
+"login": "Login",
+"create": "Create New Account",
+"password": "Password",
+"signupHere": "Signup here",
+"already": "Already Register? ",
+"loginHere": "Login here",
+"signup": "SignUp",
+"emptyPass":"please enter password",
+"mustPass":"must be contain Uppercase, lowercase and (!@#*~)",
+"emptyNum":"please enter your number",
+"num":"10 number",
+"mustEmail":"please enter email",
+"emptyEmail":"Email must be contain @ And .com"
+
+
 }

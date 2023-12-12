@@ -1,11 +1,14 @@
 import 'package:asthma/Screens/chat/chat_screen.dart';
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+late SharedPreferences prefs;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   SupabaseNetworking().getSupabaseInitialize;
+  prefs = await SharedPreferences.getInstance();
   Bloc.observer = MyBlocObserver();
 
   runApp(const MainApp());

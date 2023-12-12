@@ -35,20 +35,22 @@ class LoginScreen extends StatelessWidget {
                 child: ListView(shrinkWrap: true, children: [
                   Column(
                     children: [
+
                       const SizedBox(height: 30),
                       Text("Login", style: const TextStyle().bold24),
                       const SizedBox(height: 20),
+
                       TextFieldWidget(
                         keyForm: _emailKey,
                         hint: "example@example.com",
                         controller: emailController,
-                        titel: "EMAIL",
+                        titel: AppLocalizations.of(context)!.email,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "please enter email";
+                            return AppLocalizations.of(context)!.emptyEmail;
                           }
                           if (!value.isValidEmail) {
-                            return "Email must be contain @ And .com";
+                            return AppLocalizations.of(context)!.mustEmail;
                           }
                           return null;
                         },
@@ -63,15 +65,17 @@ class LoginScreen extends StatelessWidget {
                                 displayPass: state.display,
                                 obscure: true,
                                 keyForm: _passwordKey,
-                                hint: "Password",
+                                hint: AppLocalizations.of(context)!.password,
                                 controller: passwordController,
-                                titel: "PASSWORD",
+                                titel: AppLocalizations.of(context)!.password,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "please enter password";
+                                    return AppLocalizations.of(context)!
+                                        .emptyPass;
                                   }
                                   if (!value.isValidPassword) {
-                                    return "must be contain Uppercase, lowercase and (!@#*~)";
+                                    return AppLocalizations.of(context)!
+                                        .mustPass;
                                   }
                                   return null;
                                 });
@@ -83,15 +87,16 @@ class LoginScreen extends StatelessWidget {
                               displayPass: display,
                               obscure: true,
                               keyForm: _passwordKey,
-                              hint: "Password",
+                              hint: AppLocalizations.of(context)!.password,
                               controller: passwordController,
-                              titel: "PASSWORD",
+                              titel: AppLocalizations.of(context)!.password,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "please enter password";
+                                  return AppLocalizations.of(context)!
+                                      .emptyPass;
                                 }
                                 if (!value.isValidPassword) {
-                                  return "must be contain Uppercase, lowercase and (!@#*~)";
+                                  return AppLocalizations.of(context)!.mustPass;
                                 }
                                 return null;
                               });
@@ -124,10 +129,14 @@ class LoginScreen extends StatelessWidget {
                                     passwordKey: _passwordKey));
                                 context.showLoading();
                               },
+
                               widget: Text(
-                                "Login",
+                                AppLocalizations.of(context)!.login,
                                 style: const TextStyle().fontButton,
                               ),
+
+                            
+
                             ),
                           );
                         },
@@ -141,8 +150,10 @@ class LoginScreen extends StatelessWidget {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap =
                                       () => context.push(view: SignupScreen()),
-                                text: "create account",
+
+                                text: AppLocalizations.of(context)!.signupHere,
                                 style: const TextStyle().authGreyFont),
+
                           ],
                         ),
                       ),

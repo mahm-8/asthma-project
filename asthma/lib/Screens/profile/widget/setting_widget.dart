@@ -48,36 +48,28 @@ class SettingWidget extends StatelessWidget {
             BlocBuilder<LanguageBloc, LanguageState>(
               builder: (context, state) {
                 if (state is SwitchState) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Text("عربي"),
-                      Switch(
-                          value: state.swit,
-                          onChanged: (value) {
-                            context
-                                .read<LanguageBloc>()
-                                .add(ChangeLanguage(value));
-                          }),
-                      const Text("eng"),
-                    ],
-                  );
-                }
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text("ar"),
-                    Switch(
-                        value: lan,
+
+                  return ListTile(
+                    title: Text(AppLocalizations.of(context)!.language),
+                    trailing: Switch(
+                        value: state.swit,
+
                         onChanged: (value) {
                           context
                               .read<LanguageBloc>()
                               .add(ChangeLanguage(value));
                         }),
-                    const Text("eng"),
-                  ],
+
+                  );
+                }
+                return ListTile(
+                  title: Text(AppLocalizations.of(context)!.language),
+                  trailing: Switch(
+                      value: lan,
+                      onChanged: (value) {
+                        context.read<LanguageBloc>().add(ChangeLanguage(value));
+                      }),
+
                 );
               },
             ),

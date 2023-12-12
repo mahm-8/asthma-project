@@ -19,13 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
+
     context.read<AsthmaBloc>().add(getHospitalDataEvent());
+
   }
 
   final _advancedDrawerController = AdvancedDrawerController();
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
+
 
     return DrawerMainWidget(
         drawerController: _advancedDrawerController,
@@ -51,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
+
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
