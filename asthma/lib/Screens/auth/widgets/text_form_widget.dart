@@ -1,3 +1,4 @@
+import 'package:asthma/helper/imports.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -38,6 +39,9 @@ class TextFieldWidget extends StatelessWidget {
             ),
             SizedBox(
               height: 70,
+              width: context.getWidth() > 700
+                  ? context.getWidth(divide: 3)
+                  : context.getWidth(divide: 1.2),
               child: Form(
                 key: keyForm,
                 child: TextFormField(
