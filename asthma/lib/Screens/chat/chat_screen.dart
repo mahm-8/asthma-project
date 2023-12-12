@@ -12,43 +12,46 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chat = context.read<ChatBloc>();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(user.name ?? ""),
-      ),
-      bottomSheet: ChatField(
-        controller: messageController,
-        toUserId: user.idAuth.toString(),
-      ),
-      body: StreamBuilder(
-        stream: chat.getMessages(user.idAuth.toString()),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final List<MessageModel> messages = snapshot.data!;
-            print(messages);
-            ScrollController scrollController = ScrollController();
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(user.name ?? ""),
+        ),
+        bottomSheet: ChatField(
+          controller: messageController,
+          toUserId: user.idAuth.toString(),
+        ),
+        body: StreamBuilder(
+          stream: chat.getMessages(user.idAuth.toString()),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final List<MessageModel> messages = snapshot.data!;
+              print(messages);
+              ScrollController scrollController = ScrollController();
 
-            Future.delayed(const Duration(milliseconds: 100 ~/ 60), () {
-              scrollController.animateTo(
-                  scrollController.position.maxScrollExtent,
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.linear);
-            });
+              Future.delayed(const Duration(milliseconds: 100 ~/ 60), () {
+                scrollController.animateTo(
+                    scrollController.position.maxScrollExtent,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.linear);
+              });
 
-            return ListView.builder(
-                padding: const EdgeInsets.only(bottom: 100),
-                shrinkWrap: true,
-                controller: scrollController,
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  return ContainMessage(
-                      message: messages[index].contents ?? "",
-                      isMine: messages[index].isMain ?? true);
-                });
-          } else {
-            return SizedBox();
-          }
-        },
+              return ListView.builder(
+                  padding: const EdgeInsets.only(bottom: 100),
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    return ContainMessage(
+                        message: messages[index].contents ?? "",
+                        isMine: messages[index].isMain ?? true);
+                  });
+            } else {
+              return SizedBox();
+            }
+          },
+        ),
       ),
     );
   }
