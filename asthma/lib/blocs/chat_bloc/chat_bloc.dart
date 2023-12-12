@@ -1,7 +1,5 @@
 import 'package:asthma/Models/messageModel.dart';
 import 'package:asthma/helper/imports.dart';
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
@@ -24,10 +22,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           await supabase.from("users").select().eq("type", 'user');
       final List<UserModel> users =
           allUsers.map((user) => UserModel.fromJson(user)).toList();
-      print(users.length);
       emit(GetUsersSuccessedState(users));
     } catch (e) {
-      print(e);
       emit(ErrorGetUsersState());
     }
   }
@@ -36,11 +32,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       final List data =
           await supabase.from("users").select().match({"type": "admin"});
-      print(data);
-      print("hhhhhh");
       final List<UserModel> users =
           data.map((user) => UserModel.fromJson(user)).toList();
-      print(users);
       emit(GetAdminSuccessedState(admin: users));
     } catch (e) {
       return;
@@ -49,28 +42,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   sendMessage(MessageEvent event, emit) async {
     try {
-      final MessageModel message = MessageModel(
-          contents: event.message,
-          idFrom: getCurrentUserId,
-          idTo: event.idUserTo);
-      print("########################");
-      print(getCurrentUserId);
-      print(event.idUserTo);
       await supabase.from("chats").insert({
         "contents": event.message,
         "id_from": getCurrentUserId,
         "id_to": event.idUserTo
       });
-      print("*****************");
     } catch (e) {
-      print(e);
+      return;
     }
   }
 
   Stream getMessages(String toUserId) {
     // -- listen to stream from (messages) table ,
     //    and get messages just between (current user) and (selected user)
-    final allMesaages = supabase
+    final allMesages = supabase
         .from("chats")
         .stream(primaryKey: ['id'])
         .order('created_at', ascending: true)
@@ -81,7 +66,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 element["id_to"] == getCurrentUserId));
 
 // -- convert List<Map> to List<Message>
-    final messages = allMesaages.map((items) => items
+    final messages = allMesages.map((items) => items
         .map((item) => MessageModel.fromJson(item, getCurrentUserId))
         .toList());
 
