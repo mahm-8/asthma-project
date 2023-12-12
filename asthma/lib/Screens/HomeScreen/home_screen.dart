@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
-    context.read<AsthmaBloc>().add(getHospitalDataEvent());
+    
   }
 
   Future<void> getCurrentLocation() async {
@@ -137,9 +137,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black26,
                         shape: BoxShape.circle,
                       ),
+
                       child: bloc.user!.image == null
                           ? Image.network(bloc.user!.image!)
-                          : const Icon(Icons.person),
+                          : const Icon(Icons.person)
                     );
                   },
                 ),
