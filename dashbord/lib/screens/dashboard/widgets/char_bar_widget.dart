@@ -15,6 +15,11 @@ class CharBarWidget extends StatelessWidget {
         aspectRatio: 1,
         child: BarChart(
           BarChartData(
+            titlesData: FlTitlesData(
+                topTitles:
+                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles:
+                    AxisTitles(sideTitles: SideTitles(showTitles: false))),
             barGroups: [
               BarChartGroupData(x: 1, barRods: [
                 BarChartRodData(
@@ -24,7 +29,7 @@ class CharBarWidget extends StatelessWidget {
                     toY: 10,
                     fromY: 0,
                     width: 15,
-                    color: Colors.blueAccent[200])
+                    color: Color(0xff146C94))
               ]),
               BarChartGroupData(x: 2, barRods: [
                 BarChartRodData(
@@ -34,7 +39,7 @@ class CharBarWidget extends StatelessWidget {
                     toY: 1,
                     fromY: 0,
                     width: 15,
-                    color: Colors.blueAccent[200])
+                    color: Color(0xff146C94))
               ]),
               BarChartGroupData(x: 3, barRods: [
                 BarChartRodData(
@@ -44,7 +49,7 @@ class CharBarWidget extends StatelessWidget {
                     toY: 6,
                     fromY: 0,
                     width: 15,
-                    color: Colors.blueAccent[200])
+                    color: Color(0xff146C94))
               ]),
               BarChartGroupData(x: 4, barRods: [
                 BarChartRodData(
@@ -54,7 +59,7 @@ class CharBarWidget extends StatelessWidget {
                     toY: 10,
                     fromY: 0,
                     width: 15,
-                    color: Colors.blueAccent[200])
+                    color: Color(0xff146C94))
               ]),
               BarChartGroupData(x: 5, barRods: [
                 BarChartRodData(
@@ -64,7 +69,7 @@ class CharBarWidget extends StatelessWidget {
                     toY: 3,
                     fromY: 0,
                     width: 15,
-                    color: Colors.blueAccent[200])
+                    color: Color(0xff146C94))
               ]),
               BarChartGroupData(x: 6, barRods: [
                 BarChartRodData(
@@ -74,7 +79,7 @@ class CharBarWidget extends StatelessWidget {
                     toY: 7,
                     fromY: 0,
                     width: 15,
-                    color: Colors.blueAccent[200])
+                    color: Color(0xff146C94))
               ]),
               BarChartGroupData(x: 7, barRods: [
                 BarChartRodData(
@@ -84,7 +89,7 @@ class CharBarWidget extends StatelessWidget {
                     toY: 3,
                     fromY: 0,
                     width: 15,
-                    color: Colors.blueAccent[200])
+                    color: Color(0xff146C94))
               ])
             ],
             borderData: FlBorderData(

@@ -13,6 +13,16 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: DashboardScreen(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          datePickerTheme: const DatePickerThemeData(
+              confirmButtonStyle: ButtonStyle(
+                  textStyle: MaterialStatePropertyAll(
+                      TextStyle(color: Color(0xff146C94)))),
+              todayForegroundColor: MaterialStatePropertyAll(Color(0xff146C94)),
+              backgroundColor: Color.fromARGB(255, 149, 192, 212),
+              cancelButtonStyle: ButtonStyle(
+                  textStyle: MaterialStatePropertyAll(
+                      TextStyle(color: Colors.transparent))))),
     );
   }
 }

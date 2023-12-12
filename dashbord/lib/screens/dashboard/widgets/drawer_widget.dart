@@ -13,13 +13,13 @@ class LeftDrawer extends StatelessWidget {
       flex: 1,
       child: Container(
         width: size,
-        color: const Color.fromARGB(181, 175, 211, 226),
+        color: Color(0xff146C94),
         child: ListView(
           children: [
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16),
-              color: const Color.fromARGB(181, 175, 211, 226),
+              color: Color(0xff146C94),
               child: Text('Dashboard'),
             ),
             Container(
