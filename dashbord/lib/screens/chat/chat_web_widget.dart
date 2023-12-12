@@ -1,5 +1,5 @@
 import 'package:dashboard/bloc/chat_bloc/chat_bloc.dart';
-import 'package:dashboard/model/messageModel.dart';
+import 'package:dashboard/model/message_model.dart';
 import 'package:dashboard/model/user_model.dart';
 import 'package:dashboard/screens/chat/widget/contain_mwssagw.dart';
 import 'package:dashboard/screens/chat/widget/field_chat.dart';
@@ -15,6 +15,8 @@ class ChatWebWidget extends StatelessWidget {
     final chat = context.read<ChatBloc>();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text(user.name ?? ""),
         backgroundColor: const Color.fromARGB(181, 175, 211, 226),
       ),
@@ -27,7 +29,6 @@ class ChatWebWidget extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final List<MessageModel> messages = snapshot.data!;
-            print(messages);
             ScrollController scrollController = ScrollController();
 
             Future.delayed(const Duration(milliseconds: 100 ~/ 60), () {
@@ -48,7 +49,7 @@ class ChatWebWidget extends StatelessWidget {
                       isMine: messages[index].isMain ?? true);
                 });
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         },
       ),

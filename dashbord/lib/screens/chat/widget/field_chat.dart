@@ -1,4 +1,5 @@
 import 'package:dashboard/bloc/chat_bloc/chat_bloc.dart';
+import 'package:dashboard/screens/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class ChatField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 12, left: 12, right: 12, bottom: 20),
-      width: MediaQuery.of(context).size.width,
+      width: context.getWidth(),
       decoration: BoxDecoration(color: Colors.grey[300]!),
       child: TextField(
         minLines: 1,

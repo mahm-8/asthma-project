@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class InformationCard extends StatelessWidget {
@@ -39,12 +41,12 @@ class InformationCard extends StatelessWidget {
                 'Location: Riyadh',
                 style: TextStyle(fontSize: 16),
               ),
-              Spacer(),
-              Text(
+              const Spacer(),
+              const Text(
                 'Tour Task Today',
                 style: TextStyle(color: Colors.white),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Container(
@@ -54,7 +56,7 @@ class InformationCard extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(4)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               InkWell(
@@ -64,7 +66,7 @@ class InformationCard extends StatelessWidget {
                       builder: (context) => AlertDialog(
                             content: Column(
                               children: [
-                                Text('add new task '),
+                                const Text('add new task '),
                                 TextField(
                                   controller: taskController,
                                 )
@@ -72,23 +74,23 @@ class InformationCard extends StatelessWidget {
                             ),
                             actions: [
                               TextButton(
-                                  onPressed: () {}, child: Text('add task'))
+                                  onPressed: () {}, child: const Text('add task'))
                             ],
                           ));
                 },
                 child: Container(
                   height: 40,
                   width: 120,
-                  child: Row(children: [
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: const Row(children: [
                     Icon(
                       Icons.add,
                       size: 25,
                     ),
                     Text('Create New')
                   ]),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
-                      borderRadius: BorderRadius.circular(30)),
                 ),
               )
             ],

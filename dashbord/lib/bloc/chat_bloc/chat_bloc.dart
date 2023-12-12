@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:dashboard/model/messageModel.dart';
+import 'package:dashboard/model/message_model.dart';
 import 'package:dashboard/model/user_model.dart';
 import 'package:dashboard/services/networking_api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

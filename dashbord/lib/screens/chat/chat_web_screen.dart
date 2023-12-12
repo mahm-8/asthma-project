@@ -2,6 +2,7 @@
 
 import 'package:dashboard/bloc/chat_bloc/chat_bloc.dart';
 import 'package:dashboard/model/user_model.dart';
+import 'package:dashboard/screens/chat/widget/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'chat_web_widget.dart';
@@ -15,10 +16,6 @@ class ChatWebScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ChatBloc>().add(GetUserChatEvent());
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(181, 175, 211, 226),
-        title: Text("title"),
-      ),
       body: BlocBuilder<ChatBloc, ChatState>(
         buildWhen: (oldState, newState) {
           if (newState is GetUsersSuccessedState) {
@@ -29,28 +26,12 @@ class ChatWebScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is GetUsersSuccessedState) {
             model = state.users;
-            ;
             return Row(
               children: [
                 SizedBox(
                   width: 200,
-                  child: ListView.separated(
-                    itemCount: state.users.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          context
-                              .read<ChatBloc>()
-                              .add(GetScreenChatEvent(index));
-                        },
-                        child: ListTile(
-                          title: Text(state.users[index].name ?? ""),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
+                  child: UserWidget(
+                    user: state.users,
                   ),
                 ),
                 BlocBuilder<ChatBloc, ChatState>(

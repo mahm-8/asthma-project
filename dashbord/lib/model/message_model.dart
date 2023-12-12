@@ -18,10 +18,10 @@ class MessageModel {
     isMain = json['id_from'] == currentUserId;
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['contents'] = this.contents;
-    data['id_from'] = this.idFrom;
-    data['id_to'] = this.idTo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['contents'] = contents;
+    data['id_from'] = idFrom;
+    data['id_to'] = idTo;
     return data;
   }
 }

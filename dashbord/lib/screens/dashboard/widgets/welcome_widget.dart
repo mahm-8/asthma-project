@@ -1,4 +1,3 @@
-import 'package:dashboard/screens/dashboard/widgets/char_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeWidget extends StatelessWidget {
@@ -16,7 +15,7 @@ class WelcomeWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width / 1.5,
           height: 400,
           decoration: BoxDecoration(
-              color: Color.fromARGB(255, 159, 191, 206),
+              color: const Color.fromARGB(255, 159, 191, 206),
               borderRadius: BorderRadius.circular(20)),
           child: Row(
             children: [

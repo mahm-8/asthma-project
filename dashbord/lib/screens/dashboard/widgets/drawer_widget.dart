@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LeftDrawer extends StatelessWidget {
-  const LeftDrawer({
+  const LeftDrawer({super.key, 
     required this.size,
   });
 
@@ -38,7 +38,7 @@ class LeftDrawer extends StatelessWidget {
                     ))),
             _tile(
                 label: 'Home',
-                onTap: () => context.push(view: DashboardScreen())),
+                onTap: () => context.push(view: const DashboardScreen())),
             _tile(
                 label: 'Chat',
                 onTap: () => context.push(view: ChatWebScreen())),

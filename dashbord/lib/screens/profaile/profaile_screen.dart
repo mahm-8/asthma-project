@@ -19,7 +19,7 @@ class ProfaileScreen extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              Column(
+              const Column(
                 children: [
                   Text('Wadha Almutairi'),
                   Text('Doctor'),
@@ -27,7 +27,7 @@ class ProfaileScreen extends StatelessWidget {
                   Text('20/3/2023')
                 ],
               ),
-              ProfaileTextField(),
+              const ProfaileTextField(),
               DatePickerDialog(
                   firstDate: DateTime.now(), lastDate: DateTime(2024))
             ],

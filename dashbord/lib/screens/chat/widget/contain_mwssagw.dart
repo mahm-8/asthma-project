@@ -15,7 +15,7 @@ class ContainMessage extends StatelessWidget {
       alignment: isMine ? Alignment.centerLeft : Alignment.centerRight,
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.75,
+          maxWidth: MediaQuery.of(context).size.width * 0.5,
         ),
         child: Padding(
           padding: const EdgeInsets.all(12),

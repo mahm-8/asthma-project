@@ -17,7 +17,7 @@ class LoadingScreen extends StatelessWidget {
           Future.delayed(const Duration(seconds: 3), () {
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) =>  DashboardScreen()),
+                MaterialPageRoute(builder: (context) =>  const DashboardScreen()),
                 (route) => false);
           });
         } else if (newState is ErrorCheckState) {
