@@ -11,12 +11,23 @@ class NerestHospital extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<AsthmaBloc>();
-    return BlocBuilder<AsthmaBloc, AsthmaState>(builder: (context, state) {
-      if (state is LoadingState) {
-        return const Center(
-          child: Icon(Icons.error),
-        );
-      } else if (state is SuccessHospitalState) {
+// <<<<<<< Ruba-AlHilal
+//     return BlocBuilder<AsthmaBloc, AsthmaState>(builder: (context, state) {
+//       if (state is LoadingState) {
+//         return const Center(
+//           child: Icon(Icons.error),
+//         );
+//       } else if (state is SuccessHospitalState) {
+// =======
+    return BlocBuilder<AsthmaBloc, AsthmaState>(
+        buildWhen: (oldState, newState) {
+      if (newState is SuccessHospitalState) {
+        return true;
+      }
+      return false;
+    }, builder: (context, state) {
+      if (state is SuccessHospitalState) {
+// >>>>>>> main
         if (state.hospitalsData!.isNotEmpty) {
           return SizedBox(
             height: context.getHeight() * 0.21,

@@ -1,7 +1,9 @@
+
 import 'package:asthma/Screens/HomeScreen/widgets/drawer.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
 import 'package:asthma/helper/imports.dart';
 import 'widgets/home_custom_app_bar.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
+
     return DrawerMainWidget(
         drawerController: _advancedDrawerController,
         bloc: bloc,
@@ -58,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+// <<<<<<< Ruba-AlHilal
                           Text(
                             '${AppLocalizations.of(context)!.welcome}, ',
                             style: TextStyle(
@@ -80,6 +84,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w800,
                                     color: ColorPaltte().darkBlue),
                               );
+// =======
+//                           ContainerWidget(
+//                             imageurl: 'lib/assets/images/Chatbot-pana.png',
+//                             title: AppLocalizations.of(context)!.helper,
+//                             onTap: () {
+//                               context.push(view: const ChatGPT());
+//                             },
+
+//                             // const MedicationReminder(),
+//                           ),
+//                           ContainerWidget(
+//                             imageurl:
+//                                 'lib/assets/images/Breathingexercise-rafiki1.png',
+//                             title: AppLocalizations.of(context)!.breathing,
+//                             onTap: () {
+//                               context.push(view: const BreathingScreen());
+//                             },
+//                           ),
+//                           ContainerWidget(
+//                             imageurl: 'lib/assets/images/Inhaller1-bro.png',
+//                             title: AppLocalizations.of(context)!.medicine,
+//                             onTap: () {
+//                               context.push(
+//                                   view: const MedicationTrackerScreen());
+//                             },
+//                           ),
+//                           ContainerWidget(
+//                             imageurl: 'lib/assets/images/Asymptomatic-bro.png',
+//                             title: AppLocalizations.of(context)!.symptom,
+//                             onTap: () {
+//                               context.push(view: const SymptomTrackerScreen());
+// >>>>>>> main
                             },
                           ),
                         ],

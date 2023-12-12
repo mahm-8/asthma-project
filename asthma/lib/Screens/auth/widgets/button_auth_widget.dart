@@ -1,5 +1,4 @@
-import 'package:asthma/constants/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:asthma/helper/imports.dart';
 
 class ButtonAuthWidget extends StatelessWidget {
   const ButtonAuthWidget({
@@ -16,7 +15,11 @@ class ButtonAuthWidget extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           backgroundColor: ColorPaltte().newDarkBlue,
-          minimumSize: Size(MediaQuery.of(context).size.width * 0.9, 50)),
+          minimumSize: Size(
+              context.getWidth() > 600
+                  ? context.getWidth(divide: 3)
+                  : context.getWidth(divide: 1.2),
+              50)),
       child: Text(
         text,
         style: const TextStyle(color: Colors.white),

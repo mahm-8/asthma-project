@@ -38,6 +38,9 @@ class TextFieldWidget extends StatelessWidget {
             ),
             SizedBox(
               height: 55,
+              width: context.getWidth() > 700
+                  ? context.getWidth(divide: 3)
+                  : context.getWidth(divide: 1.2),
               child: Form(
                 key: keyForm,
                 child: TextFormField(
