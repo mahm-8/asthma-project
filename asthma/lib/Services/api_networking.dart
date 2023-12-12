@@ -28,7 +28,6 @@ class Networking {
           "presence_penalty": 0
         }));
     final body = json.decode(response.body);
-    print(body);
     return body['choices'][0]['message']['content'];
   }
 }

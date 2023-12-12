@@ -1,3 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:asthma/Screens/breathing/componnets/custom_appbar.dart';
 import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
 import 'package:asthma/Screens/medication_data/component/medication_bottomsheet.dart';
 import 'package:asthma/constants/colors.dart';
@@ -24,20 +27,8 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorPaltte().newDarkBlue,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: ColorPaltte().white,
-          ),
-        ),
-      ),
+      appBar: customAppBar(context,
+          backcolor: ColorPaltte().newDarkBlue, iconColor: ColorPaltte().white),
       body: Stack(
         children: [
           Container(
@@ -113,6 +104,9 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                       if (newState is SuccessGetMedicationState) {
                         return true;
                       }
+                      if (newState is LoadingState) {
+                        return true;
+                      }
                       return false;
                     },
                     builder: (context, state) {
@@ -152,8 +146,11 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                         }
                       } else if (state is ErrorGetState) {
                         const Center(child: Text("Error getting data"));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(state.message)));
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  content: Text(state.message),
+                                ));
                       }
 
                       return const Center(

@@ -1,3 +1,4 @@
+import 'package:asthma/Screens/breathing/componnets/custom_appbar.dart';
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/screen_dimensions.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,6 @@ class _BreathingScreenState extends State<BreathingScreen>
     with TickerProviderStateMixin {
   final player = AudioPlayer();
   late final AnimationController animationController;
-  bool isPlayed = false;
 
   @override
   void initState() {
@@ -37,22 +37,9 @@ class _BreathingScreenState extends State<BreathingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPaltte().lightBlue,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Icon(
-                Icons.arrow_back_ios_new,
-                color: ColorPaltte().darkBlue,
-              ),
-            )),
-      ),
+      backgroundColor: const Color.fromARGB(255, 243, 250, 255),
+      appBar: customAppBar(context,
+          backcolor: Colors.transparent, iconColor: ColorPaltte().darkBlue),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -81,11 +68,8 @@ class _BreathingScreenState extends State<BreathingScreen>
   }
 
   Future<void> setupAudioPlyer() async {
-    player.playbackEventStream.listen((event) {
-      print('Playback event: $event');
-    }, onError: (Object e, StackTrace stacktrace) {
-      print("audio stream error: $e");
-    });
+    player.playbackEventStream
+        .listen((event) {}, onError: (Object e, StackTrace stacktrace) {});
 
     try {
       player.setAudioSource(AudioSource.asset('lib/assets/audio/AAA.mp3'));

@@ -1,35 +1,33 @@
-import 'package:flutter/material.dart';
+import 'package:asthma/helper/imports.dart';
 
 class Page4 extends StatelessWidget {
   const Page4({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "lib/assets/images/Asymptomatic-bro.png",
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          const Text(
-            "Share Symptoms using QR code",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-          const Text(
-            "Add medications and symptoms\nand share it with doctors from the app\nas a QR code",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          "lib/assets/images/Asymptomatic-bro.png",
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        Text(
+          AppLocalizations.of(context)!.threeTitle,
+          textAlign: TextAlign.center,
+          style: const TextStyle().titleOnboarding,
+        ),
+        const SizedBox(
+          height: 35,
+        ),
+        Text(
+          AppLocalizations.of(context)!.threeTitle,
+          textAlign: TextAlign.center,
+          style: const TextStyle().detailsOnboarding,
+        ),
+      ],
     );
   }
 }

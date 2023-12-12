@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:typed_data';
 import 'package:asthma/constants/colors.dart';
 import 'package:barcode_widget/barcode_widget.dart';

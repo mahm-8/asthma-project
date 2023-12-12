@@ -1,6 +1,5 @@
-
-
 import 'package:asthma/helper/imports.dart';
+
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -20,11 +19,13 @@ class LoginScreen extends StatelessWidget {
           height: context.getHeight(),
           child: ListView(
             children: [
-              SizedBox(
-                  height: 300,
-                  child: Center(
-                      child: Image.asset("assets/A.png",
-                          color: Colors.white, height: 150, width: 150))),
+              Center(
+                child: SizedBox(
+                    height: 300,
+                    child: Center(
+                        child: Image.asset("lib/assets/images/logo.png",
+                            color: Colors.white, height: 150, width: 150))),
+              ),
               Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
@@ -34,12 +35,12 @@ class LoginScreen extends StatelessWidget {
                 child: ListView(shrinkWrap: true, children: [
                   Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
                       Text("Login", style: const TextStyle().bold24),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       TextFieldWidget(
                         keyForm: _emailKey,
-                        hint: "exambel@exambel.com",
+                        hint: "example@example.com",
                         controller: emailController,
                         titel: "EMAIL",
                         validator: (value) {
@@ -97,9 +98,8 @@ class LoginScreen extends StatelessWidget {
                         },
                       ),
                       const SizedBox(
-                        height: 16,
+                        height: 15,
                       ),
-
                       BlocBuilder<AuthBloc, AuthStates>(
                         builder: (context, state) {
                           return BlocListener<AuthBloc, AuthStates>(
@@ -115,8 +115,8 @@ class LoginScreen extends StatelessWidget {
                                 Navigator.of(context).pop();
                               }
                             },
-                            child: ButtonAuthWidget(
-                              onPressed: () {
+                            child: ButtonWidget(
+                              onPress: () {
                                 context.read<AuthBloc>().add(LogInAuthEvent(
                                     email: emailController.text,
                                     password: passwordController.text,
@@ -124,7 +124,10 @@ class LoginScreen extends StatelessWidget {
                                     passwordKey: _passwordKey));
                                 context.showLoading();
                               },
-                              text: 'Login',
+                              widget: Text(
+                                "Login",
+                                style: const TextStyle().fontButton,
+                              ),
                             ),
                           );
                         },
@@ -132,15 +135,14 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 16),
+                          style: const TextStyle().authFont,
                           children: [
                             TextSpan(
                                 recognizer: TapGestureRecognizer()
                                   ..onTap =
                                       () => context.push(view: SignupScreen()),
-                                text: "Signup here",
-                                style: TextStyle(color: Colors.grey[700]))
+                                text: "create account",
+                                style: const TextStyle().authGreyFont),
                           ],
                         ),
                       ),

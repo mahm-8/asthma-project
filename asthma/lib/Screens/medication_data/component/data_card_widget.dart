@@ -46,7 +46,7 @@ class DataCardWidget extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: ColorPaltte().darkBlue),
                   ),
@@ -54,12 +54,19 @@ class DataCardWidget extends StatelessWidget {
                     "$textEntry2",
                     maxLines: 2,
                     overflow: TextOverflow.clip,
-                    style: const TextStyle(fontSize: 16),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: ColorPaltte().darkBlue),
                   ),
                   Text(
                     "$textEntry3",
                     maxLines: 1,
-                    style: const TextStyle(fontSize: 16),
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: ColorPaltte().darkBlue),
                   ),
                 ],
               ),

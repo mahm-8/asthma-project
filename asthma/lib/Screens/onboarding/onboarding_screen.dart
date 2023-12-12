@@ -41,7 +41,6 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
             setState(() {
               pageIndex = value;
             });
-            print(pageIndex);
           },
           children: const [
             Padding(

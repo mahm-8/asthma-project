@@ -1,7 +1,7 @@
 {
   "welcome": "Welcome",
   "personal":"Personal Info",
-  "setting": "setting",
+  "qrCode": "QR Code",
     "logout": "logout",
     "phone": "phone",
     "email": "email",
@@ -15,13 +15,22 @@
 "breathing": "Breathing",
 "profile": "Profile",
 "nearest": "Nearest Hospital",
-"symptom": "A symptom",
-"medicine": "Medicine",
+"symptom": "Symptoms",
+"medicine": "Medicines",
 "helper": "Helper",
 "quality": "Air quality",
 "good": "good",
 "normal": "normal",
 "bad": "bad",
-"run": "run"
-
+"run": "run",
+ "oneTitle": "Air Quality and Breathing Excerises",
+  "oneDetails": "Check air quality level, and make\nbreathing excerises",
+  "twoTitle": "Nearest Hospitals And Emergency Call",
+  "twoDetails": "View nearest hospitals based on your\nlocation, and make emergency call",
+  "threeTitle": "Live Chat with Consultant Doctors",
+  "threeDetails": "Ask about chest diseases and they will help you",
+  "fourTitle": "Share Symptoms using QR Code",
+  "fourDetails": "Add medications and symptoms\nand share it with doctors from the app\nas a QR code",
+  "next": "NEXT",
+  "start": "START"
 }

@@ -1,5 +1,5 @@
-
 import 'package:asthma/helper/imports.dart';
+
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key, required this.email});
   final String email;
@@ -14,15 +14,13 @@ class OtpScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-                child: Container(
-              child: Center(
-                  child: Image.asset(
-                color: Colors.white,
-                "assets/mail.png",
-                height: 150,
-                width: 150,
-              )),
-            )),
+                child: Center(
+                    child: Image.asset(
+              color: Colors.white,
+              "assets/mail.png",
+              height: 150,
+              width: 150,
+            ))),
             Container(
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
@@ -43,14 +41,13 @@ class OtpScreen extends StatelessWidget {
                   ),
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.grey[700], fontSize: 16),
-                      children: const [
-                        TextSpan(
+                      style: const TextStyle().authGreyFont,
+                      children: [
+                        const TextSpan(
                           text: "check otp code on your ",
                         ),
                         TextSpan(
-                            text: "Email ",
-                            style: TextStyle(fontWeight: FontWeight.w700))
+                            text: "Email ", style: const TextStyle().bold700)
                       ],
                     ),
                   ),

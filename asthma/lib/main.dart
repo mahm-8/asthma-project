@@ -1,4 +1,3 @@
-import 'package:asthma/Screens/onboarding/onboarding_screen.dart';
 import 'package:asthma/helper/imports.dart';
 
 void main() async {
@@ -45,16 +44,16 @@ class MainApp extends StatelessWidget {
               ),
               debugShowCheckedModeBanner: false,
               localizationsDelegates: const [
-                AppLocalizations.delegate, // Add this line
+                AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: const [
-                Locale('en'), // English
-                Locale('ar'), // Spanish
+                Locale('en'),
+                Locale('ar'),
               ],
-              home: const OnboradingScreen(),
+              home: const LoadingScreen(),
             );
           }
           return MaterialApp(
@@ -64,14 +63,14 @@ class MainApp extends StatelessWidget {
                 scaffoldBackgroundColor: ColorPaltte().newDarkBlue),
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
-              AppLocalizations.delegate, // Add this line
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
-              Locale('en'), // English
-              Locale('ar'), // Spanish
+              Locale('en'),
+              Locale('ar'),
             ],
             home: const OnboradingScreen(),
           );

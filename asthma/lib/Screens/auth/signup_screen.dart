@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-
 import 'package:asthma/helper/imports.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -26,26 +25,22 @@ class SignupScreen extends StatelessWidget {
           child: ListView(
             children: [
               const SizedBox(
-                height: 200,
+                height: 180,
               ),
               Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
+                decoration: BoxDecoration(
+                    color: ColorPaltte().white,
                     borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(100))),
+                        const BorderRadius.only(topLeft: Radius.circular(100))),
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text("Create new Account", style: const TextStyle().bold24),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
+                    Text("Create Account", style: const TextStyle().bold24),
+                    const SizedBox(height: 20),
                     TextFieldWidget(
                       keyForm: _userNameKey,
-                      hint: "UserName",
+                      hint: "Username",
                       controller: nameController,
                       titel: "NAME",
                       validator: (value) {
@@ -57,7 +52,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                     TextFieldWidget(
                       keyForm: _emailKey,
-                      hint: "exambel@exambel.com",
+                      hint: "example@example.com",
                       controller: emailController,
                       titel: "EMAIL",
                       validator: (value) {
@@ -65,7 +60,7 @@ class SignupScreen extends StatelessWidget {
                           return "please enter email";
                         }
                         if (!value.isValidEmail) {
-                          return "Email must be contain @ And .com";
+                          return "email must be contain @ And .com";
                         }
                         return null;
                       },
@@ -103,7 +98,7 @@ class SignupScreen extends StatelessWidget {
                                 return "please enter password";
                               }
                               if (!value.isValidPassword) {
-                                return "must be contain Uppercase, lowercase and (!@#*~)";
+                                return "password must contain Uppercase, lowercase and (!@#*~)";
                               }
                               return null;
                             },
@@ -124,7 +119,7 @@ class SignupScreen extends StatelessWidget {
                               return "please enter password";
                             }
                             if (!value.isValidPassword) {
-                              return "must be contain Uppercase, lowercase and (!@#*~)";
+                              return "password must contain Uppercase, lowercase and (!@#*~)";
                             }
                             return null;
                           },
@@ -132,7 +127,7 @@ class SignupScreen extends StatelessWidget {
                       },
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 15,
                     ),
                     BlocBuilder<AuthBloc, AuthStates>(
                       buildWhen: (oldStete, newState) {
@@ -147,9 +142,8 @@ class SignupScreen extends StatelessWidget {
                         return false;
                       },
                       builder: (context, state) {
-                        return ButtonAuthWidget(
-                          text: "SignUp",
-                          onPressed: () {
+                        return ButtonWidget(
+                          onPress: () {
                             context.read<AuthBloc>().add(SignUpAuthEvent(
                                 nameController.text,
                                 emailController.text,
@@ -161,6 +155,10 @@ class SignupScreen extends StatelessWidget {
                                 _phoneKey));
                             context.showLoading();
                           },
+                          widget: Text(
+                            "Sign Up",
+                            style: const TextStyle().fontButton,
+                          ),
                         );
                       },
                     ),
@@ -169,17 +167,16 @@ class SignupScreen extends StatelessWidget {
                     ),
                     RichText(
                       text: TextSpan(
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
+                        style: const TextStyle().authFont,
                         children: [
-                          const TextSpan(text: "Already Register? "),
+                          const TextSpan(text: "Already Registerd? "),
                           TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => context.push(
                                       view: LoginScreen(),
                                     ),
-                              text: "Login here",
-                              style: TextStyle(color: Colors.grey[700]))
+                              text: "Login",
+                              style: const TextStyle().authGreyFont)
                         ],
                       ),
                     ),

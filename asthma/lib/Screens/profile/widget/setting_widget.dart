@@ -13,6 +13,7 @@ class SettingWidget extends StatelessWidget {
         padding:
             const EdgeInsets.only(top: 50, bottom: 16, right: 16, left: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(
               width: 400,
@@ -47,17 +48,37 @@ class SettingWidget extends StatelessWidget {
             BlocBuilder<LanguageBloc, LanguageState>(
               builder: (context, state) {
                 if (state is SwitchState) {
-                  return Switch(
-                      value: state.swit,
-                      onChanged: (value) {
-                        context.read<LanguageBloc>().add(ChangeLanguage(value));
-                      });
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Text("عربي"),
+                      Switch(
+                          value: state.swit,
+                          onChanged: (value) {
+                            context
+                                .read<LanguageBloc>()
+                                .add(ChangeLanguage(value));
+                          }),
+                      const Text("eng"),
+                    ],
+                  );
                 }
-                return Switch(
-                    value: lan,
-                    onChanged: (value) {
-                      context.read<LanguageBloc>().add(ChangeLanguage(value));
-                    });
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text("ar"),
+                    Switch(
+                        value: lan,
+                        onChanged: (value) {
+                          context
+                              .read<LanguageBloc>()
+                              .add(ChangeLanguage(value));
+                        }),
+                    const Text("eng"),
+                  ],
+                );
               },
             ),
             BlocListener<AuthBloc, AuthStates>(
