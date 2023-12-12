@@ -15,13 +15,11 @@ class MessageModel {
     contents = json['contents'];
     idFrom = json['id_from'];
     idTo = json['id_to'];
-    isMain = json['from_user'] == currentUserId;
+    isMain = json['id_from'] == currentUserId;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
     data['contents'] = this.contents;
     data['id_from'] = this.idFrom;
     data['id_to'] = this.idTo;

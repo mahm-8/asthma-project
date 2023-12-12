@@ -11,20 +11,21 @@ class ChatScreen extends StatelessWidget {
   final TextEditingController messageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<ChatBloc>();
+    final chat = context.read<ChatBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Text(user.name ?? ""),
       ),
       bottomSheet: ChatField(
         controller: messageController,
-        toUserId: user.id.toString(),
+        toUserId: user.idAuth.toString(),
       ),
       body: StreamBuilder(
-        stream: bloc.getMessages(user.id.toString()),
+        stream: chat.getMessages(user.idAuth.toString()),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final List<MessageModel> messages = snapshot.data!;
+            print(messages);
             ScrollController scrollController = ScrollController();
 
             Future.delayed(const Duration(milliseconds: 100 ~/ 60), () {
@@ -45,9 +46,7 @@ class ChatScreen extends StatelessWidget {
                       isMine: messages[index].isMain ?? true);
                 });
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return SizedBox();
           }
         },
       ),

@@ -58,7 +58,7 @@ class MainApp extends StatelessWidget {
                 Locale('en'), // English
                 Locale('ar'), // Spanish
               ],
-              home: LoadingScreen(),
+              home: const LoadingScreen(),
             );
           }
           return MaterialApp(
