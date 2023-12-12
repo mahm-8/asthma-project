@@ -34,7 +34,7 @@ class ContainMessage extends StatelessWidget {
                       : const Radius.circular(0),
                 )),
             child: Text(
-              message,
+              message.trim(),
               style: TextStyle(color: isMine ? Colors.white : Colors.black),
             ),
           ),

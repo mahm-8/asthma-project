@@ -27,8 +27,8 @@ class ChatField extends StatelessWidget {
             hintStyle: const TextStyle(color: Colors.grey),
             suffixIcon: IconButton(
               onPressed: () {
-                context.read<ChatBloc>().add(
-                    MessageEvent(message: controller.text, idUserTo: toUserId));
+                context.read<ChatBloc>().add(MessageEvent(
+                    message: controller.text.trim(), idUserTo: toUserId));
                 controller.clear();
               },
               icon: const Icon(Icons.send),
