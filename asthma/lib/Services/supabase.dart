@@ -10,11 +10,14 @@ class SupabaseServer {
   final supabase = Supabase.instance.client;
 
   getHospitalData() async {
+    print("i am here 1");
     final hospitalData = await supabase.from("hospitals").select();
+    print("i am here 2");
 
     for (var element in hospitalData) {
       allHospetal.add(LocationModel.fromJson(element));
     }
+    print("i am here 3");
 
     return allHospetal;
   }

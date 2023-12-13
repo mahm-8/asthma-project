@@ -39,22 +39,21 @@ class _DoctorInformationState extends State<DoctorInformation> {
         const SizedBox(height: 20),
         Text(
           '${widget.bloc.user?.name}',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: Colors.white),
         ),
         Text(
           '${widget.bloc.user?.gender}',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: Colors.white),
         ),
         Text(
           '${widget.bloc.user?.email}',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: Colors.white),
         ),
         const SizedBox(
           height: 30,
         ),
         const Text(
           'Your Task Today',
-          style: TextStyle(color: Colors.white),
         ),
         const SizedBox(height: 8),
         Container(
@@ -69,14 +68,16 @@ class _DoctorInformationState extends State<DoctorInformation> {
         BlocBuilder<TaskBloc, TaskState>(
           builder: (context, state) {
             if (state is getTaskState) {
-              return Expanded(
-                flex: 2,
+              return SizedBox(
+                width: 120,
+                height: 200,
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.tasks.length,
                   itemBuilder: (BuildContext context, int index) {
+                    print(state.tasks[0].task);
                     return Container(
-                      width: 150,
+                      width: 70,
                       height: 30,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -95,7 +96,9 @@ class _DoctorInformationState extends State<DoctorInformation> {
                 ),
               );
             }
-            return const SizedBox.shrink();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
         InkWell(

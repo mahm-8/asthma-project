@@ -32,14 +32,14 @@ Future<void> getCurrentLocation() async {
     print(e);
   }
 
-  // final country = 'AR';
-  // final city = 'Buenos Aires';
-  List<Placemark> placemarks = await placemarkFromCoordinates(
-    currentLocation!.latitude,
-    currentLocation!.longitude,
-  );
-  await airQualityMethod(
-      placemarks.first.isoCountryCode!, placemarks.first.administrativeArea!);
+  final country = 'AR';
+  final city = 'Buenos Aires';
+  // List<Placemark> placemarks = await placemarkFromCoordinates(
+  //   currentLocation!.latitude,
+  //   currentLocation!.longitude,
+  // );
+  // await airQualityMethod(
+  //     placemarks.first.isoCountryCode!, placemarks.first.administrativeArea!);
 }
 
 Future findNearestLocations() async {
