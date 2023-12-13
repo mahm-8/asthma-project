@@ -24,8 +24,7 @@ class SettingWidget extends StatelessWidget {
                     return Container(
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: const Color.fromARGB(255, 71, 34, 159),
-                                width: 1.5),
+                                color: ColorPaltte().darkBlue, width: 1.5),
                             borderRadius: BorderRadius.circular(16)),
                         child: Padding(
                             padding: const EdgeInsets.all(16),
@@ -34,8 +33,7 @@ class SettingWidget extends StatelessWidget {
                   return Container(
                       decoration: BoxDecoration(
                           border: Border.all(
-                              color: const Color.fromARGB(255, 71, 34, 159),
-                              width: 1.5),
+                              color: ColorPaltte().darkBlue, width: 1.5),
                           borderRadius: BorderRadius.circular(16)),
                       child: Padding(
                           padding: const EdgeInsets.all(16),
@@ -48,18 +46,15 @@ class SettingWidget extends StatelessWidget {
             BlocBuilder<LanguageBloc, LanguageState>(
               builder: (context, state) {
                 if (state is SwitchState) {
-
                   return ListTile(
                     title: Text(AppLocalizations.of(context)!.language),
                     trailing: Switch(
                         value: state.swit,
-
                         onChanged: (value) {
                           context
                               .read<LanguageBloc>()
                               .add(ChangeLanguage(value));
                         }),
-
                   );
                 }
                 return ListTile(
@@ -69,7 +64,6 @@ class SettingWidget extends StatelessWidget {
                       onChanged: (value) {
                         context.read<LanguageBloc>().add(ChangeLanguage(value));
                       }),
-
                 );
               },
             ),
