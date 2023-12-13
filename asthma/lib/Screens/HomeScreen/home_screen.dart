@@ -1,5 +1,4 @@
 import 'package:asthma/Screens/HomeScreen/widgets/drawer.dart';
-import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
 import 'package:asthma/Screens/chat/chat_screen.dart';
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
@@ -51,10 +50,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             '${AppLocalizations.of(context)!.welcome}, ',
-                            style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w800,
-                                color: ColorPaltte().newlightBlue),
+                            style: TextStyle().titleFontwhite,
                           ),
                           BlocBuilder<UserBloc, UserState>(
                             buildWhen: (oldState, newState) {
@@ -66,10 +62,7 @@ class HomeScreen extends StatelessWidget {
                             builder: (context, state) {
                               return Text(
                                 bloc.user?.name ?? "",
-                                style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w800,
-                                    color: ColorPaltte().darkBlue),
+                                style: const TextStyle().titleFont,
                               );
                             },
                           ),

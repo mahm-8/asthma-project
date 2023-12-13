@@ -35,10 +35,7 @@ class AirQuality extends StatelessWidget {
               builder: (context, state) {
                 return Text(
                   '$value%',
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: ColorPaltte().darkBlue),
+                  style: TextStyle().qualityFont,
                 );
               },
             ),
@@ -47,20 +44,14 @@ class AirQuality extends StatelessWidget {
             ),
             Text(
               AppLocalizations.of(context)!.quality,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: ColorPaltte().darkBlue),
+              style: TextStyle().quality,
             ),
             const SizedBox(
               width: 8,
             ),
             Text(
               getAirQualityStatus(value!, context).toString(),
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: ColorPaltte().newDarkBlue),
+              style: TextStyle().quality,
             ),
             const Spacer(),
             IconButton(

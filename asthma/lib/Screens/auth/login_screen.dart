@@ -36,7 +36,8 @@ class LoginScreen extends StatelessWidget {
                   Column(
                     children: [
                       const SizedBox(height: 30),
-                      Text("Login", style: const TextStyle().bold24),
+                      Text(AppLocalizations.of(context)!.login,
+                          style: const TextStyle().bold24),
                       const SizedBox(height: 20),
                       TextFieldWidget(
                         keyForm: _emailKey,
