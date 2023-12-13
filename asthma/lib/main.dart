@@ -1,5 +1,6 @@
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -8,6 +9,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   runApp(const MainApp());
 }
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
   @override
@@ -40,6 +42,9 @@ class MainApp extends StatelessWidget {
             return MaterialApp(
               locale: Locale(state.lang),
               theme: ThemeData(
+                textTheme: GoogleFonts.tajawalTextTheme(
+                  Theme.of(context).textTheme,
+                ),
                 useMaterial3: false,
               ),
               debugShowCheckedModeBanner: false,
@@ -59,6 +64,9 @@ class MainApp extends StatelessWidget {
           return MaterialApp(
             locale: const Locale('en'),
             theme: ThemeData(
+              textTheme: GoogleFonts.tajawalTextTheme(
+                Theme.of(context).textTheme,
+              ),
               useMaterial3: false,
             ),
             debugShowCheckedModeBanner: false,

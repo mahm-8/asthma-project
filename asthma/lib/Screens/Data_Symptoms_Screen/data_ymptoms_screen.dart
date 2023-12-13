@@ -1,5 +1,7 @@
-import 'package:asthma/Screens/breathing/componnets/custom_appbar.dart';
-import 'package:asthma/helper/imports.dart';
+import 'package:asthma/Screens/Data_Symptoms_Screen/components/symptom_bottomsheet.dart';
+
+import '../../helper/imports.dart';
+import '../breathing/componnets/custom_appbar.dart';
 
 Widget? barcode;
 String? imageUrl;
@@ -17,11 +19,6 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
     context.read<AsthmaBloc>().add(GetSymptomDataEvent());
     super.initState();
   }
-
-  String selectedSymptom = 'cough';
-  String selectedLevel = 'Low';
-  TextEditingController symptomsDescriptionsController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +53,7 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
               left: 175,
               top: 120,
               child: Text(
-                "Symptoms",
+                AppLocalizations.of(context)!.symptom,
                 style: TextStyle(
                     fontSize: 35,
                     color: ColorPaltte().white,
@@ -74,17 +71,16 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                     Row(
                       children: [
                         Text(
-                          'Your symptoms',
+                          AppLocalizations.of(context)!.mySymptom,
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                               color: ColorPaltte().darkBlue),
                         ),
                         const Spacer(),
-                        // SymptomBottomSheetButton(context: context),
                         TextButton(
                           onPressed: () async {
-                            await showButtonSheet(context);
+                            await showSymptomButtonSheet(context);
                           },
                           child: Row(
                             children: [
@@ -93,7 +89,7 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                                 color: ColorPaltte().newDarkBlue,
                               ),
                               Text(
-                                'Add Symptom',
+                                AppLocalizations.of(context)!.addSymptom,
                                 style: TextStyle(
                                   color: ColorPaltte().newDarkBlue,
                                 ),
@@ -124,11 +120,11 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                                   final symptom = state.symptoms[index];
                                   return DataCardWidget(
                                     textEntry1:
-                                        "Symptom: ${symptom.symptomName}",
+                                        "${AppLocalizations.of(context)!.symptom}: ${symptom.symptomName}",
                                     textEntry2:
-                                        "Details: ${symptom.symptomDetails}",
+                                        "${AppLocalizations.of(context)!.details}: ${symptom.symptomDetails}",
                                     textEntry3:
-                                        "intensity: ${symptom.symptomIntensity}",
+                                        "${AppLocalizations.of(context)!.intensity}: ${symptom.symptomIntensity}",
                                     deleteTap: () {
                                       context.read<AsthmaBloc>().add(
                                           DeleteSymptomEvent(
@@ -142,7 +138,7 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                           } else {
                             return Center(
                               child: Text(
-                                "No symptoms added",
+                                AppLocalizations.of(context)!.noSymtomps,
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: ColorPaltte().darkBlue),
@@ -150,10 +146,15 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
                             );
                           }
                         } else if (state is ErrorGetState) {
-                          const Center(child: Text("Error getting data"));
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.message)));
-                          Future.delayed(Duration(seconds: 1), () {});
+                          Center(
+                              child:
+                                  Text(AppLocalizations.of(context)!.errorGet));
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    content: Text(state.message),
+                                  ));
+                          Future.delayed(const Duration(seconds: 1), () {});
                         }
                         return const Center(
                           child: CircularProgressIndicator(),
@@ -166,159 +167,5 @@ class SymptomTrackerScreenState extends State<SymptomTrackerScreen> {
             ),
           ],
         ));
-  }
-
-  Future<dynamic> showButtonSheet(BuildContext context) {
-    return showModalBottomSheet(
-      showDragHandle: true,
-      isScrollControlled: true,
-      useSafeArea: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height * 0.65),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Symptom",
-                  style: const TextStyle().fieldFont,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: ColorPaltte().fieldGrey,
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: DropdownButton(
-                    iconDisabledColor: ColorPaltte().darkBlue,
-                    iconEnabledColor: ColorPaltte().darkBlue,
-                    isExpanded: true,
-                    borderRadius: BorderRadius.circular(20),
-                    value: selectedSymptom,
-                    hint: const Text('Select Symptom'),
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: [
-                      'cough',
-                      'shortness of breath',
-                      'Disordered sleep',
-                    ].map((value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedSymptom = value!;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "Symptom Intensity",
-                  style: const TextStyle().fieldFont,
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  decoration: BoxDecoration(
-                      color: ColorPaltte().fieldGrey,
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: DropdownButton(
-                    iconDisabledColor: ColorPaltte().darkBlue,
-                    iconEnabledColor: ColorPaltte().darkBlue,
-                    borderRadius: BorderRadius.circular(20),
-                    value: selectedLevel,
-                    isExpanded: true,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: ['Low', 'Moderate', 'High'].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedLevel = value!;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 16),
-                AddTextfield(
-                  label: 'Details',
-                  fieldController: symptomsDescriptionsController,
-                  fieldWidth: MediaQuery.of(context).size.width * 0.95,
-                  fieldHeight: 135,
-                  onlyRead: false,
-                  title: 'Details',
-                ),
-                const SizedBox(height: 16),
-                BlocListener<AsthmaBloc, AsthmaState>(
-                  listener: (context, state) {
-                    if (state is SucsessMessageState) {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                content: Text(state.message),
-                              ));
-                      symptomsDescriptionsController.clear();
-                      selectedSymptom = 'cough';
-                      selectedLevel = 'Low';
-                    } else if (state is ADDErrorState) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(state.message)));
-                    }
-                  },
-                  child: ButtonWidget(
-                    widget: Text(
-                      "Add",
-                      style: const TextStyle().fontwhite,
-                    ),
-                    onPress: () {
-                      context.read<AsthmaBloc>().add(AddSymptomEvent(
-                          selectedSymptom,
-                          symptomsDescriptionsController.text,
-                          selectedLevel));
-
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                Center(
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'cancel',
-                        style: const TextStyle().darkblue700,
-                      )),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
   }
 }

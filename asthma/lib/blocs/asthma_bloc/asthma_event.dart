@@ -33,3 +33,15 @@ class DeleteSymptomEvent extends AsthmaEvent {
 
   DeleteSymptomEvent({required this.id});
 }
+
+class ChooseSymptomEvent extends AsthmaEvent {
+  final String selectedSymptom;
+
+  ChooseSymptomEvent(this.selectedSymptom);
+}
+
+class ChooseLevelEvent extends AsthmaEvent {
+  final String selectedLevel;
+
+  ChooseLevelEvent(this.selectedLevel);
+}

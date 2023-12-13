@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:asthma/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 

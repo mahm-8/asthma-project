@@ -25,6 +25,18 @@ final class SuccessGetMedicationState extends AsthmaState {
   SuccessGetMedicationState({required this.medications});
 }
 
+final class ChangeSymptomState extends AsthmaState {
+  final String selectedSymptom;
+
+  ChangeSymptomState(this.selectedSymptom);
+}
+
+final class ChangeLevelState extends AsthmaState {
+  final String selectedLevel;
+
+  ChangeLevelState(this.selectedLevel);
+}
+
 final class SuccessAddSymptomState extends AsthmaState {}
 
 final class SuccessAddMedicationState extends AsthmaState {}

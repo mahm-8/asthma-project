@@ -4,6 +4,7 @@ import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 
 import '../../Models/messageModel.dart';
+import '../breathing/componnets/custom_appbar.dart';
 
 class ChatScreen extends StatelessWidget {
   ChatScreen({super.key, required this.user});
@@ -15,9 +16,11 @@ class ChatScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(user.name ?? ""),
-        ),
+        appBar: customAppBar(context,
+            title: user.name ?? "",
+            showtitle: true,
+            backcolor: Colors.transparent,
+            iconColor: ColorPaltte().darkBlue),
         bottomSheet: ChatField(
           controller: messageController,
           toUserId: user.idAuth.toString(),
