@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Models/medication_model.dart';
 import 'package:asthma/Models/symptoms_model.dart';
+import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
 import 'package:asthma/Services/supabase.dart';
 import 'package:bloc/bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:meta/meta.dart';
 part 'asthma_event.dart';
 part 'asthma_state.dart';
@@ -30,14 +32,38 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
       getHospitalDataEvent event, Emitter<AsthmaState> emit) async {
     try {
       emit(LoadingState());
-      print("hospital event");
 
       hospitalData = await SupabaseServer().getHospitalData();
-      // await Future.delayed(const Duration(seconds: 1));
-      print(hospitalData);
-      emit(SuccessHospitalState(hospitalData));
+      print('1');
+      if (hospitalData != null) {
+        print('2');
+        for (var location in hospitalData!) {
+          Position position = await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.high);
+          currentLocation = position;
+          print(currentLocation);
+          await Future.delayed(Duration(seconds: 1));
+          double distance = Geolocator.distanceBetween(
+            currentLocation!.latitude,
+            currentLocation!.longitude,
+            location.latitude!,
+            location.longitude!,
+          );
+          await Future.delayed(Duration(seconds: 1));
+          print('4');
+          location.distance = distance;
+          nearestLocations.add(location);
+        }
+        nearestLocations.sort((a, b) => a.distance!.compareTo(b.distance!));
+        nearestLocations = nearestLocations.take(5).toList();
+        emit(SuccessHospitalState(nearestLocations));
+        print("=========================0000000=====================");
+      }
+
     } catch (error) {
       print(error);
+      print(
+          "===================hhhhhhhhhhhhhhhhhhhhhhhhhh=====================");
       emit(ErrorState());
     }
   }

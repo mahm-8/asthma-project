@@ -44,85 +44,77 @@ class Profile extends StatelessWidget {
           ],
         ),
         backgroundColor: ColorPaltte().newDarkBlue,
-        body: BlocBuilder<UserBloc, UserState>(
-          buildWhen: (oldState, newState) {
-            if (newState is LoadState) {
-              return true;
-            }
-            return false;
-          },
-          builder: (context, state) {
-            if (state is LoadState) {
-              return Stack(
-                children: [
-                  Column(
-                    children: [
-                      Expanded(
-                        child: Container(),
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                Expanded(
+                  child: Container(),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
+                      color: Colors.white),
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: TabBarView(
+                    children: <Widget>[
+                      BlocBuilder<UserBloc, UserState>(
+                        builder: (context, state) {
+                          if (state is LoadState) {
+                            return CardInfo(
+                                phone: bloc.user?.phone??"",
+                                birthday: bloc.user?.dob??"",
+                                email: bloc.user?.email??"",
+                                age: bloc.user?.age??"",
+                                gender: bloc.user?.gender??"");
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
                       ),
-                      Container(
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(20)),
-                            color: Colors.white),
-                        height: MediaQuery.of(context).size.height * 0.6,
-                        child: TabBarView(
-                          children: <Widget>[
-                            CardInfo(
-                                phone: bloc.user!.phone!,
-                                birthday: bloc.user!.dob!,
-                                email: bloc.user!.email!,
-                                age: bloc.user!.age!,
-                                gender: bloc.user!.gender!),
-                            SettingWidget(
-                              bloc: bloc,
-                            )
-                          ],
-                        ),
+                      SettingWidget(
+                        bloc: bloc,
                       )
                     ],
                   ),
-                  TapWidget(
-                    bloc: bloc,
-                  ),
-                  ContainerImage(
-                    bloc: bloc,
-                  ),
-                  Positioned(
-                    left: context.getWidth(divide: 1.75),
-                    top: context.getHeight(divide: 8),
-                    child: ClipOval(
-                        child: InkWell(
-                      onTap: () async {
-                        XFile? image =
-                            await picker.pickImage(source: ImageSource.gallery);
+                )
+              ],
+            ),
+            TapWidget(
+              bloc: bloc,
+            ),
+            ContainerImage(
+              bloc: bloc,
+            ),
+            Positioned(
+              left: context.getWidth(divide: 1.75),
+              top: context.getHeight(divide: 8),
+              child: ClipOval(
+                  child: InkWell(
+                onTap: () async {
+                  XFile? image =
+                      await picker.pickImage(source: ImageSource.gallery);
 
-                        final imageFile = await image!.readAsBytes();
-                        if (imageFile.isNotEmpty) {
-                          context
-                              .read<UserBloc>()
-                              .add(UploadImageEvent(imageFile));
-
-                          context.showLoading();
-                        }
-                      },
-                      child: Container(
-                          padding: const EdgeInsets.all(4),
-                          color: ColorPaltte().lightBlue,
-                          child: Icon(
-                            Icons.mode_edit_outlined,
-                            size: 20,
-                            color: ColorPaltte().newDarkBlue,
-                          )),
+                  final imageFile = await image!.readAsBytes();
+                  if (imageFile.isNotEmpty) {
+                    context.read<UserBloc>().add(UploadImageEvent(imageFile));
+                    context.showLoading();
+                  }
+                },
+                child: Container(
+                    padding: const EdgeInsets.all(4),
+                    color: ColorPaltte().lightBlue,
+                    child: Icon(
+                      Icons.mode_edit_outlined,
+                      size: 20,
+                      color: ColorPaltte().newDarkBlue,
                     )),
-                  ),
-                ],
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+              )),
+            ),
+          ],
         ),
       ),
     );
@@ -130,10 +122,10 @@ class Profile extends StatelessWidget {
 
   getControllerValue({required BuildContext context}) {
     final bloc = context.read<UserBloc>();
-    nameController!.text = bloc.user!.name ?? "";
-    phoneController!.text = bloc.user!.phone ?? "";
-    ageController!.text = bloc.user!.age ?? "";
-    birthdayController!.text = bloc.user!.dob ?? "";
-    genderController!.text = bloc.user!.gender ?? "";
+    nameController?.text = bloc.user?.name ?? "";
+    phoneController?.text = bloc.user?.phone ?? "";
+    ageController?.text = bloc.user?.age ?? "";
+    birthdayController?.text = bloc.user?.dob ?? "";
+    genderController?.text = bloc.user?.gender ?? "";
   }
 }

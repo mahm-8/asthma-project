@@ -1,4 +1,3 @@
-
 import 'package:asthma/helper/imports.dart';
 
 class ContainerImage extends StatelessWidget {
@@ -40,7 +39,7 @@ class ContainerImage extends StatelessWidget {
               color: ColorPaltte().newBlue,
               height: 100,
               width: 100,
-              child: bloc.user!.image != null
+              child: bloc.user?.image != null
                   ? Image.network(
                       bloc.user!.image!,
                       fit: BoxFit.cover,

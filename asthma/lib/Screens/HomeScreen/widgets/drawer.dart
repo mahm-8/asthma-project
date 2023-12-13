@@ -68,7 +68,7 @@ class DrawerMainWidget extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  context.push(view: const HomeScreen());
+                  context.push(view:  HomeScreen());
                 },
                 leading: const Icon(Icons.home_outlined),
                 title: Text(AppLocalizations.of(context)!.home),

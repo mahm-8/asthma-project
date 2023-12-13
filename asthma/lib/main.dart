@@ -23,8 +23,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthBloc()..add(CheckLoginEvent()),
         ),
-        BlocProvider(
-            create: (context) => AsthmaBloc()..add(getHospitalDataEvent())),
+        BlocProvider(create: (context) => AsthmaBloc()),
         BlocProvider(
           create: (context) => UserBloc(),
         ),
