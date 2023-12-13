@@ -23,6 +23,8 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     on<AddSymptomEvent>(addSymptomMethod);
     on<DeleteMedicationEvent>(deleteMedicationMethod);
     on<DeleteSymptomEvent>(deleteSymtomMethod);
+    on<ChooseSymptomEvent>(changeSymptom);
+    on<ChooseLevelEvent>(changeLevel);
     add(GetMedicationDataEvent());
     add(GetSymptomDataEvent());
   }
@@ -59,7 +61,6 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
         emit(SuccessHospitalState(nearestLocations));
         print("=========================0000000=====================");
       }
-
     } catch (error) {
       print(error);
       print(
@@ -160,5 +161,15 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     } catch (error) {
       emit(ErrorState());
     }
+  }
+
+  FutureOr<void> changeSymptom(
+      ChooseSymptomEvent event, Emitter<AsthmaState> emit) {
+    emit(ChangeSymptomState(event.selectedSymptom));
+  }
+
+  FutureOr<void> changeLevel(
+      ChooseLevelEvent event, Emitter<AsthmaState> emit) {
+    emit(ChangeLevelState(event.selectedLevel));
   }
 }

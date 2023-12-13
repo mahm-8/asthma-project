@@ -5,7 +5,7 @@ TextEditingController medicationNameController = TextEditingController(),
     medicationQuantitysController = TextEditingController(),
     medicationDateController = TextEditingController(),
     medicationDaysController = TextEditingController();
-Future<dynamic> showButtonSheet(BuildContext context) {
+Future<dynamic> showMedicationButtonSheet(BuildContext context) {
   return showModalBottomSheet(
     showDragHandle: true,
     useSafeArea: true,
@@ -29,29 +29,29 @@ Future<dynamic> showButtonSheet(BuildContext context) {
             children: [
               const SizedBox(height: 16),
               AddTextfield(
-                label: 'Medication Name',
+                label: AppLocalizations.of(context)!.medcName,
                 fieldController: medicationNameController,
                 fieldWidth: MediaQuery.of(context).size.width * 0.95,
                 onlyRead: false,
-                title: 'Medication Name',
+                title: AppLocalizations.of(context)!.medcName,
               ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AddTextfield(
-                    label: 'Quantity in day',
+                    label: AppLocalizations.of(context)!.quantityDay,
                     fieldController: medicationQuantitysController,
                     fieldWidth: MediaQuery.of(context).size.width * 0.44,
                     onlyRead: false,
-                    title: 'Quantity in day',
+                    title: AppLocalizations.of(context)!.quantityDay,
                   ),
                   AddTextfield(
-                    label: 'No. of Days to take',
+                    label: AppLocalizations.of(context)!.daysToTake,
                     fieldController: medicationDaysController,
                     fieldWidth: MediaQuery.of(context).size.width * 0.44,
                     onlyRead: false,
-                    title: 'Days',
+                    title: AppLocalizations.of(context)!.day,
                   ),
                 ],
               ),
@@ -77,11 +77,11 @@ Future<dynamic> showButtonSheet(BuildContext context) {
                   Icons.date_range,
                   color: ColorPaltte().newDarkBlue,
                 ),
-                label: 'Start Date',
+                label: AppLocalizations.of(context)!.startDateCap,
                 fieldController: medicationDateController,
                 fieldWidth: MediaQuery.of(context).size.width,
                 onlyRead: true,
-                title: 'Start Date',
+                title: AppLocalizations.of(context)!.startDateCap,
               ),
               const SizedBox(
                 height: 16,
@@ -106,9 +106,9 @@ Future<dynamic> showButtonSheet(BuildContext context) {
                   }
                 },
                 child: ButtonWidget(
-                  widget: const Text(
-                    "Add",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  widget: Text(
+                    AppLocalizations.of(context)!.add,
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   onPress: () {
                     context.read<AsthmaBloc>().add(AddMedicationEvent(
@@ -124,7 +124,7 @@ Future<dynamic> showButtonSheet(BuildContext context) {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'cancel',
+                    AppLocalizations.of(context)!.cancel,
                     style: TextStyle(
                         color: ColorPaltte().darkBlue,
                         fontSize: 16,

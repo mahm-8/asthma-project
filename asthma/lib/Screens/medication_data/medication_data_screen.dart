@@ -1,13 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
-
-import 'package:asthma/Screens/breathing/componnets/custom_appbar.dart';
-import 'package:asthma/Screens/medication_data/component/data_card_widget.dart';
 import 'package:asthma/Screens/medication_data/component/medication_bottomsheet.dart';
-import 'package:asthma/constants/colors.dart';
-import 'package:asthma/extensions/screen_dimensions.dart';
-import 'package:flutter/material.dart';
-import 'package:asthma/blocs/asthma_bloc/asthma_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../helper/imports.dart';
+import '../breathing/componnets/custom_appbar.dart';
 
 class MedicationTrackerScreen extends StatefulWidget {
   const MedicationTrackerScreen({super.key});
@@ -53,7 +48,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
             left: 175,
             top: 120,
             child: Text(
-              "Medications",
+              AppLocalizations.of(context)!.medicine,
               style: TextStyle(
                   fontSize: 35,
                   color: ColorPaltte().white,
@@ -71,7 +66,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                   Row(
                     children: [
                       Text(
-                        'Your Medication',
+                        AppLocalizations.of(context)!.myMedicne,
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
@@ -80,7 +75,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          showButtonSheet(context);
+                          showMedicationButtonSheet(context);
                         },
                         child: Row(
                           children: [
@@ -89,7 +84,7 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                               color: ColorPaltte().darkBlue,
                             ),
                             Text(
-                              'Add Medication',
+                              AppLocalizations.of(context)!.addMedication,
                               style: TextStyle(
                                 color: ColorPaltte().darkBlue,
                               ),
@@ -120,10 +115,11 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                                 final medication = state.medications[index];
                                 return DataCardWidget(
                                   textEntry1:
-                                      "name: ${medication.medicationName}",
+                                      "${AppLocalizations.of(context)!.name}: ${medication.medicationName}",
                                   textEntry2:
-                                      "days to take: ${medication.days.toString()}",
-                                  textEntry3: "start date: ${medication.date}",
+                                      "${AppLocalizations.of(context)!.days}: ${medication.days.toString()}",
+                                  textEntry3:
+                                      "${AppLocalizations.of(context)!.startDate}: ${medication.date}",
                                   deleteTap: () {
                                     context.read<AsthmaBloc>().add(
                                           DeleteMedicationEvent(
@@ -138,14 +134,16 @@ class _MedicationTrackerScreenState extends State<MedicationTrackerScreen> {
                         } else {
                           return Center(
                             child: Text(
-                              "No medication added",
+                              AppLocalizations.of(context)!.noMedication,
                               style: TextStyle(
                                   fontSize: 18, color: ColorPaltte().darkBlue),
                             ),
                           );
                         }
                       } else if (state is ErrorGetState) {
-                        const Center(child: Text("Error getting data"));
+                        Center(
+                            child:
+                                Text(AppLocalizations.of(context)!.errorGet));
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
