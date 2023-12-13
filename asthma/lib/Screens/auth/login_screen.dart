@@ -3,8 +3,8 @@ import 'package:asthma/helper/imports.dart';
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final emailController = TextEditingController(text: 'xbox-w@live.com');
+  final passwordController = TextEditingController(text: '12345Aa!');
   final _emailKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
   bool display = false;
@@ -35,11 +35,9 @@ class LoginScreen extends StatelessWidget {
                 child: ListView(shrinkWrap: true, children: [
                   Column(
                     children: [
-
                       const SizedBox(height: 30),
                       Text("Login", style: const TextStyle().bold24),
                       const SizedBox(height: 20),
-
                       TextFieldWidget(
                         keyForm: _emailKey,
                         hint: "example@example.com",
@@ -129,14 +127,10 @@ class LoginScreen extends StatelessWidget {
                                     passwordKey: _passwordKey));
                                 context.showLoading();
                               },
-
                               widget: Text(
                                 AppLocalizations.of(context)!.login,
                                 style: const TextStyle().fontButton,
                               ),
-
-                            
-
                             ),
                           );
                         },
@@ -150,10 +144,8 @@ class LoginScreen extends StatelessWidget {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap =
                                       () => context.push(view: SignupScreen()),
-
                                 text: AppLocalizations.of(context)!.signupHere,
                                 style: const TextStyle().authGreyFont),
-
                           ],
                         ),
                       ),

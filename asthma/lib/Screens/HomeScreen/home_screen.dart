@@ -1,9 +1,10 @@
-
 import 'package:asthma/Screens/HomeScreen/widgets/drawer.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
+import 'package:asthma/Screens/chat/chat_home.dart';
+import 'package:asthma/Screens/chat/chat_screen.dart';
+import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 import 'widgets/home_custom_app_bar.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -19,17 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getCurrentLocation();
     getUserProfile();
-
     context.read<AsthmaBloc>().add(getHospitalDataEvent());
-
   }
 
   final _advancedDrawerController = AdvancedDrawerController();
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
-
-
     return DrawerMainWidget(
         drawerController: _advancedDrawerController,
         bloc: bloc,
@@ -54,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
-
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-// <<<<<<< Ruba-AlHilal
                           Text(
                             '${AppLocalizations.of(context)!.welcome}, ',
                             style: TextStyle(
@@ -82,44 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             builder: (context, state) {
                               return Text(
-                                bloc.user!.name ?? "",
+                                bloc.user?.name ?? "",
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w800,
                                     color: ColorPaltte().darkBlue),
                               );
-// =======
-//                           ContainerWidget(
-//                             imageurl: 'lib/assets/images/Chatbot-pana.png',
-//                             title: AppLocalizations.of(context)!.helper,
-//                             onTap: () {
-//                               context.push(view: const ChatGPT());
-//                             },
-
-//                             // const MedicationReminder(),
-//                           ),
-//                           ContainerWidget(
-//                             imageurl:
-//                                 'lib/assets/images/Breathingexercise-rafiki1.png',
-//                             title: AppLocalizations.of(context)!.breathing,
-//                             onTap: () {
-//                               context.push(view: const BreathingScreen());
-//                             },
-//                           ),
-//                           ContainerWidget(
-//                             imageurl: 'lib/assets/images/Inhaller1-bro.png',
-//                             title: AppLocalizations.of(context)!.medicine,
-//                             onTap: () {
-//                               context.push(
-//                                   view: const MedicationTrackerScreen());
-//                             },
-//                           ),
-//                           ContainerWidget(
-//                             imageurl: 'lib/assets/images/Asymptomatic-bro.png',
-//                             title: AppLocalizations.of(context)!.symptom,
-//                             onTap: () {
-//                               context.push(view: const SymptomTrackerScreen());
-// >>>>>>> main
                             },
                           ),
                         ],
@@ -137,14 +100,26 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           spacing: 16,
                           children: [
-                            ContainerWidget(
-                              imageurl: 'lib/assets/images/Chatbot-pana.png',
-                              title: AppLocalizations.of(context)!.helper,
-                              onTap: () {
-                                context.push(view: const ChatGPT());
+                            BlocListener<ChatBloc, ChatState>(
+                              listener: (context, state) {
+                                if (state is GetAdminSuccessedState) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChatScreen(
+                                                user: state.admin.first,
+                                              )));
+                                }
                               },
-
-                              // const MedicationReminder(),
+                              child: ContainerWidget(
+                                imageurl: 'lib/assets/images/Chatbot-pana.png',
+                                title: AppLocalizations.of(context)!.helper,
+                                onTap: () {
+                                  context
+                                      .read<ChatBloc>()
+                                      .add(GetAdminChatEvent());
+                                },
+                              ),
                             ),
                             ContainerWidget(
                               imageurl:
