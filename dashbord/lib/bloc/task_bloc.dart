@@ -17,7 +17,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   FutureOr<void> addTask(AddTaskEvent event, Emitter<TaskState> emit) async {
     emit(TaskLoadingState());
     try {
-      await Supabase.instance.client.from('tasks').insert({'task': event.task});
+      await Supabase.instance.client
+          .from('tasks')
+          .insert({'task': event.task, "id_user": getCurrentUserId});
       emit(TaskUpdateState());
     } catch (e) {
       print(e);
@@ -30,7 +32,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       final List allTasks = await Supabase.instance.client
           .from("tasks")
           .select()
-          .eq("id", getCurrentUserId);
+          .eq("id_user", getCurrentUserId);
       print(getCurrentUserId);
       final List<TaskModel> tasks =
           allTasks.map((task) => TaskModel.fromJson(task)).toList();

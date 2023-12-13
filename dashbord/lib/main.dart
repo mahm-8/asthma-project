@@ -16,9 +16,9 @@ void main() async {
   SupabaseNetworking().getSupabaseInitialize;
   runApp(const MainApp());
 }
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -33,7 +33,7 @@ class MainApp extends StatelessWidget {
           create: (context) => UserBloc(),
         ),
         BlocProvider(
-          create: (context) => TaskBloc(),
+          create: (context) => TaskBloc()..add(getTaskEvent()),
         ),
       ],
       child: MaterialApp(

@@ -6,13 +6,10 @@ void main() async {
   await dotenv.load(fileName: ".env");
   SupabaseNetworking().getSupabaseInitialize;
   Bloc.observer = MyBlocObserver();
-
   runApp(const MainApp());
 }
-
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

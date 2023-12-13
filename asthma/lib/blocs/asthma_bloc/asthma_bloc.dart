@@ -30,9 +30,11 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
       getHospitalDataEvent event, Emitter<AsthmaState> emit) async {
     try {
       emit(LoadingState());
-      hospitalData = await SupabaseServer().getHospitalData();
-      await Future.delayed(const Duration(seconds: 1));
+      print("hospital event");
 
+      hospitalData = await SupabaseServer().getHospitalData();
+      // await Future.delayed(const Duration(seconds: 1));
+      print(hospitalData);
       emit(SuccessHospitalState(hospitalData));
     } catch (error) {
       print(error);

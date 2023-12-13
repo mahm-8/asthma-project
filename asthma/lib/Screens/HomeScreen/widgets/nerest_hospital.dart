@@ -26,6 +26,7 @@ class NerestHospital extends StatelessWidget {
       }
       if (state is SuccessHospitalState) {
         if (state.hospitalsData!.isNotEmpty) {
+          print("state");
           return SizedBox(
             height: context.getHeight() * 0.21,
             width: context.getWidth(),
