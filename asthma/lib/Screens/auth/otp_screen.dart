@@ -44,10 +44,11 @@ class OtpScreen extends StatelessWidget {
                       style: const TextStyle().authGreyFont,
                       children: [
                         const TextSpan(
-                          text: "check otp code on your ",
+                          text: "check otp code on your email",
                         ),
                         TextSpan(
-                            text: "Email ", style: const TextStyle().bold700)
+                            text: AppLocalizations.of(context)!.email,
+                            style: const TextStyle().bold700)
                       ],
                     ),
                   ),
@@ -58,7 +59,8 @@ class OtpScreen extends StatelessWidget {
                     listener: (context, state) {
                       if (state is SuccessVerificationState) {
                         context.read<AuthBloc>().add(CheckLoginEvent());
-                        context.pushAndRemoveUntil(view: const LoadingScreen());
+                        context.pushAndRemoveUntil(
+                            view: const OnboradingScreen());
                       } else if (state is ErrorVerificationState) {
                         Navigator.of(context).pop();
                         context.showErrorMessage(msg: state.message);

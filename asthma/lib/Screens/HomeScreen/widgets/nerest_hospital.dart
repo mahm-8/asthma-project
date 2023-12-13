@@ -16,7 +16,6 @@ class NerestHospital extends StatelessWidget {
         );
       }
       if (state is SuccessHospitalState) {
-
         return SizedBox(
           height: context.getHeight() * 0.21,
           width: context.getWidth(),
@@ -52,7 +51,6 @@ class NerestHospital extends StatelessWidget {
                               'lib/assets/images/Address-bro2.png',
                               width: 80,
                               height: 80,
-
                             ),
                           ),
                           const Divider(
