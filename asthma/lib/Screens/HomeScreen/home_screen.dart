@@ -1,29 +1,22 @@
 import 'package:asthma/Screens/HomeScreen/widgets/drawer.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
-import 'package:asthma/Screens/chat/chat_home.dart';
 import 'package:asthma/Screens/chat/chat_screen.dart';
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 import 'widgets/home_custom_app_bar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+// @override
+// void initState() {
+//   super.initState();
+//   //getCurrentLocation();
+//   context.read<AsthmaBloc>().add(getHospitalDataEvent());
+// }
+class HomeScreen extends StatelessWidget {
+  HomeScreen({
     super.key,
   });
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    getCurrentLocation();
-    getUserProfile();
-    context.read<AsthmaBloc>().add(getHospitalDataEvent());
-  }
-
   final _advancedDrawerController = AdvancedDrawerController();
+
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
@@ -165,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      NerestHospital(nearestLocations: nearestLocations),
+                      NerestHospital(),
                     ],
                   ),
                 ),
