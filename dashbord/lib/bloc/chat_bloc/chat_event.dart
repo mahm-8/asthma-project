@@ -19,3 +19,4 @@ class MessageEvent extends ChatEvent {
 
   MessageEvent({required this.message, required this.idUserTo});
 }
+class GetNumberOfMessagesEvent extends ChatEvent{}

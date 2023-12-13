@@ -69,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           ),
-           InformationCard(),
+          InformationCard(),
         ],
       ),
     );

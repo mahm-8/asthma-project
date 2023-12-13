@@ -16,6 +16,8 @@ final class GetAdminSuccessedState extends ChatState {
   GetAdminSuccessedState({required this.admin});
 }
 
+final class GetNumberOfMessagesState extends ChatState {}
+
 final class ErrorGetUsersState extends ChatState {}
 
 class ScreenChatState extends ChatState {

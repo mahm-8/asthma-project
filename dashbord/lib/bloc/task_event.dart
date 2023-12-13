@@ -14,3 +14,7 @@ final class DeleteTaskEvent extends TaskEvent {
 
   DeleteTaskEvent({required this.idTask});
 }
+
+final class getTaskEvent extends TaskEvent {
+  getTaskEvent();
+}
