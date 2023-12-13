@@ -1,4 +1,3 @@
-import 'package:asthma/Screens/chat/chat_screen.dart';
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 
@@ -49,14 +48,14 @@ class MainApp extends StatelessWidget {
               ),
               debugShowCheckedModeBanner: false,
               localizationsDelegates: const [
-                AppLocalizations.delegate, // Add this line
+                AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: const [
-                Locale('en'), // English
-                Locale('ar'), // Spanish
+                Locale('en'),
+                Locale('ar'),
               ],
               home: const LoadingScreen(),
             );
@@ -64,20 +63,20 @@ class MainApp extends StatelessWidget {
           return MaterialApp(
             locale: const Locale('en'),
             theme: ThemeData(
-                useMaterial3: false,
-                scaffoldBackgroundColor: ColorPaltte().newDarkBlue),
+              useMaterial3: false,
+            ),
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
-              AppLocalizations.delegate, // Add this line
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
-              Locale('en'), // English
-              Locale('ar'), // Spanish
+              Locale('en'),
+              Locale('ar'),
             ],
-            home: const LoadingScreen(),
+            home: const OnboradingScreen(),
           );
         },
       ),

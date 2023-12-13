@@ -1,11 +1,10 @@
-
-
 import 'package:asthma/helper/imports.dart';
+
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final emailController = TextEditingController(text: 'xbox-w@live.com');
+  final passwordController = TextEditingController(text: '12345Aa!');
   final _emailKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
   bool display = false;
@@ -20,11 +19,13 @@ class LoginScreen extends StatelessWidget {
           height: context.getHeight(),
           child: ListView(
             children: [
-              SizedBox(
-                  height: 300,
-                  child: Center(
-                      child: Image.asset("assets/A.png",
-                          color: Colors.white, height: 150, width: 150))),
+              Center(
+                child: SizedBox(
+                    height: 300,
+                    child: Center(
+                        child: Image.asset("lib/assets/images/logo.png",
+                            color: Colors.white, height: 150, width: 150))),
+              ),
               Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
@@ -34,20 +35,20 @@ class LoginScreen extends StatelessWidget {
                 child: ListView(shrinkWrap: true, children: [
                   Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
                       Text("Login", style: const TextStyle().bold24),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       TextFieldWidget(
                         keyForm: _emailKey,
-                        hint: "exambel@exambel.com",
+                        hint: "example@example.com",
                         controller: emailController,
-                        titel: "EMAIL",
+                        titel: AppLocalizations.of(context)!.email,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "please enter email";
+                            return AppLocalizations.of(context)!.emptyEmail;
                           }
                           if (!value.isValidEmail) {
-                            return "Email must be contain @ And .com";
+                            return AppLocalizations.of(context)!.mustEmail;
                           }
                           return null;
                         },
@@ -62,15 +63,17 @@ class LoginScreen extends StatelessWidget {
                                 displayPass: state.display,
                                 obscure: true,
                                 keyForm: _passwordKey,
-                                hint: "Password",
+                                hint: AppLocalizations.of(context)!.password,
                                 controller: passwordController,
-                                titel: "PASSWORD",
+                                titel: AppLocalizations.of(context)!.password,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "please enter password";
+                                    return AppLocalizations.of(context)!
+                                        .emptyPass;
                                   }
                                   if (!value.isValidPassword) {
-                                    return "must be contain Uppercase, lowercase and (!@#*~)";
+                                    return AppLocalizations.of(context)!
+                                        .mustPass;
                                   }
                                   return null;
                                 });
@@ -82,24 +85,24 @@ class LoginScreen extends StatelessWidget {
                               displayPass: display,
                               obscure: true,
                               keyForm: _passwordKey,
-                              hint: "Password",
+                              hint: AppLocalizations.of(context)!.password,
                               controller: passwordController,
-                              titel: "PASSWORD",
+                              titel: AppLocalizations.of(context)!.password,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "please enter password";
+                                  return AppLocalizations.of(context)!
+                                      .emptyPass;
                                 }
                                 if (!value.isValidPassword) {
-                                  return "must be contain Uppercase, lowercase and (!@#*~)";
+                                  return AppLocalizations.of(context)!.mustPass;
                                 }
                                 return null;
                               });
                         },
                       ),
                       const SizedBox(
-                        height: 16,
+                        height: 15,
                       ),
-
                       BlocBuilder<AuthBloc, AuthStates>(
                         builder: (context, state) {
                           return BlocListener<AuthBloc, AuthStates>(
@@ -115,8 +118,8 @@ class LoginScreen extends StatelessWidget {
                                 Navigator.of(context).pop();
                               }
                             },
-                            child: ButtonAuthWidget(
-                              onPressed: () {
+                            child: ButtonWidget(
+                              onPress: () {
                                 context.read<AuthBloc>().add(LogInAuthEvent(
                                     email: emailController.text,
                                     password: passwordController.text,
@@ -124,7 +127,10 @@ class LoginScreen extends StatelessWidget {
                                     passwordKey: _passwordKey));
                                 context.showLoading();
                               },
-                              text: 'Login',
+                              widget: Text(
+                                AppLocalizations.of(context)!.login,
+                                style: const TextStyle().fontButton,
+                              ),
                             ),
                           );
                         },
@@ -132,15 +138,14 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 16),
+                          style: const TextStyle().authFont,
                           children: [
                             TextSpan(
                                 recognizer: TapGestureRecognizer()
                                   ..onTap =
                                       () => context.push(view: SignupScreen()),
-                                text: "Signup here",
-                                style: TextStyle(color: Colors.grey[700]))
+                                text: AppLocalizations.of(context)!.signupHere,
+                                style: const TextStyle().authGreyFont),
                           ],
                         ),
                       ),

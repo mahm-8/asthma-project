@@ -1,3 +1,4 @@
+import 'package:asthma/Screens/breathing/componnets/custom_appbar.dart';
 import 'package:asthma/helper/imports.dart';
 
 class ChatGPT extends StatefulWidget {
@@ -15,6 +16,8 @@ class _ChatGPTState extends State<ChatGPT> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: customAppBar(context,
+            backcolor: Colors.transparent, iconColor: ColorPaltte().darkBlue),
         backgroundColor: ColorPaltte().white,
         body: Stack(
           children: [
@@ -62,7 +65,7 @@ class _ChatGPTState extends State<ChatGPT> {
                               controller: controllerAsk,
                               decoration: InputDecoration(
                                   hintText: 'write your qusetion?',
-                                  hintStyle: TextStyle(fontSize: 18),
+                                  hintStyle: const TextStyle(fontSize: 18),
                                   fillColor: Colors.grey[300],
                                   filled: true,
                                   border: const OutlineInputBorder(

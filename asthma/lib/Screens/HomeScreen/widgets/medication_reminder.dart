@@ -75,7 +75,7 @@ class _MedicationReminderState extends State<MedicationReminder> {
           const Divider(
             thickness: 1,
           ),
-          Container(
+          SizedBox(
             height: 110,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,

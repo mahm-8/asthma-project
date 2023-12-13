@@ -1,14 +1,10 @@
+import 'package:asthma/Screens/HomeScreen/widgets/drawer.dart';
+import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
+import 'package:asthma/Screens/chat/chat_home.dart';
 import 'package:asthma/Screens/chat/chat_screen.dart';
-import 'package:asthma/Screens/chat/chat_web_screen.dart';
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:http/http.dart' as http;
-
-import '../chat/chat_home.dart';
-
-const apiUrl = 'https://api.openaq.org/v1/measurements';
-double? value = 0.0;
+import 'widgets/home_custom_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -19,340 +15,164 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  airQualityMethod(String country, String city) async {
-    try {
-      final response =
-          await http.get(Uri.parse('$apiUrl?country=$country&city=$city'));
-      print(response.statusCode);
-      print(response.body);
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final results = data['results'][0]['value'];
-        value = results;
-        print('$value');
-        return results;
-      }
-    } catch (error) {
-      print(error);
-      return [];
-    }
-  }
-
-  Position? currentLocation;
-  List<LocationModel> nearestLocations = [];
   @override
   void initState() {
     super.initState();
     getCurrentLocation();
     getUserProfile();
-    
-  }
-
-  Future<void> getCurrentLocation() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      setState(() {
-        currentLocation = position;
-        print(currentLocation);
-        findNearestLocations();
-      });
-    } catch (e) {
-      print(e);
-    }
-
-    // final country = 'AR';
-    // final city = 'Buenos Aires';
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-      currentLocation!.latitude,
-      currentLocation!.longitude,
-    );
-    await airQualityMethod(
-        placemarks.first.isoCountryCode!, placemarks.first.administrativeArea!);
-  }
-
-  Future findNearestLocations() async {
-    if (currentLocation != null) {
-      nearestLocations = [];
-      for (var location in allHospetal) {
-        double distance = Geolocator.distanceBetween(
-          currentLocation!.latitude,
-          currentLocation!.longitude,
-          location.latitude!,
-          location.longitude!,
-        );
-        location.distance = distance;
-        nearestLocations.add(location);
-      }
-
-      nearestLocations.sort((a, b) => a.distance!.compareTo(b.distance!));
-      nearestLocations = nearestLocations.take(5).toList();
-      setState(() {});
-    }
+    context.read<AsthmaBloc>().add(getHospitalDataEvent());
   }
 
   final _advancedDrawerController = AdvancedDrawerController();
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
-    return AdvancedDrawer(
-      backdrop: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.blueGrey, Colors.blueGrey.withOpacity(0.2)],
-          ),
-        ),
-      ),
-      controller: _advancedDrawerController,
-      animationCurve: Curves.easeInOut,
-      animationDuration: const Duration(milliseconds: 300),
-      animateChildDecoration: true,
-      disabledGestures: false,
-      childDecoration: const BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
-      ),
-      drawer: SafeArea(
-        child: Container(
-          child: ListTileTheme(
-            textColor: Colors.white,
-            iconColor: Colors.white,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                BlocBuilder<UserBloc, UserState>(
-                  builder: (context, state) {
-                    return Container(
-                      width: 128.0,
-                      height: 128.0,
-                      margin: const EdgeInsets.only(
-                        top: 24.0,
-                        bottom: 64.0,
+    return DrawerMainWidget(
+        drawerController: _advancedDrawerController,
+        bloc: bloc,
+        drawerChild: Scaffold(
+          appBar: homeCustomAppBar(
+              controller: _advancedDrawerController,
+              onPress: () {
+                _handleMenuButtonPressed();
+              }),
+          body: Stack(
+            children: [
+              Container(
+                height: context.getHeight() * 0.29,
+                width: context.getWidth(),
+                decoration: BoxDecoration(
+                    color: ColorPaltte().newDarkBlue,
+                    borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30))),
+              ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(
-                        color: Colors.black26,
-                        shape: BoxShape.circle,
-                      ),
-
-                      child: bloc.user!.image == null
-                          ? Image.network(bloc.user!.image!)
-                          : const Icon(Icons.person)
-                    );
-                  },
-                ),
-                ListTile(
-                  onTap: () {
-                    context.push(view: const HomeScreen());
-                  },
-                  leading: const Icon(Icons.home_outlined),
-                  title: Text(AppLocalizations.of(context)!.home),
-                ),
-                ListTile(
-                  onTap: () {
-                    context.push(view: const ChatHome());
-                  },
-                  leading: const Icon(Icons.chat),
-                  title: const Text('chat'),
-                ),
-                ListTile(
-                  onTap: () {
-                    context.push(view: ChatWebScreen());
-                  },
-                  leading: const Icon(Icons.chat_outlined),
-                  title: const Text('chatWeb'),
-                ),
-                ListTile(
-                  onTap: () {
-                    context.push(view: const BreathingScreen());
-                  },
-                  leading: const Icon(Icons.spa_outlined),
-                  title: Text(AppLocalizations.of(context)!.breathing),
-                ),
-                ListTile(
-                  onTap: () {
-                    context.push(view: Profile());
-                  },
-                  leading: const Icon(Icons.person_outline_outlined),
-                  title: Text(AppLocalizations.of(context)!.profile),
-                ),
-                ListTile(
-                  onTap: () {
-                    context.read<AuthBloc>().add(LogoutEvent());
-                    showDialog(
-                        context: context,
-                        builder: (context) => const Center(
-                              child: CircularProgressIndicator.adaptive(),
-                            ));
-                  },
-                  leading: const Icon(Icons.login_outlined),
-                  title: Text(AppLocalizations.of(context)!.logout),
-                ),
-                const Spacer(),
-                DefaultTextStyle(
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.white54,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 16.0,
-                    ),
-                    child: const Text('Terms of Service | Privacy Policy'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: ColorPaltte().newDarkBlue,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: _handleMenuButtonPressed,
-            icon: ValueListenableBuilder<AdvancedDrawerValue>(
-              valueListenable: _advancedDrawerController,
-              builder: (_, value, __) {
-                return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 250),
-                  child: Icon(
-                    value.visible ? Icons.clear : Icons.menu,
-                    key: ValueKey<bool>(value.visible),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        body: Stack(
-          children: [
-            Container(
-              height: context.getHeight() * 0.29,
-              width: context.getWidth(),
-              decoration: BoxDecoration(
-                  color: ColorPaltte().newDarkBlue,
-                  borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30))),
-            ),
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          '${AppLocalizations.of(context)!.welcome}, ',
-                          style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.w800,
-                              color: ColorPaltte().newlightBlue),
-                        ),
-                        BlocBuilder<UserBloc, UserState>(
-                          buildWhen: (oldState, newState) {
-                            if (newState is LoadState) {
-                              return true;
-                            }
-                            return false;
-                          },
-                          builder: (context, state) {
-                            return Text(
-                              bloc.user!.name ?? "",
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w800,
-                                  color: ColorPaltte().darkBlue),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const AirQuality(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        spacing: 16,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          ContainerWidget(
-                            imageurl: 'lib/assets/images/Chatbot-pana.png',
-                            title: AppLocalizations.of(context)!.helper,
-                            onTap: () {
-                              context.push(view: const ChatGPT());
-                            },
-
-                            // const MedicationReminder(),
+                          Text(
+                            '${AppLocalizations.of(context)!.welcome}, ',
+                            style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w800,
+                                color: ColorPaltte().newlightBlue),
                           ),
-                          ContainerWidget(
-                            imageurl:
-                                'lib/assets/images/Breathingexercise-rafiki1.png',
-                            title: AppLocalizations.of(context)!.breathing,
-                            onTap: () {
-                              context.push(view: const BreathingScreen());
+                          BlocBuilder<UserBloc, UserState>(
+                            buildWhen: (oldState, newState) {
+                              if (newState is LoadState) {
+                                return true;
+                              }
+                              return false;
                             },
-                          ),
-                          ContainerWidget(
-                            imageurl: 'lib/assets/images/Inhaller1-bro.png',
-                            title: AppLocalizations.of(context)!.medicine,
-                            onTap: () {
-                              context.push(
-                                  view: const MedicationTrackerScreen());
-                            },
-                          ),
-                          ContainerWidget(
-                            imageurl: 'lib/assets/images/Asymptomatic-bro.png',
-                            title: AppLocalizations.of(context)!.symptom,
-                            onTap: () {
-                              context.push(view: const SymptomTrackerScreen());
+                            builder: (context, state) {
+                              return Text(
+                                bloc.user?.name ?? "",
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w800,
+                                    color: ColorPaltte().darkBlue),
+                              );
                             },
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.nearest,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          color: ColorPaltte().darkBlue),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    NerestHospital(nearestLocations: nearestLocations),
-                  ],
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const AirQuality(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          spacing: 16,
+                          children: [
+                            BlocListener<ChatBloc, ChatState>(
+                              listener: (context, state) {
+                                if (state is GetAdminSuccessedState) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChatScreen(
+                                                user: state.admin.first,
+                                              )));
+                                }
+                              },
+                              child: ContainerWidget(
+                                imageurl: 'lib/assets/images/Chatbot-pana.png',
+                                title: AppLocalizations.of(context)!.helper,
+                                onTap: () {
+                                  context
+                                      .read<ChatBloc>()
+                                      .add(GetAdminChatEvent());
+                                },
+                              ),
+                            ),
+                            ContainerWidget(
+                              imageurl:
+                                  'lib/assets/images/Breathingexercise-rafiki1.png',
+                              title: AppLocalizations.of(context)!.breathing,
+                              onTap: () {
+                                context.push(view: const BreathingScreen());
+                              },
+                            ),
+                            ContainerWidget(
+                              imageurl: 'lib/assets/images/Inhaller1-bro.png',
+                              title: AppLocalizations.of(context)!.medicine,
+                              onTap: () {
+                                context.push(
+                                    view: const MedicationTrackerScreen());
+                              },
+                            ),
+                            ContainerWidget(
+                              imageurl:
+                                  'lib/assets/images/Asymptomatic-bro.png',
+                              title: AppLocalizations.of(context)!.symptom,
+                              onTap: () {
+                                context.push(
+                                    view: const SymptomTrackerScreen());
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.nearest,
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            color: ColorPaltte().darkBlue),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      NerestHospital(nearestLocations: nearestLocations),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+            ],
+          ),
+        ));
   }
 
   void _handleMenuButtonPressed() {

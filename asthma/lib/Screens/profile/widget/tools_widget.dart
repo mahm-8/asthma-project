@@ -13,7 +13,7 @@ class ToolsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Column(children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         const Divider(
           height: 1,
           color: Colors.black,
@@ -21,6 +21,7 @@ class ToolsWidget extends StatelessWidget {
         SizedBox(
           height: 40,
           child: ListTile(
+            titleAlignment: ListTileTitleAlignment.center,
             title: Text(title, style: TextStyle(color: colorText)),
           ),
         ),

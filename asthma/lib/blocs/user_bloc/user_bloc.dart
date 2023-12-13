@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../Models/user_model.dart';
 import '../../Screens/Data_Symptoms_Screen/data_ymptoms_screen.dart';
-import '../../Screens/Data_Symptoms_Screen/methods/symptoms.dart';
+import '../../Screens/Data_Symptoms_Screen/methods/capture_symptoms.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 
@@ -117,8 +117,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     final image = supabase.storage
         .from('captrue_image')
         .getPublicUrl('$idAuth-$time.png');
-    print('ssssssss$image');
     if (image != '') {
+      
       barcode = generateBarcode(image);
       emit(UploadImageCaptureState(barcode!));
     }
