@@ -38,7 +38,7 @@ class SettingWidget extends StatelessWidget {
                       child: Padding(
                           padding: const EdgeInsets.all(16),
                           child:
-                              generateBarcode(bloc.user!.imageCapture ?? "")));
+                              generateBarcode(bloc.user?.imageCapture ?? "")));
                 },
               ),
             ),

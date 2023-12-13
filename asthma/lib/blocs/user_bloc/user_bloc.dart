@@ -23,16 +23,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> getData(
       LoadUserDataEvent event, Emitter<UserState> emit) async {
     try {
-      if (kDebugMode) {
-        print("===================Load Date==================");
-      }
       user = await getUserProfile();
-      if (kDebugMode) {
-        print(user);
-      }
-      if (kDebugMode) {
-        print("===================get Date==================");
-      }
       emit(LoadState());
     } catch (error) {
       emit(ErrorUserState());

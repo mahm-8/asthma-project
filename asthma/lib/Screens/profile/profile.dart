@@ -63,11 +63,11 @@ class Profile extends StatelessWidget {
                         builder: (context, state) {
                           if (state is LoadState) {
                             return CardInfo(
-                                phone: bloc.user!.phone!,
-                                birthday: bloc.user!.dob!,
-                                email: bloc.user!.email!,
-                                age: bloc.user!.age!,
-                                gender: bloc.user!.gender!);
+                                phone: bloc.user?.phone??"",
+                                birthday: bloc.user?.dob??"",
+                                email: bloc.user?.email??"",
+                                age: bloc.user?.age??"",
+                                gender: bloc.user?.gender??"");
                           } else {
                             return const Center(
                               child: CircularProgressIndicator(),
@@ -122,10 +122,10 @@ class Profile extends StatelessWidget {
 
   getControllerValue({required BuildContext context}) {
     final bloc = context.read<UserBloc>();
-    nameController!.text = bloc.user!.name ?? "";
-    phoneController!.text = bloc.user!.phone ?? "";
-    ageController!.text = bloc.user!.age ?? "";
-    birthdayController!.text = bloc.user!.dob ?? "";
-    genderController!.text = bloc.user!.gender ?? "";
+    nameController?.text = bloc.user?.name ?? "";
+    phoneController?.text = bloc.user?.phone ?? "";
+    ageController?.text = bloc.user?.age ?? "";
+    birthdayController?.text = bloc.user?.dob ?? "";
+    genderController?.text = bloc.user?.gender ?? "";
   }
 }
