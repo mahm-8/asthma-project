@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LeftDrawer extends StatelessWidget {
-  const LeftDrawer({super.key, 
+  const LeftDrawer({
+    super.key,
     required this.size,
   });
 
@@ -26,10 +27,8 @@ class LeftDrawer extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16),
-
               color: Color(0xff146C94),
               child: Text('Dashboard'),
-
             ),
             Container(
                 padding: const EdgeInsets.only(left: 10),
@@ -65,7 +64,10 @@ class LeftDrawer extends StatelessWidget {
 
   Widget _tile({required String label, Function()? onTap}) {
     return ListTile(
-      title: Text(label),
+      title: Text(
+        label,
+        style: TextStyle(color: Colors.white),
+      ),
       onTap: onTap,
     );
   }

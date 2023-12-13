@@ -22,7 +22,7 @@ class ContainMessage extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-                color: isMine ? Colors.blue : Colors.grey[300],
+                color: isMine ? const Color(0xff146C94) : Colors.grey[300],
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(20),
                   topRight: const Radius.circular(20),

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 const apiUrl = 'https://api.openaq.org/v1/measurements';
 Position? currentLocation;
 List<LocationModel> nearestLocations = [];
-double? value = 0.0;
+double? value = 1.9;
 
 airQualityMethod(String country, String city) async {
   try {
@@ -44,7 +44,6 @@ Future<void> getCurrentLocation() async {
 
 Future findNearestLocations() async {
   if (currentLocation != null) {
-    
     for (var location in allHospetal) {
       double distance = Geolocator.distanceBetween(
         currentLocation!.latitude,

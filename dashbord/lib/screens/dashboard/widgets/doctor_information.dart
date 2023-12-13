@@ -27,7 +27,6 @@ class _DoctorInformationState extends State<DoctorInformation> {
 
   @override
   Widget build(BuildContext context) {
-    final blocTask = context.read<TaskBloc>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -70,12 +69,11 @@ class _DoctorInformationState extends State<DoctorInformation> {
             if (state is getTaskState) {
               return SizedBox(
                 width: 120,
-                height: 200,
+                height: 100,
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.tasks.length,
                   itemBuilder: (BuildContext context, int index) {
-                    print(state.tasks[0].task);
                     return Container(
                       width: 70,
                       height: 30,
