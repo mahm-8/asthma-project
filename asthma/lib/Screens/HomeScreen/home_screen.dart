@@ -5,12 +5,7 @@ import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 import 'widgets/home_custom_app_bar.dart';
 
-// @override
-// void initState() {
-//   super.initState();
-//   //getCurrentLocation();
-//   context.read<AsthmaBloc>().add(getHospitalDataEvent());
-// }
+
 class HomeScreen extends StatelessWidget {
   HomeScreen({
     super.key,

@@ -9,14 +9,19 @@ class NerestHospital extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<AsthmaBloc>();
 
-    return BlocBuilder<AsthmaBloc, AsthmaState>(builder: (context, state) {
+    return BlocBuilder<AsthmaBloc, AsthmaState>(
+        buildWhen: (oldState, newState) {
+      if (newState is SuccessHospitalState) {
+        return true;
+      }
+      return false;
+    }, builder: (context, state) {
       if (state is LoadingState) {
         return const Center(
           child: CircularProgressIndicator(),
         );
       }
       if (state is SuccessHospitalState) {
-
         return SizedBox(
           height: context.getHeight() * 0.21,
           width: context.getWidth(),
@@ -52,7 +57,6 @@ class NerestHospital extends StatelessWidget {
                               'lib/assets/images/Address-bro2.png',
                               width: 80,
                               height: 80,
-
                             ),
                           ),
                           const Divider(

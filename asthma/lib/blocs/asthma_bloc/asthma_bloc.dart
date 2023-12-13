@@ -44,14 +44,14 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
               desiredAccuracy: LocationAccuracy.high);
           currentLocation = position;
           print(currentLocation);
-          await Future.delayed(Duration(seconds: 1));
+
           double distance = Geolocator.distanceBetween(
             currentLocation!.latitude,
             currentLocation!.longitude,
             location.latitude!,
             location.longitude!,
           );
-          await Future.delayed(Duration(seconds: 1));
+
           print('4');
           location.distance = distance;
           nearestLocations.add(location);
@@ -59,12 +59,10 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
         nearestLocations.sort((a, b) => a.distance!.compareTo(b.distance!));
         nearestLocations = nearestLocations.take(5).toList();
         emit(SuccessHospitalState(nearestLocations));
-        print("=========================0000000=====================");
       }
     } catch (error) {
       print(error);
-      print(
-          "===================hhhhhhhhhhhhhhhhhhhhhhhhhh=====================");
+
       emit(ErrorState());
     }
   }
