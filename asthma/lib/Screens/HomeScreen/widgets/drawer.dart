@@ -68,7 +68,7 @@ class DrawerMainWidget extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  context.push(view:  HomeScreen());
+                  context.push(view: HomeScreen());
                 },
                 leading: const Icon(Icons.home_outlined),
                 title: Text(AppLocalizations.of(context)!.home),
@@ -90,11 +90,12 @@ class DrawerMainWidget extends StatelessWidget {
               ListTile(
                 onTap: () {
                   context.read<AuthBloc>().add(LogoutEvent());
-                  showDialog(
-                      context: context,
-                      builder: (context) => const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          ));
+                  context.pushAndRemoveUntil(view: LoginScreen());
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (context) => const Center(
+                  //           child: CircularProgressIndicator.adaptive(),
+                  //         ));
                 },
                 leading: const Icon(Icons.login_outlined),
                 title: Text(AppLocalizations.of(context)!.logout),

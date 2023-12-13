@@ -94,6 +94,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
   FutureOr<void> addSymptomMethod(
       AddSymptomEvent event, Emitter<AsthmaState> emit) {
     try {
+      emit(LoadingState());
       if (event.symptomName.isNotEmpty && event.symtomDetails.isNotEmpty) {
         SupabaseServer().addSymptom({
           "symptom_name": event.symptomName,
@@ -102,7 +103,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
         });
         emit(SuccessAddSymptomState());
         add(GetSymptomDataEvent());
-        emit(LoadingState());
+
         emit(SucsessMessageState(message: 'symptoms added'));
       } else {
         emit(ADDErrorState(message: 'Please fill all the fields'));
@@ -115,6 +116,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
   FutureOr<void> addMedicationMethod(
       AddMedicationEvent event, Emitter<AsthmaState> emit) {
     try {
+      emit(LoadingState());
       if (event.medicationName.isNotEmpty &&
           event.days != null &&
           event.date.isNotEmpty) {
@@ -123,10 +125,9 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
           "days": event.days,
           "date": event.date,
         });
-        emit(SuccessAddMedicationState());
+        
+        emit(SuccessAddMedicationState(message: 'Medication Added'));
         add(GetMedicationDataEvent());
-        emit(LoadingState());
-        emit(SucsessMessageState(message: 'Medication Added'));
       } else {
         emit(ADDErrorState(message: 'Please fill all the fields'));
       }

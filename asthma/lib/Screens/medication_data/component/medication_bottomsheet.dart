@@ -88,7 +88,7 @@ Future<dynamic> showMedicationButtonSheet(BuildContext context) {
               ),
               BlocListener<AsthmaBloc, AsthmaState>(
                 listener: (context, state) {
-                  if (state is SucsessMessageState) {
+                  if (state is SuccessAddMedicationState) {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -97,6 +97,8 @@ Future<dynamic> showMedicationButtonSheet(BuildContext context) {
                     medicationNameController.clear();
                     medicationDaysController.clear();
                     medicationDateController.clear();
+
+                    Navigator.pop(context);
                   } else if (state is ADDErrorState) {
                     showDialog(
                         context: context,

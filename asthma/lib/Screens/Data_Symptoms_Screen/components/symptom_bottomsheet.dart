@@ -135,6 +135,8 @@ Future<dynamic> showSymptomButtonSheet(BuildContext context) {
                         symptomsDescriptionsController.clear();
                         selectedSymptom = AppLocalizations.of(context)!.cough;
                         selectedLevel = AppLocalizations.of(context)!.low;
+
+                        Navigator.pop(context);
                       } else if (state is ADDErrorState) {
                         showDialog(
                             context: context,
@@ -153,6 +155,7 @@ Future<dynamic> showSymptomButtonSheet(BuildContext context) {
                             selectedSymptom,
                             symptomsDescriptionsController.text,
                             selectedLevel));
+                        Navigator.pop(context);
                       },
                     ),
                   ),

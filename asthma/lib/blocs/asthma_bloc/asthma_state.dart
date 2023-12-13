@@ -39,7 +39,11 @@ final class ChangeLevelState extends AsthmaState {
 
 final class SuccessAddSymptomState extends AsthmaState {}
 
-final class SuccessAddMedicationState extends AsthmaState {}
+final class SuccessAddMedicationState extends AsthmaState {
+  final String message;
+
+  SuccessAddMedicationState({required this.message});
+}
 
 final class SucsessMessageState extends AsthmaState {
   final String message;

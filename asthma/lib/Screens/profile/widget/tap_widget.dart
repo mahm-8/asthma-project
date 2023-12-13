@@ -7,7 +7,7 @@ class TapWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       left: context.getWidth(divide: 20),
-      top: context.getHeight(divide: 8),
+      top: context.getHeight(divide: 10),
       child: Container(
         padding: const EdgeInsets.only(top: 60),
         decoration: BoxDecoration(
@@ -17,10 +17,10 @@ class TapWidget extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              bloc.user?.name??"",
+              bloc.user?.name ?? "",
               style: const TextStyle().bold24,
             ),
-            Text(bloc.user?.id?.toString()??""),
+            Text(bloc.user?.id?.toString() ?? ""),
             const Divider(),
             TabBar(
                 indicatorColor: ColorPaltte().darkBlue,
