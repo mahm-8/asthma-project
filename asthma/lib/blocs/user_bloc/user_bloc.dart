@@ -101,19 +101,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     }
     //remove old image
-
+    await supabase.storage.from("captrue_image").remove([id]);
     await supabase.storage.from('captrue_image').uploadBinary(
         '$idAuth-$time.png', event.image,
-        fileOptions: FileOptions(upsert: true));
+        fileOptions: const FileOptions(upsert: true));
     final image = supabase.storage
         .from('captrue_image')
         .getPublicUrl('$idAuth-$time.png');
     if (image != '') {
-      
       barcode = generateBarcode(image);
       emit(UploadImageCaptureState(barcode!));
     }
-    await supabase.storage.from("captrue_image").remove([id]);
+
     await supabase
         .from("users")
         .update({"image_capture": image}).eq('id_auth', idAuth);

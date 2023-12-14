@@ -74,7 +74,7 @@ class _BreathingScreenState extends State<BreathingScreen>
     try {
       player.setAudioSource(AudioSource.asset('lib/assets/audio/AAA.mp3'));
     } catch (e) {
-      print("error loading audio: $e");
+      return;
     }
   }
 }

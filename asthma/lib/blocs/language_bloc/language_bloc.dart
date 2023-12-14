@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:asthma/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -6,8 +7,8 @@ part 'language_event.dart';
 part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
-  String? arr;
-  LanguageBloc() : super(LanguageInitial()) {
+  LanguageBloc()
+      : super(ChangeLanguageState(lang: prefs.getString("language") ?? "ar")) {
     on<ChangeLanguage>(language);
   }
 
@@ -16,11 +17,11 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     if (event.lang) {
       emit(ChangeLanguageState(lang: 'en'));
       emit(SwitchState(swit: event.lang));
+      prefs.setString("language", 'en');
     } else if (event.lang == false) {
       emit(ChangeLanguageState(lang: 'ar'));
       emit(SwitchState(swit: event.lang));
+      prefs.setString("language", 'ar');
     }
-
-    ;
   }
 }

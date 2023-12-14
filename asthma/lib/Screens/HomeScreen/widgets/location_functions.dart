@@ -28,7 +28,7 @@ Future<void> getCurrentLocation() async {
     currentLocation = position;
     // findNearestLocations();
   } catch (e) {
-    print(e);
+    return;
   }
 
   final country = 'AR';

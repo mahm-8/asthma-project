@@ -18,7 +18,7 @@ AppBar customAppBar(BuildContext context,
       padding: const EdgeInsets.only(top: 20.0),
       child: Visibility(
         visible: showtitle,
-        child: Text("${title}",
+        child: Text("$title",
             style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,

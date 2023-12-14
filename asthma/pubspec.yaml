@@ -18,7 +18,7 @@ dependencies:
   pinput: ^3.0.1
   screenshot: ^2.1.0
   image_gallery_saver: ^2.0.3
-  supabase_flutter: ^1.10.25
+  supabase_flutter: ^2.0.0
   flutter_dotenv: ^5.1.0
   rxdart: ^0.27.7
   barcode_widget: ^2.0.4

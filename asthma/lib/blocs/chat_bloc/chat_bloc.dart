@@ -1,4 +1,4 @@
-import 'package:asthma/Models/messageModel.dart';
+import 'package:asthma/Models/message_model.dart';
 import 'package:asthma/helper/imports.dart';
 
 part 'chat_event.dart';

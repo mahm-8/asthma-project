@@ -23,14 +23,13 @@ class NerestHospital extends StatelessWidget {
       }
       if (state is SuccessHospitalState) {
         return SizedBox(
-          height: context.getHeight() * 0.21,
-          width: context.getWidth(),
+          height: context.getHeight(divide: 5),
+          width: context.getWidth(divide: 1.2),
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: state.hospitalsData!.length,
             itemBuilder: (context, index) {
-              print('$state.hospitalsData!============================');
               LocationModel location = state.hospitalsData![index];
               return InkWell(
                 onTap: () async {

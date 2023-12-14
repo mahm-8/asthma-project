@@ -38,15 +38,15 @@ class _DoctorInformationState extends State<DoctorInformation> {
         const SizedBox(height: 20),
         Text(
           '${widget.bloc.user?.name}',
-          style: TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
         Text(
           '${widget.bloc.user?.gender}',
-          style: TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
         Text(
           '${widget.bloc.user?.email}',
-          style: TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
         const SizedBox(
           height: 30,
@@ -94,7 +94,7 @@ class _DoctorInformationState extends State<DoctorInformation> {
                 ),
               );
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },

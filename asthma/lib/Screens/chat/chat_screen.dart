@@ -3,7 +3,7 @@ import 'package:asthma/Screens/chat/widget/field_chat.dart';
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 
-import '../../Models/messageModel.dart';
+import '../../Models/message_model.dart';
 import '../breathing/componnets/custom_appbar.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -30,7 +30,6 @@ class ChatScreen extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final List<MessageModel> messages = snapshot.data!;
-              print(messages);
               ScrollController scrollController = ScrollController();
 
               Future.delayed(const Duration(milliseconds: 100 ~/ 60), () {
@@ -51,7 +50,7 @@ class ChatScreen extends StatelessWidget {
                         isMine: messages[index].isMain ?? true);
                   });
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           },
         ),

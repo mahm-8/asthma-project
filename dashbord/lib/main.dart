@@ -37,8 +37,8 @@ class MainApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        locale: Locale('en'),
-        home: LoadingScreen(),
+        locale: const Locale('en'),
+        home: const LoadingScreen(),
         theme: ThemeData(
           datePickerTheme: const DatePickerThemeData(
             confirmButtonStyle: ButtonStyle(
@@ -55,13 +55,13 @@ class MainApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        localizationsDelegates: [
+        localizationsDelegates: const [
           AppLocalizations.delegate, // Add this line
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [
+        supportedLocales: const [
           Locale('en'), // English
           Locale('ar'), // Spanish
         ],

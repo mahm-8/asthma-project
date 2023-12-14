@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison
 
 import 'dart:typed_data';
 import 'package:asthma/constants/colors.dart';
@@ -35,7 +35,7 @@ Future<dynamic> ShowCapturedWidget(
 }
 
 saved(image) async {
-  final result = await ImageGallerySaver.saveImage(image);
+   await ImageGallerySaver.saveImage(image);
 }
 
 generateBarcode(String imageUrl) {

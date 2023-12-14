@@ -1,7 +1,7 @@
 import 'package:asthma/helper/imports.dart';
 
 class DrawerMainWidget extends StatelessWidget {
-  DrawerMainWidget(
+  const DrawerMainWidget(
       {super.key,
       required this.drawerChild,
       required this.drawerController,
@@ -63,7 +63,7 @@ class DrawerMainWidget extends StatelessWidget {
                               bloc.user!.image!,
                               fit: BoxFit.cover,
                             )
-                          : Icon(Icons.person));
+                          : const Icon(Icons.person));
                 },
               ),
               ListTile(

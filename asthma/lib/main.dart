@@ -1,12 +1,15 @@
 import 'package:asthma/blocs/chat_bloc/chat_bloc.dart';
 import 'package:asthma/helper/imports.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+late SharedPreferences prefs;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   SupabaseNetworking().getSupabaseInitialize;
   Bloc.observer = MyBlocObserver();
+  prefs =await SharedPreferences.getInstance();
   runApp(const MainApp());
 }
 
@@ -80,7 +83,7 @@ class MainApp extends StatelessWidget {
               Locale('en'),
               Locale('ar'),
             ],
-            home: const OnboradingScreen(),
+            home: const LoadingScreen(),
           );
         },
       ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Models/medication_model.dart';
 import 'package:asthma/Models/symptoms_model.dart';
@@ -28,41 +29,33 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     add(GetMedicationDataEvent());
     add(GetSymptomDataEvent());
   }
-// xbox-w@live.com
-//12345Aa!
   Future<void> getData(
       getHospitalDataEvent event, Emitter<AsthmaState> emit) async {
     try {
       emit(LoadingState());
 
       hospitalData = await SupabaseServer().getHospitalData();
-      print('1');
       if (hospitalData != null) {
-        print('2');
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
+        currentLocation = position;
         for (var location in hospitalData!) {
-          Position position = await Geolocator.getCurrentPosition(
-              desiredAccuracy: LocationAccuracy.high);
-          currentLocation = position;
-          print(currentLocation);
-
+          log('message');
           double distance = Geolocator.distanceBetween(
             currentLocation!.latitude,
             currentLocation!.longitude,
             location.latitude!,
             location.longitude!,
           );
-
-          print('4');
           location.distance = distance;
           nearestLocations.add(location);
         }
         nearestLocations.sort((a, b) => a.distance!.compareTo(b.distance!));
         nearestLocations = nearestLocations.take(5).toList();
+        log(nearestLocations[0].distance.toString());
         emit(SuccessHospitalState(nearestLocations));
       }
     } catch (error) {
-      print(error);
-
       emit(ErrorState());
     }
   }
@@ -125,7 +118,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
           "days": event.days,
           "date": event.date,
         });
-        
+
         emit(SuccessAddMedicationState(message: 'Medication Added'));
         add(GetMedicationDataEvent());
       } else {

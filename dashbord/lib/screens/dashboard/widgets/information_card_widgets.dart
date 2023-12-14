@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-import 'package:dashboard/bloc/chat_bloc/chat_bloc.dart';
 import 'package:dashboard/bloc/user_bloc/user_bloc.dart';
 import 'package:dashboard/screens/dashboard/widgets/doctor_information.dart';
 import 'package:flutter/material.dart';

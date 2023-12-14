@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:asthma/constants/colors.dart';
 import 'package:asthma/extensions/text.dart';
 import 'package:flutter/material.dart';

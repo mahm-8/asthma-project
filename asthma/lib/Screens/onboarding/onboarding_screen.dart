@@ -4,9 +4,7 @@ import 'package:asthma/Screens/onboarding/onboarding_pages.dart/onboarding_3.dar
 import 'package:asthma/Screens/onboarding/onboarding_pages.dart/onboarding_4.dart';
 import 'package:asthma/Screens/onboarding/onboarding_pages.dart/onboarding_2.dart';
 import 'package:asthma/helper/imports.dart';
-import 'package:flutter/material.dart';
 
-import 'package:geolocator/geolocator.dart';
 
 class OnboradingScreen extends StatefulWidget {
   const OnboradingScreen({super.key});

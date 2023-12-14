@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             '${AppLocalizations.of(context)!.welcome}, ',
-                            style: TextStyle().titleFontwhite,
+                            style: const TextStyle().titleFontwhite,
                           ),
                           BlocBuilder<UserBloc, UserState>(
                             buildWhen: (oldState, newState) {
@@ -146,7 +146,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      NerestHospital(),
+                      const NerestHospital(),
                     ],
                   ),
                 ),
