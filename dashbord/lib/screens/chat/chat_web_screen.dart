@@ -46,7 +46,7 @@ class ChatWebScreen extends StatelessWidget {
               ],
             );
           } else if (state is ErrorGetUsersState) {
-            return const Text("U don't have friend");
+            return const Text("no messages from users");
           }
           return const Center(
             child: CircularProgressIndicator(),

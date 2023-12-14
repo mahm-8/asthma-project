@@ -15,8 +15,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final emailController = TextEditingController(text: 'am18_8@outlook.com');
+  final passwordController = TextEditingController(text: '12345Aa!');
   final _emailKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
   bool display = false;
@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                   height: 300,
                   child: Center(
-                      child: Image.asset("lib/assets/A.png",
+                      child: Image.asset("lib/assets/logo.png",
                           color: Colors.white, height: 150, width: 150))),
               Container(
                 decoration: const BoxDecoration(
@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       TextFieldWidget(
                         keyForm: _emailKey,
-                        hint: "exambel@exambel.com",
+                        hint: "example@example.com",
                         controller: emailController,
                         titel: AppLocalizations.of(context)!.email,
                         validator: (value) {
