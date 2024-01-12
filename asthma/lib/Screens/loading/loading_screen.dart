@@ -10,7 +10,7 @@ class LoadingScreen extends StatelessWidget {
         if (newState is CheckLoginState) {
           context.read<UserBloc>().add(LoadUserDataEvent());
 
-          context.read<AsthmaBloc>().add(getHospitalDataEvent());
+          context.read<AsthmaBloc>().add(GetHospitalDataEvent());
           Future.delayed(const Duration(seconds: 4), () {
             Navigator.pushAndRemoveUntil(
                 context,

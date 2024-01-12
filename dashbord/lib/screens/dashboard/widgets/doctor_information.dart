@@ -22,7 +22,7 @@ class _DoctorInformationState extends State<DoctorInformation> {
   @override
   void initState() {
     super.initState();
-    context.read<TaskBloc>().add(getTaskEvent());
+    context.read<TaskBloc>().add(GetTaskEvent());
   }
 
   @override
@@ -66,7 +66,7 @@ class _DoctorInformationState extends State<DoctorInformation> {
         const SizedBox(height: 15),
         BlocBuilder<TaskBloc, TaskState>(
           builder: (context, state) {
-            if (state is getTaskState) {
+            if (state is GetTaskState) {
               return SizedBox(
                 width: 120,
                 height: 100,
@@ -101,7 +101,7 @@ class _DoctorInformationState extends State<DoctorInformation> {
         ),
         InkWell(
           onTap: () {
-            ShowDialogWidget(context, widget.taskController);
+            showDialogWidget(context, widget.taskController);
           },
           child: Container(
             height: 30,

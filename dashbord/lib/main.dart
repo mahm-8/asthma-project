@@ -33,7 +33,7 @@ class MainApp extends StatelessWidget {
           create: (context) => UserBloc(),
         ),
         BlocProvider(
-          create: (context) => TaskBloc()..add(getTaskEvent()),
+          create: (context) => TaskBloc()..add(GetTaskEvent()),
         ),
       ],
       child: MaterialApp(

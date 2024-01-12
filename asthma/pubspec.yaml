@@ -42,10 +42,6 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - lib/assets/images/
     - assets/
     - lib/assets/
-    - lib/assets/audio/beach.mp3
-    - lib/assets/audio/AAA.mp3
-    - lib/assets/audio/Breathing_Exercise.mp3
     - .env

@@ -1,7 +1,6 @@
 part of 'task_bloc.dart';
 
-@immutable
-sealed class TaskEvent {}
+abstract class TaskEvent {}
 
 final class AddTaskEvent extends TaskEvent {
   final String task;
@@ -15,6 +14,6 @@ final class DeleteTaskEvent extends TaskEvent {
   DeleteTaskEvent({required this.idTask});
 }
 
-final class getTaskEvent extends TaskEvent {
-  getTaskEvent();
+final class GetTaskEvent extends TaskEvent {
+  GetTaskEvent();
 }

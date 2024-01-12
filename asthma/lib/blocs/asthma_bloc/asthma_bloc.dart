@@ -1,13 +1,8 @@
-import 'dart:async';
 import 'dart:developer';
-import 'package:asthma/Models/location_model.dart';
 import 'package:asthma/Models/medication_model.dart';
 import 'package:asthma/Models/symptoms_model.dart';
 import 'package:asthma/Screens/HomeScreen/widgets/location_functions.dart';
-import 'package:asthma/Services/supabase.dart';
-import 'package:bloc/bloc.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:meta/meta.dart';
+import 'package:asthma/helper/imports.dart';
 part 'asthma_event.dart';
 part 'asthma_state.dart';
 
@@ -17,7 +12,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
   List<SymptomsModel>? symptomsData;
 
   AsthmaBloc() : super(AsthmaInitial()) {
-    on<getHospitalDataEvent>(getData);
+    on<GetHospitalDataEvent>(getData);
     on<GetMedicationDataEvent>(getMedicationData);
     on<GetSymptomDataEvent>(getSymptomsData);
     on<AddMedicationEvent>(addMedicationMethod);
@@ -30,7 +25,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     add(GetSymptomDataEvent());
   }
   Future<void> getData(
-      getHospitalDataEvent event, Emitter<AsthmaState> emit) async {
+      GetHospitalDataEvent event, Emitter<AsthmaState> emit) async {
     try {
       emit(LoadingState());
 
@@ -134,6 +129,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     try {
       await SupabaseServer().deleteMedication(id: event.id);
       await Future.delayed(const Duration(seconds: 1));
+      // ignore: collection_methods_unrelated_type
       allMedication.remove(event.id);
       add(GetMedicationDataEvent());
       emit(LoadingState());
@@ -147,6 +143,7 @@ class AsthmaBloc extends Bloc<AsthmaEvent, AsthmaState> {
     try {
       await SupabaseServer().deleteSymptom(id: event.id);
       await Future.delayed(const Duration(seconds: 1));
+      // ignore: collection_methods_unrelated_type
       allSymptoms.remove(event.id);
       add(GetSymptomDataEvent());
       emit(LoadingState());

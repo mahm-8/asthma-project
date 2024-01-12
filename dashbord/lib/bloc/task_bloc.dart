@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:dashboard/model/task_model.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'task_event.dart';
@@ -11,7 +10,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc() : super(TaskInitial()) {
     on<TaskEvent>((event, emit) {});
     on<AddTaskEvent>(addTask);
-    on<getTaskEvent>(getTask);
+    on<GetTaskEvent>(getTask);
   }
 
   FutureOr<void> addTask(AddTaskEvent event, Emitter<TaskState> emit) async {
@@ -27,7 +26,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   get getCurrentUserId => Supabase.instance.client.auth.currentUser!.id;
-  FutureOr<void> getTask(getTaskEvent event, Emitter<TaskState> emit) async {
+  FutureOr<void> getTask(GetTaskEvent event, Emitter<TaskState> emit) async {
     try {
       final List allTasks = await Supabase.instance.client
           .from("tasks")
@@ -35,7 +34,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
           .eq("id_user", getCurrentUserId);
       final List<TaskModel> tasks =
           allTasks.map((task) => TaskModel.fromJson(task)).toList();
-      emit(getTaskState(tasks: tasks));
+      emit(GetTaskState(tasks: tasks));
     } catch (e) {
       return;
     }

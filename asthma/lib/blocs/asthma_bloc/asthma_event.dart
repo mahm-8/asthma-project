@@ -1,9 +1,8 @@
 part of 'asthma_bloc.dart';
 
-@immutable
-sealed class AsthmaEvent {}
+abstract class AsthmaEvent {}
 
-class getHospitalDataEvent extends AsthmaEvent {}
+class GetHospitalDataEvent extends AsthmaEvent {}
 
 class GetSymptomDataEvent extends AsthmaEvent {}
 
