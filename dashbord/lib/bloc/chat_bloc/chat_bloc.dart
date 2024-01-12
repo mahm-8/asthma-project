@@ -77,8 +77,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       for (var element in allChats) {
         countChats.add(MessageModel.fromJson(element, getCurrentUserId));
       }
-      final count = countChats.length;
-
       emit(GetNumberOfMessagesState());
     } catch (e) {
       return;
