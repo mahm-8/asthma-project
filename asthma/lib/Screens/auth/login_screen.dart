@@ -3,8 +3,8 @@ import 'package:asthma/helper/imports.dart';
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final emailController = TextEditingController(text: 'xbox-w@live.com');
-  final passwordController = TextEditingController(text: '12345Aa!');
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final _emailKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
   bool display = false;
@@ -24,7 +24,9 @@ class LoginScreen extends StatelessWidget {
                     height: 300,
                     child: Center(
                         child: Image.asset("lib/assets/images/logo.png",
-                            color: Colors.white, height: 150, width: 150))),
+                            color: Colors.white,
+                            cacheHeight: 150,
+                            cacheWidth: 150))),
               ),
               Container(
                 decoration: const BoxDecoration(
