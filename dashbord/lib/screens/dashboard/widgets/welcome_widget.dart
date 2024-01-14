@@ -28,8 +28,8 @@ class WelcomeWidget extends StatelessWidget {
                 flex: 4,
                 child: DatePickerDialog(
                     initialEntryMode: DatePickerEntryMode.calendar,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2024)),
+                    firstDate: DateTime(2024),
+                    lastDate: DateTime.now()),
               ),
             ],
           ),

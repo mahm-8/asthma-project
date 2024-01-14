@@ -15,8 +15,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final emailController = TextEditingController(text: 'am18_8@outlook.com');
-  final passwordController = TextEditingController(text: '12345Aa!');
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final _emailKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
   bool display = false;
